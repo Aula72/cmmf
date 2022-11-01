@@ -18,6 +18,7 @@ $r = new \Cmmf\Route;
 $help = new \Cmmf\Helper;
 
 
+
 // die(json_encode(["url"=>$url]));
 if(stripos('api', $url)){
 	require_once "api_routes.php";
