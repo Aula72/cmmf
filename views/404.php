@@ -5,4 +5,8 @@
     <a href="/" class="center-align">Go to Home Page</a>
 </div>
 
+<div class="center-align">
+    Thank you for using CMMF
+</div>
+
 

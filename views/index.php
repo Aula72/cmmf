@@ -1,18 +1,6 @@
 
 <div class="row">
-	<div class="col s6">
-		<div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Card Title</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-	</div>
+	
 	<div class="col s6">
 		<div class="card blue-grey darken-1">
         <div class="card-content white-text">
@@ -80,4 +68,6 @@
 	</div>
 </div>
 
-<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+<div class="fixed-action-btn">
+<a class="btn-floating btn-large waves-effect waves-light red" href="/make-transaction"><i class="material-icons">add</i></a>
+</div>

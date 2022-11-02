@@ -21,8 +21,10 @@ $r->set_route(['/logout', 'views/logout.php', 'GET']);
 $r->set_route(['/ledgers', 'views/ledgers.php', 'GET']);
 $r->set_route(["/add-ledger", "views/add-ledger.php", "GET"]);
 $r->set_route(['/loans', 'views/all-loans.php', "GET"]);
+$r->set_route(["/add-loan", "views/add-loan.php", "GET"]);
 $r->set_route(["/admin", "views/all-admins.php", "GET"]);
 $r->set_route(["/add-admin", "views/add-user.php", "GET"]);
+$r->set_route(['/make-transaction', "views/transaction.php", "GET"]);
 // $r->set_route(['/members'])
 foreach($r->get_routes() as $route){ 
     

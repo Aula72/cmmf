@@ -1,6 +1,6 @@
 
 <nav id="nav">CMMF
-<ul id="slide-out" class="side-nav">
+<ul id="slide-out" class="side-nav green">
     <li><div class="user-view">
       <div class="background">
         <img src="/assets/img/account.png" width="100%">
@@ -10,6 +10,7 @@
       <a href="#!email"><span class="black-text email" id="email"></span></a>
       </div>
     </li>
+    <li><a href="/"><i class="material-icons">home</i>Dashboard</a></li>
     <li><a href="/weeks"><i class="material-icons">date_range</i>Weeks</a></li>
     <li><a href="/groups"><i class="material-icons">diversity_2</i>Groups</a></li>
     <li><a href="/group-members"><i class="material-icons">groups</i>Group Members</a></li>
