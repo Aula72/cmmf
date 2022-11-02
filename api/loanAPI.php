@@ -11,7 +11,9 @@ switch($meth){
         if(isset($_GET['id'])){
             $tra = $helper->query("select * from $tb_name where lo_id=:id or lo_code=:id",[":id"=>$_GET['id']]);
             if($tra->rowCount()>0){
+                
                 $msg["loan"] = $tra->fetch(\PDO::FETCH_ASSOC);
+                $msg["member"] = $helper->get_member($msg["loan"]["m_id"]);
                 $msg["status"] = 1;
             }else{
                 $msg["loan"] = "No such loan";

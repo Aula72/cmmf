@@ -89,4 +89,9 @@ class Helper{
         // die(json_encode(["error"=>$grp["g_code"]]));
         return number_format(intval($grp["mult"])*$amount);
     }
+
+    public function get_member($id){
+        $ty = $this->query("select * from group_member where m_id=:id",[":id"=>$id]);
+        return $ty->fetch(\PDO::FETCH_ASSOC);
+    }
 }
