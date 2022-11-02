@@ -74,9 +74,7 @@
   $.ajax({
     type: "get",
     url: `${base_url}/api/groupMemberAPI.php?id=${m_id}`,
-    headers:{
-      "content-type":"application/json",
-    },
+    headers:headers,
     dataType: "json",
     success: function (response) {
       console.log(response)

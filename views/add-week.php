@@ -1,6 +1,8 @@
 <?php 
 $code = $help->get_last_id('w_id','weeks')+1;
 $code = "W".$code;
+
+$grp = $help->query("select * from grouping");
 ?>
 <div class="row">
 	<form id="addWeek">
@@ -9,8 +11,13 @@ $code = "W".$code;
           <label for="code">Code</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <select id="g_id" class="validate" required>
+          <select id="g_id" name="g_id" class="validate" required>
           <option value="" disabled selected>Choose your option</option>
+          <?php 
+            foreach($grp->fetchAll() as $row){
+              echo "<option value=".$row['g_id'].">".$row["g_code"]."</option>";
+            }
+          ?>
 		      </select>
 		    <label>Group</label>
         </div>
@@ -34,11 +41,7 @@ $code = "W".$code;
         group: $("#g_id").val(),
         week: $("#code").val()  
       }),    
-      headers:{
-        "auth": localStorage.getItem('token'),
-        "content-type":"application/json",
-        "accept":"*/*"
-      },
+      headers:headers,
       dataType: "json",
       success: function (response) {
         // console.log(response)
@@ -53,20 +56,8 @@ $code = "W".$code;
         }
       }
     });
-  })
-  $(document).ready(()=>{
-  $.get(`${base_url}/api/groupAPI.php`, (data, status)=>{
-    let c = JSON.parse(data);
-    let m = ''
-    console.log(c.group)
-    
-    for(var x of c.group){
-      $('#g_id').append(`<option value="${x.g_id}">${x.g_code} (${x.g_name})</option>`);
-      
-    }
-    
-      
-    })
-  })
+  });
+  
+
   
 </script>

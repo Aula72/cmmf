@@ -37,10 +37,7 @@
                 lname: $("#last_name").val(),
                 fname: $("#first_name").val()
             }),
-            headers:{
-                "content-type":"application/json",
-                "auth":token
-            },
+            headers:headers,
             dataType: "json",
             success: function (response) {
                 if(response.status){

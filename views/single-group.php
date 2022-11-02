@@ -76,10 +76,7 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
   $.ajax({
     type: "get",
     url: `${base_url}/api/groupAPI.php?id=${op}`,
-    headers:{
-      "content-type":"application/json",
-      "auth":localStorage.getItem("token")
-    },    
+    headers:headers,    
     success: function (response) {
       // let p = JSON.parse(response)
       $('#head').text(`Group: ${response.group.g_code}`);

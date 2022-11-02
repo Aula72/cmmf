@@ -62,10 +62,7 @@ $code = "TRANS".$code."CMMF";
             "comment":$("#t_desc").val(),
             "amount":$("#t_amount").val()
         }),
-        headers:{
-            "content-type":"application/json",
-            "auth":token
-        },
+        headers:headers,
         dataType: "json",
         success: function (response) {
             // console.log(response)

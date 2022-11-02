@@ -17,10 +17,7 @@
     $.ajax({
         type: "get",
         url: `${base_url}/api/ledgerTypeAPI.php`,
-        headers:{
-            'content-type':'application/json',
-            'auth': token
-        },
+        headers:headers,
         dataType: "json",
         success: function (response) {
             console.log(response)

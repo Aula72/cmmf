@@ -8,8 +8,9 @@
           <select id="mult" class="validate" required>
             <option value="1">Increase</option>
             <option value="-1">Decrease</option>
-		    <label>Type</label>
+		    
         </select>
+        <label>Type</label>
         </div>
         <div class="col s12 align-center">
   	<button class="btn waves-effect waves-light align-center" type="submit" name="action">Add Ledger
@@ -29,10 +30,7 @@
                 name:$("#name").val(),
                 mult: $("#mult").val()
             }),
-            headers:{
-                "content-type":"application/json",
-                "auth": token
-            },
+            headers:headers,
             dataType: "json",
             success: function (response) {
                 if(response.status==1){

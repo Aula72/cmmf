@@ -20,10 +20,7 @@
     $.ajax({
         type: "GET",
         url: `${base_url}/api/userAPI.php`,
-        headers:{
-            "content-type":"application/json",
-            "auth":token
-        },
+        headers:headers,
         dataType: "json",
         success: function (response) {
             console.log(response)

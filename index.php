@@ -2,9 +2,14 @@
 <script>
 	let base_url = "http://<?php echo $_SERVER['HTTP_HOST']?>";
 	let token = localStorage.getItem("token");
+	let user_mail = localStorage.getItem("mail");
 	let xtime = 5000;
-
-	
+	let headers = {
+		"content-type":"application/json",
+		"auth":token,
+		"accept":"*/*",
+	}
+	// console.log(user_mail)
 </script>
 <?php 
 require_once "controllers/Routes.php";

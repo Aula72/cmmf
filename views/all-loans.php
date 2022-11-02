@@ -1,3 +1,7 @@
+<div class="row" id="loanList">
+
+</div>
+  
 <div class="fixed-action-btn">
   <a class="btn-floating btn-large red" href="/add-loan">
     <i class="large material-icons">add</i>
@@ -8,12 +12,21 @@
     $.ajax({
         type: "get",
         url: `${base_url}/api/loanAPI.php`,
-        headers:{
-            auth:token
-        },
+        headers:headers,
         dataType: "json",
         success: function (response) {
             console.log(response);
+            for(let x of response.loans){
+              $("#loanList").append(`<div style="border: 2px; border-color:green;" class="s12 col" onclick="go_to(${x.lo_id})">
+    <h5>Loan:  ${x.lo_code}</h5>
+    <p>Amount: ${x.lo_amount}<span style="float:right">Expires On: ${x.lo_expiry}</span></p>
+    <span>Rate: ${x.lo_rate}%</span>
+  </div>`)
+            }
         }
     });
+
+    const go_to = (i) =>{
+      alert(i);
+    }
 </script>

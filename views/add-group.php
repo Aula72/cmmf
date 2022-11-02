@@ -39,11 +39,7 @@ $code = "G".$code;
       location: $('#loc').val(),
 	    name: $('#name').val()   
     }),
-    headers:{
-      "auth": localStorage.getItem('token'),
-      "content-type":"application/json",
-      "accept":"*/*"
-    },
+    headers:headers,
     dataType: "json",
     success: function (response) {
       console.log(response)

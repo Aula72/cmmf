@@ -75,10 +75,7 @@ $("#addMember").submit(e=>{
   $.ajax({
     type: "post",
     url: `${base_url}/api/groupMemberAPI.php`,
-    headers:{
-      "content-type":"application/json",
-      "auth":localStorage.getItem("token")
-    },
+    headers:headers,
     data: JSON.stringify({
       mcode:$('#mcode').val(),
       fname:$('#fname').val(),
