@@ -134,6 +134,7 @@
     <!-- <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
   </ul>
 <script>
+  page_title('loading...');
   let m_id = localStorage.getItem("m_id");
   $.ajax({
     type: "get",
@@ -143,6 +144,7 @@
     success: function (response) {
       console.log(response)
       let x = response.member;
+      page_title(`Member: ${x.m_fname} ${x.m_lname}`);
       $("#acc").text(response.balance)
       $("#name").text(`${x.m_fname} ${x.m_lname}`);
       $("#phone").text(`${x.m_phone}`)

@@ -15,6 +15,19 @@ switch($meth){
                 $msg["loan"] = $tra->fetch(\PDO::FETCH_ASSOC);
                 $msg["member"] = $helper->get_member($msg["loan"]["m_id"]);
                 $msg["status"] = 1;
+                $gra = $helper->query("select * from guaranter where lo_id=:id",[":id"=>$msg['loan']['lo_id']]);
+                $msg["guaranters"] = [];
+                foreach($gra->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                    $r =$helper->get_member($row["m_id"]);
+                    array_push($msg['guaranters'], array(
+                        "g_id"=>$row["g_id"],
+                        "m_id"=>$row["m_id"],
+                        "lo_id"=>$row["lo_id"],
+                        "amount"=>number_format($row["amount"]),
+                        "user_id"=>$row["user_id"],
+                        "name"=> $r['m_fname']." ".$r['m_lname']
+                    ));
+                }
             }else{
                 $msg["loan"] = "No such loan";
                 $msg["status"] = 0;

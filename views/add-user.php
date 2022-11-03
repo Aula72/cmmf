@@ -27,6 +27,7 @@
   </div>
 
   <script>
+    page_title('Add User');
     $("#addUser").submit(e=>{
         e.preventDefault();
         $.ajax({

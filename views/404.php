@@ -9,4 +9,8 @@
     Thank you for using CMMF
 </div>
 
+<script>
+    page_title("Page Not Found")
+</script>
+
 

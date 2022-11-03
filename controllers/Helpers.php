@@ -1,5 +1,7 @@
 <?php
+
 namespace Cmmf;
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 // require_once "../config/db.php";
 
 include_once "../config/constants.php";
@@ -115,5 +117,17 @@ class Helper{
         $grp = $h->fetch(\PDO::FETCH_ASSOC);
         // die(json_encode(["error"=>$grp["g_code"]]));
         return intval($grp["mult"]);
+    }
+
+    public function get_loan_id($id){
+        $bal = $this->query("select * from loans where lo_code=:id or lo_id=:id",[":id"=>$id]);
+        $h = $bal->fetch(\PDO::FETCH_ASSOC);
+
+        return $h;
+    }
+
+    public function get_guaranters($id, $amount){
+        $k = $this->query("SELECT * FROM account_balance WHERE m_id !=:id and amount>:amount;",[":id"=>$id, ':amount'=>$amount]);
+        return $k->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

@@ -72,6 +72,7 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
   </ul> -->
 </div>
 <script>
+  page_title('Loading...');
   let op = "<?php echo $rt[2]; ?>";
   $.ajax({
     type: "get",
@@ -84,6 +85,7 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
       $('#gmember').text(response.num_members);
       $('#gcode').text(response.group.g_code);
       $('#glocation').text(response.group.g_location);
+      page_title(response.group.g_code);
       let g = ""
       if(response.members.length>0){
         for(let m of response.members){

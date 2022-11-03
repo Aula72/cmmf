@@ -29,7 +29,7 @@ $code = "TRANS".$code."CMMF";
           <label for="name">Transaction Type</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <input type="number"  id="t_amount" required>
+          <input type="number"  id="t_amount" data-length="7" required>
           <label for="t_amount">Amount</label>
         </div>
         <div class="input-field col s12 browser-default">
@@ -37,7 +37,7 @@ $code = "TRANS".$code."CMMF";
           <label for="t_code">Code</label>
         </div>
         <div class="input-field col s12 browser-default">
-            <textarea  name="" id="t_desc" cols="30" rows="5"></textarea>
+            <textarea  name="" id="t_desc" class="materialize-textarea" cols="30" rows="5"></textarea>
             <label for="t_desc">Comment</label>
         </div>
         <div class="col s12 align-center">
@@ -49,6 +49,7 @@ $code = "TRANS".$code."CMMF";
 </div>
 
 <script>
+    page_title('New Transaction');
     $("#addTransaction").submit(e=>{
         e.preventDefault();
    

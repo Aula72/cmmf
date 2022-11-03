@@ -43,6 +43,6 @@
         window.location = `groups/${i}`
    }
     
-
+   page_title('Groups');
 
 </script>

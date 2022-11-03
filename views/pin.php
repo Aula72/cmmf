@@ -16,7 +16,7 @@
 </div>
 
 <script>
-  
+  page_title('Verify OTP');
   $('#pinForm').submit(e=>{
     e.preventDefault();
     // alert("hehe")

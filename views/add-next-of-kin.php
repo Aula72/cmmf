@@ -52,6 +52,7 @@
 </div>
 
 <script type="text/javascript">
+  page_title('Add Next of Kin');
 	$(document).ready(function() {
     $('select').formSelect();
     // Old way

@@ -20,7 +20,7 @@ $code = "G".$code;
 	        </div>
 		</div>
 		<div class="col s12 align-center">
-		  	<button type="submit" class="btn waves-effect waves-light align-center" type="submit" name="action">Add Group
+		  	<button type="submit" class="btn waves-effect waves-light green" type="submit" name="action">Add Group
 		    <i class="material-icons right">send</i>
 		  </button>
 		</div>
@@ -59,5 +59,5 @@ $code = "G".$code;
     }
   });
   })
-  
+  page_title('Add Group');
 </script>

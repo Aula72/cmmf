@@ -19,6 +19,7 @@
 </div>
 
 <script type="text/javascript">
+  page_title('Login to continue...');
   $(document).ready(function () {
     localStorage.clear();
   });

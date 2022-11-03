@@ -1,16 +1,14 @@
 <?php 
 $mem  = $help->query("select * from group_member");
 $code = intval($help->get_last_id("lo_id", "loans"))+1;
-if($code<1000){    
+if($code<100){    
     if($code<10){
-        $code = '000'.$code;
-    }else if($code>10 && $code<99){
-        $code = "00".$code;
+        $code = '00'.$code;
     }else{
         $code = "0".$code;
     }
 }
-$code = "LN".$code.date("dmY");
+$code = "LN".$code.date("mY");
 ?>
 <div class="row">
 	<form id="addLoan">
@@ -26,11 +24,11 @@ $code = "LN".$code.date("dmY");
           <label for="member">Member Details</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <input type="number" maxLength="2" name="" id="rate">
+          <input type="number" data-length="2" name="" id="rate">
           <label for="rate">Rate</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <input type="number"  value="" id="amount" >
+          <input type="number" data-length='7'  value="" id="amount" >
           <label for="amount">Amount</label>
         </div>
         <div class="input-field col s12 browser-default">
@@ -38,7 +36,7 @@ $code = "LN".$code.date("dmY");
           <label for="code">Code</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <input type="date"  value="" id="expiry" >
+          <input type="date" min="2022-12-23" value="" id="expiry" >
           <label for="expiry">Expiry Date</label>
         </div>
         <div class="col s12 align-center">
@@ -51,6 +49,7 @@ $code = "LN".$code.date("dmY");
 
 
 <script>
+  page_title('New Loan');
     $('#addLoan').submit(e=> {
         e.preventDefault(); 
         $.ajax({

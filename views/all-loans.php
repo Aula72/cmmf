@@ -9,6 +9,7 @@
 </div>
 
 <script>
+  page_title('Loans');
     $.ajax({
         type: "get",
         url: `${base_url}/api/loanAPI.php`,

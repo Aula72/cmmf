@@ -22,6 +22,7 @@ $r->set_route(['/ledgers', 'views/ledgers.php', 'GET']);
 $r->set_route(["/add-ledger", "views/add-ledger.php", "GET"]);
 $r->set_route(['/loans', 'views/all-loans.php', "GET"]);
 $r->set_route(["/loans/{$po[2]}", 'views/single-loan.php', "GET"]);
+$r->set_route(["/loans/{$po[2]}/add-guaranter", 'views/add-guaranter.php', "GET"]);
 $r->set_route(["/add-loan", "views/add-loan.php", "GET"]);
 $r->set_route(["/admin", "views/all-admins.php", "GET"]);
 $r->set_route(["/add-admin", "views/add-user.php", "GET"]);

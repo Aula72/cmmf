@@ -30,6 +30,7 @@ $grp = $help->query("select * from grouping");
 </div>
 
 <script>
+  page_title('Add Week');
   $('#addWeek').submit(e=>{
     e.preventDefault();
     // alert($("#g_id").val())

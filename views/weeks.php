@@ -25,6 +25,7 @@
   </ul> -->
 </div>
 <script>
+    page_title('Weeks');
     $.get(`${base_url}/api/weekAPI.php`,(data, status)=>{
         let w = data;
         let row = '';

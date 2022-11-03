@@ -14,6 +14,7 @@
 </a>
 </div>
 <script>
+    page_title('Ledgers');
     $.ajax({
         type: "get",
         url: `${base_url}/api/ledgerTypeAPI.php`,

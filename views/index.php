@@ -71,3 +71,7 @@
 <div class="fixed-action-btn">
 <a class="btn-floating btn-large waves-effect waves-light red" href="/make-transaction"><i class="material-icons">add</i></a>
 </div>
+
+<script>
+  page_title('Dashboard');
+</script>

@@ -21,6 +21,7 @@
 </div>
 
 <script>
+    page_title('Add Ledger');
     $('#addLedger').submit((e)=>{
         e.preventDefault();
         $.ajax({

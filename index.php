@@ -1,4 +1,6 @@
-
+<?php 
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+?>
 <script>
 	let base_url = "http://<?php echo $_SERVER['HTTP_HOST']?>";
 	let token = localStorage.getItem("token");
@@ -10,6 +12,10 @@
 		"accept":"*/*",
 	}
 	// console.log(user_mail)
+
+	const page_title = (title) =>{
+		document.title = `${title} > CMMF`;
+	}
 </script>
 <?php 
 require_once "controllers/Routes.php";

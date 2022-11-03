@@ -18,6 +18,16 @@ switch($meth){
                 $msg["message"] = "No such user";
                 $msg["status"] = 0;
             }
+        }else if(isset($_GET['status'])){
+            $id = $_GET["status"];
+            $user = $helper->query("select * from $tb_name where user_id=:id",[":id"=>$id]);
+            if($user->rowCount()>0){
+                $l = $user->fetch(PDO::FETCH_ASSOC);
+                $lo = $l["status"]==1?0:1; 
+                $msg["status"]=1;
+                $msg["message"] = $lo==1?"User activated successfully...":"User deactivated successfully";
+                $helper->query("update $tb_name set status=:ns where user_id=:us",[":ns"=>$lo, ':us'=>$id]);
+            }
         }else{
             $user = $helper->query("select * from $tb_name");
             $msg["admin"] = [];

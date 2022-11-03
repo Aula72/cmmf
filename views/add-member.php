@@ -1,6 +1,10 @@
 <?php 
 $code = $help->get_last_id('m_id','group_member')+1;
 $m_code = 'M'.$code;
+
+$d = intval(date('Y'));
+$do = ($d-20)."-01-01";
+$do1 = ($d-80)."-01-01";
 ?>
 <div class="row">
 	<form id="addMember">
@@ -25,12 +29,12 @@ $m_code = 'M'.$code;
           <label for="email">Email Address</label>
         </div>
        <div class="input-field col s12">
-          <input id="phone" type="tel" class="validate">
+          <input id="phone" type="number" data-length="10" class="validate">
           <label for="phone">Phone Number</label>
         </div>
 
         <div class="input-field col s12">
-          <input id="nin" type="text" class="validate">
+          <input id="nin" type="text" data-length='14' class="validate">
           <label for="nin">NIN</label>
         </div>
 		<div class="input-field col s12">
@@ -43,7 +47,7 @@ $m_code = 'M'.$code;
 	    <label>Gender</label>
 	  </div>
 	  <div class="input-field col s12">
-          <input id="dob" type="date" class="validate"  max="01-01-2000">
+          <input id="dob" type="date" class="validate"  max="<?php echo $do; ?>" min="<?php echo $do1;?>">
           <label for="dob">Date of Birth</label>
         </div>
 		<!-- <div class="input-field col s12">
@@ -64,6 +68,7 @@ $m_code = 'M'.$code;
 </div>
 
 <script type="text/javascript">
+  page_title('Add Member');
 	$(document).ready(function() {
     // $('select').formSelect();
     // Old way

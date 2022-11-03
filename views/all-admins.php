@@ -17,16 +17,52 @@
 </a>
 </div>
 <script>
-    $.ajax({
-        type: "GET",
-        url: `${base_url}/api/userAPI.php`,
-        headers:headers,
-        dataType: "json",
-        success: function (response) {
-            console.log(response)
-            for(let m of response.admin){
-                $("#adminList").append(`<tr class=${m.status==1?"":"red"}><td>${m.lname} ${m.fname}</td><td>${m.mail}</td></tr>`);
+    page_title('Admin');
+    const get_admins =() =>{
+        $.ajax({
+            type: "GET",
+            url: `${base_url}/api/userAPI.php`,
+            headers:headers,
+            dataType: "json",
+            success: function (response) {
+                // console.log(response)
+                let x  = ''
+                for(let m of response.admin){
+                    x +=`<tr class='${m.status==1?"":"red"}' onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'><td>${m.lname} ${m.fname}</td><td>${m.mail}</td></tr>`;
+                }
+                $("#adminList").html(x)
             }
-        }
+        });
+    }
+    get_admins();
+    const change_status = (id, ma, s) =>{
+        // alert(ma)
+        // if()
+        let  msg = `Activate ${ma}'s account`
+        if(id==1){
+            if(s==1){
+                msg = `Deactivate ${ma}'s account`
+            }
+        
+        let x = confirm(msg);
+        if(x){
+            $.ajax({
+            type: "get",
+            url: `${base_url}/api/userAPI.php?status=${id}`,
+            headers,
+            dataType: "json",
+            success: function (response) {
+                if(response.status){
+                    Materialize.toast(response.message, xtime)
+                    setTimeout(() => {
+                        get_admins();
+                    }, xtime);
+                }else{
+                    Materialize.toast(response.error, xtime) 
+                }
+            }
     });
+        }
+    }
+    }
 </script>
