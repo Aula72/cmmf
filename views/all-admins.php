@@ -12,7 +12,7 @@
 </table>
 
 <div class="fixed-action-btn">
-<a class="btn-floating btn-large red" href="/add-admin">
+<a class="btn-floating btn-large green" href="/add-admin">
     <i class="large material-icons">add</i>
 </a>
 </div>

@@ -17,7 +17,7 @@ if($check->rowCount()>0){
 	$user = $check->fetch(\PDO::FETCH_ASSOC);
 	// $otp = rand(10000,99999);
 	
-	$otp = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
+	$otp = rand(0,9).rand(0,9).rand(0,9).rand(0,9);//.rand(0,9);
 	$msg["status"] = 1;
 	$msg["message"] = "Login was successful an OTP was sent to your email address";
 	$msg["otp"] = $otp;

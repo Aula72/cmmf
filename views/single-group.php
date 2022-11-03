@@ -61,7 +61,7 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
         </tbody>
       </table>
       <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red" href="/add-member">
+        <a class="btn-floating btn-large green" href="/add-member">
           <i class="large material-icons">add</i>
         </a>
   <!-- <ul>

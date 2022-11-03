@@ -40,6 +40,8 @@ switch($meth){
                         "l_type"=>$row["l_type"],
                     ]);
                 }
+                $msg["group_code"] = $helper->group_code($msg["member"]["g_id"]);
+                $msg["balance"] = number_format($helper->account_balance($id));
             }else{
                 $msg["member"] = "No such member";
             }
@@ -86,8 +88,11 @@ switch($meth){
             ":gender"=>$m_gender
         ]);
         if($h){
+            $id = $helper->get_last_id("m_id", "group_member");
+            // die(json_encode(["id"=>$id]));
             $msg["message"] = "Member added successfully";
             $msg["status"] = 1;
+            $helper->create_account($id, $helper->get_token()["user_id"]);
         }else{
             $msg["message"] = "Adding member failed";
             $msg["status"] = 0;

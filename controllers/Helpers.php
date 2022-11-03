@@ -94,4 +94,26 @@ class Helper{
         $ty = $this->query("select * from group_member where m_id=:id",[":id"=>$id]);
         return $ty->fetch(\PDO::FETCH_ASSOC);
     }
+    public function create_account($m_id, $user_id){
+        return $this->query("insert into account_balance set m_id=:m, user_id=:id, amount=:a",[":m"=>$m_id, ":id"=>$user_id, ":a"=>0]);
+    }
+    public function account_balance($id){
+        $bal = $this->query("select * from account_balance where m_id=:id",[":id"=>$id]);
+        $h = $bal->fetch(\PDO::FETCH_ASSOC);
+
+        return $h["amount"];
+    }
+
+    public function update_account($acc, $amt, $mlt){
+        $amt1 = $this->account_balance($acc);
+        $amt2 = $amt1 + $this->get_ledger_multiplier($mlt)*$amt;
+        $this->query("update account_balance set amount=:a, updated_on=:on where m_id=:m",[":a"=>$amt2, ":m"=>$acc, ":on"=>date('Y-m-d H:i:s')]);
+    }
+
+    public function get_ledger_multiplier($id){
+        $h = $this->query("select * from trans_types where ty_id=:id",[':id'=>$id]);
+        $grp = $h->fetch(\PDO::FETCH_ASSOC);
+        // die(json_encode(["error"=>$grp["g_code"]]));
+        return intval($grp["mult"]);
+    }
 }

@@ -13,7 +13,7 @@
 
 </table>
 <div class="fixed-action-btn">
-  <a class="btn-floating btn-large red" href="/add-group">
+  <a class="btn-floating btn-large green" href="/add-group">
     <i class="large material-icons">add</i>
   </a>
   <!-- <ul>

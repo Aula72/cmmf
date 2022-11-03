@@ -43,7 +43,7 @@ $m_code = 'M'.$code;
 	    <label>Gender</label>
 	  </div>
 	  <div class="input-field col s12">
-          <input id="dob" type="date" class="validate">
+          <input id="dob" type="date" class="validate"  max="01-01-2000">
           <label for="dob">Date of Birth</label>
         </div>
 		<!-- <div class="input-field col s12">

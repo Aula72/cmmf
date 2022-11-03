@@ -13,7 +13,7 @@
         </tbody>
       </table>
       <div class="fixed-action-btn">
-  <a class="btn-floating btn-large red" href="/add-week">
+  <a class="btn-floating btn-large green" href="/add-week">
     <i class="large material-icons">add</i>
   </a>
   <!-- <ul>
