@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 01, 2022 at 05:55 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Host: 127.0.0.1
+-- Generation Time: Nov 04, 2022 at 12:59 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `account_balance`
+--
+
+CREATE TABLE `account_balance` (
+  `a_id` int(11) NOT NULL,
+  `m_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_on` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `grouping`
 --
 
@@ -36,24 +51,6 @@ CREATE TABLE `grouping` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `grouping`
---
-
-INSERT INTO `grouping` (`g_id`, `g_code`, `g_name`, `g_location`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, 'G2', 'jaggwe boyz', 'zzana', 1, '2022-10-20 16:13:13', '2022-10-20 16:13:13'),
-(3, 'G3', 'simon', 'Location', 1, '2022-10-20 17:01:26', '2022-10-20 17:01:26'),
-(4, 'G4', '', '', 1, '2022-10-21 13:10:08', '2022-10-21 13:10:08'),
-(5, 'G5', '', '', 1, '2022-10-24 11:26:12', '2022-10-24 11:26:12'),
-(6, 'G6', 'simon', 'rere', 1, '2022-10-24 11:33:02', '2022-10-24 11:33:02'),
-(7, 'G7', '948594', 'kjkjk', 1, '2022-10-24 11:38:29', '2022-10-24 11:38:29'),
-(8, 'G8', 'rrurur', 'rututu', 1, '2022-10-24 11:40:24', '2022-10-24 11:40:24'),
-(9, 'G9', 'rutut', 'titit', 1, '2022-10-24 11:49:47', '2022-10-24 11:49:47'),
-(10, 'G10', 'rur', 'jfjg', 1, '2022-10-24 11:55:23', '2022-10-24 11:55:23'),
-(11, 'G11', 'name', 'group', 1, '2022-10-24 11:58:22', '2022-10-24 11:58:22'),
-(12, 'G12', 'name ksjff', 'kalerwe', 1, '2022-10-24 11:58:50', '2022-10-24 11:58:50'),
-(13, 'G13', 'Kampala dfifk kf', 'Simon dkfkf', 1, '2022-10-24 11:59:20', '2022-10-24 11:59:20');
 
 -- --------------------------------------------------------
 
@@ -75,18 +72,6 @@ CREATE TABLE `group_member` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `group_member`
---
-
-INSERT INTO `group_member` (`m_id`, `m_code`, `g_id`, `user_id`, `m_fname`, `m_lname`, `m_phone`, `m_nin`, `m_gender`, `m_dob`, `created_at`, `update_at`) VALUES
-(1, 'M1', 2, 1, 'Simon', 'Aula', '0788227288', 'cm10043900ratc', 1, '2022-10-24', '2022-10-24 13:43:25', '2022-10-24 13:43:25'),
-(2, 'M2', 2, 1, 'BLwauTEHc6', '1CyLbKyPpw', '5259662771', 'UYm6AXZGFb', 1, '2022-10-25', '2022-10-24 15:57:37', '2022-10-24 15:57:37'),
-(3, 'M3', 2, 1, 'dHrdKswLJ7', 'tWAoGK1qc9', '1177439098', 'aLzYfE9Zq9', 1, '2022-10-11', '2022-10-24 15:59:51', '2022-10-24 15:59:51'),
-(4, 'M4', 2, 1, 'L4MoG2jffu', 'uEcziJFA39', '7556157764', 'bLf1gVC4Hd', 1, '2022-10-11', '2022-10-24 16:00:39', '2022-10-24 16:00:39'),
-(5, 'M5', 3, 1, '8utSjHEA5S', 'tjyk8V0UxM', '6024604042', 'lMdopNOPs1', 1, '2022-10-11', '2022-10-24 16:01:13', '2022-10-24 16:01:13'),
-(6, 'M6', 2, 1, 'F5ucbeKvdn', 'HdI48gTtk2', '5782350647', 'NWLBPwMkgE', 2, '2022-10-11', '2022-10-24 16:10:38', '2022-10-24 16:10:38');
 
 -- --------------------------------------------------------
 
@@ -133,13 +118,6 @@ CREATE TABLE `legder` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `legder`
---
-
-INSERT INTO `legder` (`l_id`, `user_id`, `m_id`, `amount`, `l_type`, `trans_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 6000, 2, '6357070ccca23', '2022-10-24 21:43:40', '2022-10-24 21:43:40');
-
 -- --------------------------------------------------------
 
 --
@@ -154,8 +132,31 @@ CREATE TABLE `loans` (
   `m_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `lo_amount` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `ls_id` int(11) NOT NULL DEFAULT 1,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `loan_status`
+--
+
+CREATE TABLE `loan_status` (
+  `ls_id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `loan_status`
+--
+
+INSERT INTO `loan_status` (`ls_id`, `name`) VALUES
+(1, 'pending'),
+(2, 'approved'),
+(3, 'renewed'),
+(4, 'settled');
 
 -- --------------------------------------------------------
 
@@ -195,7 +196,8 @@ CREATE TABLE `otp` (
 --
 
 INSERT INTO `otp` (`id`, `user_id`, `otp`, `created_at`, `expiry`) VALUES
-(1, 1, '$2y$10$iXIAIABBvaKtXQWeR9nJhOd7kuSyw9fyJ56MCaShtREmzjiFSgQV6', '2022-10-13 19:20:17', '2022-11-02 14:58:57');
+(1, 1, '$2y$10$nrWkXSZPCgGWhSqQfioMC.cX0Jkbyod4MS0Lod8af3P3CBggED1Mm', '2022-11-03 23:01:43', '2022-11-05 02:22:06'),
+(2, 2, '$2y$10$lcCCnNLWqm16BbmyhK5Piu/ia3kriq4Xx7V10WRq.tlLLRJZEya3C', '2022-11-03 23:53:39', '2022-11-05 02:53:39');
 
 -- --------------------------------------------------------
 
@@ -210,12 +212,23 @@ CREATE TABLE `tokens` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tokens`
+-- Table structure for table `trans_action`
 --
 
-INSERT INTO `tokens` (`id`, `user_id`, `token`, `created_at`) VALUES
-(30, 1, '655442809dcdfe94d4e73a9b8c7a4e49c6cc2411', '2022-11-01 11:59:07');
+CREATE TABLE `trans_action` (
+  `t_id` int(11) NOT NULL,
+  `m_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `trans_type_id` int(11) NOT NULL,
+  `t_code` varchar(20) NOT NULL,
+  `t_amount` int(11) NOT NULL,
+  `t_desc` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -230,19 +243,6 @@ CREATE TABLE `trans_types` (
   `created_on` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_on` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `trans_types`
---
-
-INSERT INTO `trans_types` (`ty_id`, `ty_name`, `mult`, `created_on`, `updated_on`) VALUES
-(1, 'deposit', 1, '2022-10-24 22:08:36', '2022-10-24 22:08:36'),
-(2, 'fine', -1, '2022-10-24 22:10:42', '2022-10-24 22:10:42'),
-(3, 'UtM4a0P8tc', 1, '2022-10-24 23:17:10', '2022-10-24 23:17:10'),
-(4, 'ye568bLCVy', -1, '2022-10-24 23:18:00', '2022-10-24 23:18:00'),
-(5, 'D3rpuvJxgZ', -1, '2022-10-24 23:30:36', '2022-10-24 23:30:36'),
-(6, 'ejfjrjgkv', -1, '2022-10-25 10:03:27', '2022-10-25 10:03:27'),
-(7, 'Simon', -1, '2022-11-01 12:02:05', '2022-11-01 12:02:05');
 
 -- --------------------------------------------------------
 
@@ -266,7 +266,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `mail`, `fname`, `lname`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'simo@gold.vom', 'Kabonge', 'Abdul', 1, '2022-10-13 18:54:04', '2022-10-13 18:54:04'),
-(2, 'tkibirige@cmmf.com', 'Kibirige', 'Twaha', 0, '2022-11-01 13:49:35', '2022-11-01 13:49:35');
+(2, 'tkibirige@cmmf.com', 'Kibirige', 'Twaha', 1, '2022-11-01 13:49:35', '2022-11-01 13:49:35');
 
 -- --------------------------------------------------------
 
@@ -284,21 +284,14 @@ CREATE TABLE `weeks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `weeks`
---
-
-INSERT INTO `weeks` (`w_id`, `w_code`, `g_id`, `user_id`, `created_at`, `updated_on`) VALUES
-(1, 'W1', 2, 1, '2022-10-20 16:19:30', '2022-10-20 16:19:30'),
-(2, 'W2', 1, 1, '2022-10-20 16:52:05', '2022-10-20 16:52:05'),
-(3, 'W3', 1, 1, '2022-10-20 16:54:37', '2022-10-20 16:54:37'),
-(4, 'W4', 1, 1, '2022-10-21 12:58:47', '2022-10-21 12:58:47'),
-(5, 'W5', 1, 1, '2022-10-21 13:00:50', '2022-10-21 13:00:50'),
-(6, 'W6', 1, 1, '2022-10-22 12:28:11', '2022-10-22 12:28:11'),
-(7, 'W7', 1, 1, '2022-10-22 13:31:22', '2022-10-22 13:31:22');
-
---
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `account_balance`
+--
+ALTER TABLE `account_balance`
+  ADD PRIMARY KEY (`a_id`);
 
 --
 -- Indexes for table `grouping`
@@ -337,6 +330,12 @@ ALTER TABLE `loans`
   ADD PRIMARY KEY (`lo_id`);
 
 --
+-- Indexes for table `loan_status`
+--
+ALTER TABLE `loan_status`
+  ADD PRIMARY KEY (`ls_id`);
+
+--
 -- Indexes for table `next_of_kin`
 --
 ALTER TABLE `next_of_kin`
@@ -354,6 +353,12 @@ ALTER TABLE `otp`
 --
 ALTER TABLE `tokens`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `trans_action`
+--
+ALTER TABLE `trans_action`
+  ADD PRIMARY KEY (`t_id`);
 
 --
 -- Indexes for table `trans_types`
@@ -378,16 +383,22 @@ ALTER TABLE `weeks`
 --
 
 --
+-- AUTO_INCREMENT for table `account_balance`
+--
+ALTER TABLE `account_balance`
+  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `grouping`
 --
 ALTER TABLE `grouping`
-  MODIFY `g_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `g_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `group_member`
 --
 ALTER TABLE `group_member`
-  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `guaranter`
@@ -405,13 +416,19 @@ ALTER TABLE `kin_relations`
 -- AUTO_INCREMENT for table `legder`
 --
 ALTER TABLE `legder`
-  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `l_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `loans`
 --
 ALTER TABLE `loans`
   MODIFY `lo_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `loan_status`
+--
+ALTER TABLE `loan_status`
+  MODIFY `ls_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `next_of_kin`
@@ -423,19 +440,25 @@ ALTER TABLE `next_of_kin`
 -- AUTO_INCREMENT for table `otp`
 --
 ALTER TABLE `otp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `trans_action`
+--
+ALTER TABLE `trans_action`
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `trans_types`
 --
 ALTER TABLE `trans_types`
-  MODIFY `ty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ty_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -447,7 +470,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `weeks`
 --
 ALTER TABLE `weeks`
-  MODIFY `w_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `w_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
