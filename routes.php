@@ -11,6 +11,8 @@ $r->set_route(['/login', 'views/login.php', 'GET']);
 $r->set_route(['/add-member', 'views/add-member.php','GET']);
 $r->set_route(['/members', 'views/members.php','GET']);
 $r->set_route(["/members/".$po[2], 'views/single-member.php','GET']);
+$r->set_route(["/members/$po[2]/add-transaction", 'views/member-transaction.php','GET']);
+$r->set_route(["/members/$po[2]/add-next-of-kin", 'views/add-next-of-kin.php','GET']);
 $r->set_route(['/add-group', 'views/add-group.php','GET']);
 $r->set_route(['/add-next-of-kin', 'views/add-next-of-kin.php', 'GET']);
 $r->set_route(['/add-week', 'views/add-week.php', 'GET']);

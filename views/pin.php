@@ -26,12 +26,12 @@
       // let p = JSON.parse(data);
       if(data.status==1){
         localStorage.setItem("token",data.token);
-        Materialize.toast(data.message, xtime);
+        toast(data.message);
         setTimeout(() => {
           window.location = "/";
         }, xtime);        
       }else{
-        Materialize.toast(data.message, xtime);
+        toast(data.message);
       }
     })
   })

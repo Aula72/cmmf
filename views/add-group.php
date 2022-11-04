@@ -44,7 +44,7 @@ $code = "G".$code;
     success: function (response) {
       console.log(response)
       if(response.status==1){
-        Materialize.toast(response.message, xtime)
+        toast(response.message)
         setTimeout(() => {
           
           window.location = "/groups";
@@ -54,7 +54,7 @@ $code = "G".$code;
        
 
       }else{
-        Materialize.toast(response.error, xtime)
+        toast(response.error)
       }
     }
   });

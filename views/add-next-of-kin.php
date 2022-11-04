@@ -1,7 +1,10 @@
-
+<?php 
+$t = explode("/",$_SERVER['REQUEST_URI']);
+?>
 <div class="row">
-	<form>
+	<form id="addNextOfKin">
 		<!-- <div class="row"> -->
+      <input type="hidden" name="" id="member" value="<?php echo $t[2]; ?>">
         <div class="input-field col s12">
           <input id="fname" type="text" class="validate">
           <label for="fname">First Name</label>
@@ -27,7 +30,7 @@
           <label for="nin">NIN</label>
         </div>
 		<div class="input-field col s12">
-	    <select id="grp" class="validate">
+	    <select id="gender" class="validate">
 	      <option value="" disabled selected>Choose your option</option>
 	      <option value="1">Male</option>
 	      <option value="2">Female</option>
@@ -53,9 +56,33 @@
 
 <script type="text/javascript">
   page_title('Add Next of Kin');
-	$(document).ready(function() {
-    $('select').formSelect();
-    // Old way
-    // $('select').material_select();
-});
+  $("#addNextOfKin").submit(function (e) { 
+    e.preventDefault();
+    $.ajax({
+    url: `${base_url}/api/nextOfKinAPI.php`,
+    method: "post",
+    data: JSON.stringify({
+      dob:$('#dob').val(),
+      location: $('#location').val(),
+      gender: $('#gender').val(),
+      location: $('#location').val(),
+      location: $('#location').val(),
+      location: $('#location').val(),
+      location: $('#location').val(),
+    }),
+    headers,
+    dataType: "json",
+    success: function (response) {
+      if(response.status){
+        toast(response.message)
+        setTimeout(() => {
+          window.location = `/members/${$('#member').val()}`
+        }, xtime);
+      }else{
+        toast(response.error);
+      }
+    }
+  });
+  });
+	
 </script>

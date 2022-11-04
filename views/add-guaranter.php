@@ -58,12 +58,12 @@ $id = $help->get_loan_id($rt[2]);
             success:(response)=>{
                 console.log(response)
                 if(response.status){
-                    Materialize.toast(response.message, xtime)
+                    toast(response.message)
                     setTimeout(() => {
                         window.location = `/loans/<?php echo $id['lo_code'];?>`;
                     }, xtime);
                 }else{
-                    Materialize.toast(response.error, xtime)
+                    toast(response.error)
                 }
             }
         })

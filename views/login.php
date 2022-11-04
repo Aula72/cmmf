@@ -30,14 +30,15 @@
     $.post(`${base_url}/api/user_login.php`, JSON.stringify(d), (data,status)=>{
       if(data.status==1){
         localStorage.setItem('mail', $('#m').val())
-        Materialize.toast(data.message, xtime)
+        toast(data.message)
         setTimeout(function(){
-          console.log(data.otp)
+          // console.log(data.otp)
           window.location = "/otp"
         },xtime);
         alert(data.otp)
       }else{
-        Materialize.toast(data.message, xtime);
+        toast(data.message)
+        
       }
     })
   })

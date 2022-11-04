@@ -12,11 +12,24 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 		"accept":"*/*",
 	}
 	// console.log(user_mail)
-
+	const toast = (x) =>{
+		Materialize.toast(`<p style="white-space:pre-wrap; word-break:break-word; text-align:center;">${x}</p>`, xtime);
+	}
 	const page_title = (title) =>{
 		document.title = `${title} > CMMF`;
 	}
 </script>
+<style>
+	#toast-container {
+		top: 0 !important;
+		/* right: auto !important; */
+		bottom: 10%;
+		/* left:7%;   */
+		border-radius: 50% !important;
+		/* background-color: yellow !important; */
+		/* text-align: justify; */
+	}
+</style>
 <?php 
 require_once "controllers/Routes.php";
 require_once "config/db.php";

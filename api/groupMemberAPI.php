@@ -42,12 +42,19 @@ switch($meth){
                 }
                 $msg["group_code"] = $helper->group_code($msg["member"]["g_id"]);
                 $msg["balance"] = number_format($helper->account_balance($id));
+
+                $transaction = $helper->query("select * from trans_action where m_id=:me", [":me"=>$id]);
+                $msg["transaction"] = [];
+                foreach($transaction->fetchAll(PDO::FETCH_ASSOC) as $row){
+                    array_push($msg["transaction"], $row);
+                }
             }else{
                 $msg["member"] = "No such member";
             }
         }else if(isset($_GET['group'])){
             $id = $_GET['group'];
             $me = $helper->query("select * from $tb_name where g_id=:id",[':id'=>$id]);
+
             $t  = [];
             foreach($me->fetchAll(\PDO::FETCH_ASSOC) as $row){
                 array_push($t, $row);
