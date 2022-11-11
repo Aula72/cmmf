@@ -19,6 +19,7 @@ switch($meth){
                     "w_id"=>$row["w_id"],
                     "w_code"=>$row["w_code"],
                     "g_id"=>$row["g_id"],
+                    "w_date"=>$row['w_date'],
                     "g_code"=>$helper->group_code($row["g_id"])
                 ]);
             }
@@ -28,13 +29,15 @@ switch($meth){
     case "POST":
         // $msg["weeks"] = $data;
         // die(json_encode($data));
-        $code = $helper->get_last_id("w_id","weeks") + 1;
-        $code = 'W'.$code;
+        // $code = $helper->get_last_id("w_id","weeks") + 1;
+        // $code = 'W'.$code;
         $group = $data["group"];
+        $code = $data['code'];
+        $date = $data['dat'];
         $user = $helper->get_token()["user_id"];
         
-
-        $weeks = $helper->query("insert into $tb_name set w_code=:code, g_id=:group, user_id=:user",[':code'=>$code, ":group"=>$group, "user"=>$user]);
+        $helper->required_fields([$group, $code, $date]);
+        $weeks = $helper->query("insert into $tb_name set w_code=:code, g_id=:group, user_id=:user, w_date=:date",[':code'=>$code, ":group"=>$group, "user"=>$user, ':date'=>$date]);
         if($weeks){
             $msg["status"]=1;
             $msg["message"] = "Week $code was created successfully";

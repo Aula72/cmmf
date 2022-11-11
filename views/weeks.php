@@ -1,10 +1,11 @@
+<h4 class="center-align">Weeks</h4>
 <table>
         <thead>
           <tr>
               <th>Week </th>
               <th>Group</th>
-              <th></th>
-              <th></th>
+              <th>Date</th>
+              <!-- <th></th> -->
           </tr>
         </thead>
 
@@ -33,8 +34,8 @@
             row += `<tr >
             <td>${x.w_code}</td>
             <td>${x.g_code}</td>
-            <td ><button onclick="week(${x.w_id})" class="waves-light red btn ">+</button></td>
-            <td><i class="material-icons waves-light red" onclick="view_week(${x.w_id})">view</i></td>
+            <td >${x.w_date}</td>
+           
           </tr>`;
         }
         $('#list_weeks').html(row);

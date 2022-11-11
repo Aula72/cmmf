@@ -7,11 +7,11 @@ $grp = $help->query("select * from grouping");
 <div class="row">
 	<form id="addWeek">
 		    <div class="input-field col s12">
-          <input id="code" type="text" value="<?php echo $code;?>" class="validate" disabled>
+          <input id="code" type="text" value="" class="validate">
           <label for="code">Code</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <select id="g_id" name="g_id" class="validate" required>
+          <select id="g_id" name="g_id" class="validate">
           <option value="" disabled selected>Choose your option</option>
           <?php 
             foreach($grp->fetchAll() as $row){
@@ -21,8 +21,12 @@ $grp = $help->query("select * from grouping");
 		      </select>
 		    <label>Group</label>
         </div>
+        <div class="input-field col s12">
+          <input id="w_date" type="date" value="" class="validate">
+          <label for="w_date">Date</label>
+        </div>
         <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center" type="submit" name="action">Add Week
+  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Add Week
     <i class="material-icons right">send</i>
   </button>
   </div>
@@ -40,7 +44,8 @@ $grp = $help->query("select * from grouping");
       url: `${base_url}/api/weekAPI.php`,
       data: JSON.stringify({
         group: $("#g_id").val(),
-        week: $("#code").val()  
+        code: $("#code").val(),
+        dat: $('#w_date').val(),
       }),    
       headers:headers,
       dataType: "json",
@@ -50,10 +55,10 @@ $grp = $help->query("select * from grouping");
           setTimeout(() => {
             window.location = "/add-week";
           }, xtime);
-          Materialize.toast(response.message, xtime);
+          toast(response.message);
           
         }else{
-
+          toast(response.error);
         }
       }
     });

@@ -6,7 +6,7 @@ $id = $help->get_loan_id($rt[2]);
 // echo $id['lo_id'];
 
 ?>
-
+<h4 class="center-align">Add Guaranter</h4>
 <div class="row">
 	<form id="addGuaranter">
 		<div class="input-field col s12">
@@ -30,7 +30,7 @@ $id = $help->get_loan_id($rt[2]);
           <label for="name">Amount</label>
         </div>
         <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center" type="submit" name="action">Add Ledger
+  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Add Ledger
     <i class="material-icons right">send</i>
   </button>
   </div>
@@ -56,7 +56,7 @@ $id = $help->get_loan_id($rt[2]);
             }),
             dataType:"json",
             success:(response)=>{
-                console.log(response)
+                // console.log(response)
                 if(response.status){
                     toast(response.message)
                     setTimeout(() => {

@@ -18,6 +18,26 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 	const page_title = (title) =>{
 		document.title = `${title} > CMMF`;
 	}
+
+	const print_now = () =>{
+		$('a.btn-floating').css({display:'none'})
+		$('#nav').css({display:'none'})
+		window.print();
+		$('a.btn-floating').css({display:'inline-block'})
+		$('#nav').css({display:'inline-block'})
+	}
+	//page load progress
+	let size = file.getSize() //size of file
+	const track_load_progress = () =>{
+		let loaded = file.getLoaded();
+		let p = parseInt(loaded/size)
+		$("#loader").css({display:"inline-block"})
+		if(p==100){
+			$("#loader").css({display:"none"})
+			setTimeout("track_load_progress()", 20);
+		}
+	}
+	track_load_progress();
 </script>
 <style>
 	#toast-container {
@@ -29,8 +49,18 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 		/* background-color: yellow !important; */
 		/* text-align: justify; */
 	}
+	#loader {
+		position: absolute;
+		top :0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		display:none;
+	}
 </style>
 <?php 
+require_once "views/incs/load.php";
 require_once "controllers/Routes.php";
 require_once "config/db.php";
 require_once "controllers/Helpers.php";

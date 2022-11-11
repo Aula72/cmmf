@@ -22,8 +22,9 @@ switch($meth){
         $t_code = $data["code"];
         $t_amount = $data["amount"];
         $t_desc = $data["comment"];	
-        $helper->required_fields([$m_id, $trans_type_id, $t_code, $t_amount]);
-        $trans = $helper->query("insert into $tb_name set user_id=:user, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc]);
+        $w_id = $data['week'];
+        $helper->required_fields([$m_id, $w_id, $trans_type_id, $t_code, $t_amount]);
+        $trans = $helper->query("insert into $tb_name set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
         if($trans){
             $msg["status"]= 1;
             $msg["message"] = "Transaction $t_code was successfull...";

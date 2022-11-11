@@ -1,10 +1,11 @@
+<h4 class="center-align">Groups</h4>
 <table class="striped">
     <thead>
         <tr>
             <th>Code</th>
             <th>Name</th>
             <th>Location</th>
-            <th></th>
+            <!-- <th></th> -->
         </tr>
     </thead>
     <tbody id="groupList">

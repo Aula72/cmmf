@@ -13,7 +13,7 @@
         <label>Type</label>
         </div>
         <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center" type="submit" name="action">Add Ledger
+  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Add Ledger
     <i class="material-icons right">send</i>
   </button>
   </div>

@@ -29,6 +29,7 @@ $r->set_route(["/add-loan", "views/add-loan.php", "GET"]);
 $r->set_route(["/admin", "views/all-admins.php", "GET"]);
 $r->set_route(["/add-admin", "views/add-user.php", "GET"]);
 $r->set_route(['/make-transaction', "views/transaction.php", "GET"]);
+$r->set_route(["/groups/{$po[2]}/make-transactions", "views/make-transactions.php", "GET"]);
 // $r->set_route(['/members'])
 foreach($r->get_routes() as $route){ 
     

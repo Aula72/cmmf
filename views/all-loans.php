@@ -1,3 +1,4 @@
+<h4 class="center-align">Loans</h4>
 <div class="row" id="loanList">
 
 </div>

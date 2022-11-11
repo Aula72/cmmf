@@ -6,12 +6,13 @@ $d = intval(date('Y'));
 $do = ($d-20)."-01-01";
 $do1 = ($d-80)."-01-01";
 ?>
+<h4 class="center-align">Add Member</h4>
 <div class="row">
 	<form id="addMember">
 		<!-- <div class="row"> -->
       <div class="input-field col s12">
-          <input id="mcode" type="text" value="<?php echo $m_code; ?>" class="validate" disabled>
-          <label for="fname">Member Code</label>
+          <input id="mcode" type="text" data-length='3' class="validate" >
+          <label for="fname">No. </label>
         </div>
         <div class="input-field col s12">
           <input id="fname" type="text" class="validate">
