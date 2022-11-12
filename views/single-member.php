@@ -47,36 +47,40 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
       <td id="saving"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Social Fund</td>
+      <td id="social"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Fine</td>
+      <td id="fine"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Education In</td>
+      <td id="edu_in"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Education Out</td>
+      <td id="edu_out"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Subscription</td>
+      <td id="subs"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Repayment</td>
+      <td id="repay"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Loan Out</td>
+      <td id="loan_out"></td>
     </tr>
     <tr>
-      <td></td>
-      <td></td>
+      <td>Loan Form</td>
+      <td id="loan_for"></td>
+    </tr>
+    <tr>
+      <td>Membership</td>
+      <td id="membership"></td>
     </tr>
   </tbody>
 </table>
@@ -169,7 +173,52 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
       $("#mcode").text(x.m_code)
       $("#gender").text(x.m_gender=='1'?'Male':'Female')
       $("#g_code").text(response.group_code)
-
+      /*
+      {
+    "member": {
+        "m_id": "2",
+        "m_code": "M2",
+        "g_id": "2",
+        "user_id": "2",
+        "m_fname": "G0MFS2FVa6",
+        "m_lname": "yAPmwegYcf",
+        "m_phone": "387356",
+        "m_nin": "Y3Ujp9uEMf",
+        "m_gender": "1",
+        "m_dob": "2001-10-10",
+        "created_at": "2022-11-04 18:03:22",
+        "update_at": "2022-11-04 18:03:22"
+    },
+    "next_of_kin": [],
+    "loans": [],
+    "ledgers": [],
+    "group_code": "G2",
+    "balance": "85,300",
+    "savings": "0",
+    "social_fund": "0",
+    "fines": "0",
+    "education_in": "0",
+    "education_out": "0",
+    "subscription": "0",
+    "repayment": "0",
+    "loan_out": "0",
+    "loan_charge": "0",
+    "loan_forms": "0",
+    "membership": "0",
+    
+      */
+     let k = response;
+      $("#saving").text(`${k.savings} /=`)
+      $("#loan_for").text(`${k.loan_forms} /=`)
+      $("#loan_charge").text(`${k.loan_charge} /=`)
+      $("#loan_out").text(`${k.loan_out} /=`)
+      $("#membership").text(`${k.membership} /=`)
+      $("#repay").text(`${k.repayment} /=`)
+      $("#subs").text(`${k.subscription} /=`)
+      $("#edu_out").text(`${k.education_out} /=`)
+      $("#edu_in").text(`${k.education_in} /=`)
+      $("#social").text(`${k.social_fund} /=`)
+      $("#fine").text(`${k.fines} /=`)
       let trans = response.transaction;
       for(let c of trans){
         $("#tList").append(`<tr><td>${c.t_code}</td><td>${c.t_amount}</td><td>${c.created_at.substring(0, 10)}</td></tr>`)
