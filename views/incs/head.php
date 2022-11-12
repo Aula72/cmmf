@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php 
-  define('URL', 'http://'.$_SERVER['HTTP_HOST']);
+  $c = isset($_SERVER['HTTPS'])?'https':'http';
+  define('URL', $c.'://'.$_SERVER['HTTP_HOST']);
 ?>
 
 <html>
