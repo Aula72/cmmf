@@ -26,13 +26,18 @@
             dataType: "json",
             success: function (response) {
                 // console.log(response)
+                // alert(user_mail)
                 let x  = ''
                 for(let m of response.admin){
-                    x +=`<tr class='${m.status==1?"":"red"}' onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'><td>${m.lname} ${m.fname}</td><td>${m.mail}</td></tr>`;
+                    
+                    x +=`<tr class='${m.status==1?"":"red"}' onclick='cpp(${m.user_id}, ${m.mail}, ${m.status})'><td>${m.lname} ${m.fname}</td><td>${m.mail}</td></tr>`;9
                 }
                 $("#adminList").html(x)
             }
         });
+    }
+    const do_nothing = () =>{
+
     }
     get_admins();
     const change_status = (id, ma, s) =>{
@@ -64,5 +69,13 @@
     });
         }
     }
+    }
+
+    const cpp =(a, b, c)=> {
+        if(a==1){
+            do_nothing()
+        }else{
+            change_status(a, b, c)
+        }
     }
 </script>
