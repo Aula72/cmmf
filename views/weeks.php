@@ -43,7 +43,7 @@
       }else{
         let p = confirm("No weeks yet, to added first week first add group")
         if(p){
-          window.location = "/add-group";
+          window.location = "/add-week";
         }else{
           window.history.go(-1)
         }
