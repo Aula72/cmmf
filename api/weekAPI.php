@@ -12,7 +12,7 @@ switch($meth){
             $weeks = $helper->query("select * from weeks where w_id=:id or w_code=:id", [":id"=>$_GET['id']]);
             $msg["weeks"] = $weeks->fetch(PDO::FETCH_ASSOC)?$weeks->fetch(PDO::FETCH_ASSOC):"No such week";
         }else{
-            $weeks = $helper->query("select * from weeks");
+            $weeks = $helper->query("select * from weeks order by w_id desc");
             $msg["weeks"] = [];
             foreach($weeks->fetchAll(PDO::FETCH_ASSOC) as $row){
                 array_push($msg['weeks'], [

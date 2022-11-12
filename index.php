@@ -27,17 +27,19 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 		$('#nav').css({display:'inline-block'})
 	}
 	//page load progress
-	let size = file.getSize() //size of file
-	const track_load_progress = () =>{
-		let loaded = file.getLoaded();
-		let p = parseInt(loaded/size)
-		$("#loader").css({display:"inline-block"})
-		if(p==100){
-			$("#loader").css({display:"none"})
-			setTimeout("track_load_progress()", 20);
-		}
-	}
-	track_load_progress();
+	// let size = file.getSize() //size of file
+	// const track_load_progress = () =>{
+	// 	let loaded = file.getLoaded();
+	// 	let p = parseInt(loaded/size)
+	// 	$("#loader").css({display:"inline-block"})
+	// 	if(p==100){
+	// 		$("#loader").css({display:"none"})
+	// 		setTimeout("track_load_progress()", 20);
+	// 	}
+	// }
+	// track_load_progress();
+
+	
 </script>
 <style>
 	#toast-container {

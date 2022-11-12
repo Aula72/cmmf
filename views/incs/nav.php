@@ -5,9 +5,9 @@
       <div class="background">
         <img src="/assets/img/account.png" width="100%">
       </div>
-      <a href="#!user"><img class="circle" src="/assets/img/account.png"></a>
+      <a href="#!user"><img class="circle" src="/assets/img/user.png"></a>
       <!-- <a href="#!name"><span class="black-text name" id="">User</span></a> -->
-      <a href="#!email"><span class="black-text email" id="email"></span></a>
+      <a href="#!email"><span class="white-text email" id="email"></span></a>
       </div>
     </li>
     <li><a href="/"><i class="material-icons">home</i>Dashboard</a></li>

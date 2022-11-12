@@ -42,7 +42,17 @@ switch($meth){
                 }
                 $msg["group_code"] = $helper->group_code($msg["member"]["g_id"]);
                 $msg["balance"] = number_format($helper->account_balance($id));
-
+                $msg["savings"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 4));
+                $msg["social_fund"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 5));
+                $msg["fines"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 6));
+                $msg["education_in"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 7));
+                $msg["education_out"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 8));
+                $msg["subscription"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 9));
+                $msg["repayment"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 10));
+                $msg["loan_out"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 11));
+                $msg["loan_charge"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 12));
+                $msg["loan_forms"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 13));
+                $msg["membership"] = number_format($helper->sum_bal_type($msg["member"]["m_id"], 14));
                 $transaction = $helper->query("select * from trans_action where m_id=:me", [":me"=>$id]);
                 $msg["transaction"] = [];
                 foreach($transaction->fetchAll(PDO::FETCH_ASSOC) as $row){

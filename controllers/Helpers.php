@@ -118,7 +118,10 @@ class Helper{
         // die(json_encode(["error"=>$grp["g_code"]]));
         return intval($grp["mult"]);
     }
-
+    public function sum_bal_type($id, $t){
+        $k = $this->query("select sum(t_amount) as amnt from trans_action where m_id=:id and trans_type_id=:type", [":id"=>$id, ":type"=>$t]);
+        return $k->fetch(\PDO::FETCH_ASSOC)['amnt'];
+    }
     public function get_loan_id($id){
         $bal = $this->query("select * from loans where lo_code=:id or lo_id=:id",[":id"=>$id]);
         $h = $bal->fetch(\PDO::FETCH_ASSOC);

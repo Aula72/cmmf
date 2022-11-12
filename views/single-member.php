@@ -31,13 +31,55 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
     <td>Group Code</td>
     <td id="g_code"></td>
   </tr>
-  <tr>
-    <td>Account Balance</td>
-    <td id="acc"></td>
-  </tr>
   
 </table>
-
+<h5 class="center-align">Accounts</h5>
+<table>
+  <thead>
+    <tr>
+      <th>Ledger</th>
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Savings</td>
+      <td id="saving"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 <h5 class="center-align">Transactions</h5>
       <table>
         <thead>

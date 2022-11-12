@@ -65,8 +65,8 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
     <i class="large material-icons">edit</i>
   </a>
   <ul>
-    <li><a class="btn-floating red" href="/add-member"><i class="material-icons">money</i></a></li>
-    <li><a class="btn-floating yellow darken-1" href="/groups/<?php echo $rt[2]; ?>/make-transactions"><i class="material-icons">person_add</i></a></li>
+    <li><a class="btn-floating red" href="/add-member"><i class="material-icons">person_add</i></a></li>
+    <li><a class="btn-floating yellow darken-1" href="/groups/<?php echo $rt[2]; ?>/make-transactions"><i class="material-icons">money</i></a></li>
     <!-- <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li> -->
     <!-- <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
   </ul>

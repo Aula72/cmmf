@@ -1,83 +1,8 @@
 
-<div class="row">
+<div class="row" id="dash">
 	
-	<div class="col s6">
-		<div class="card blue-grey darken-1" onclick="go_to_page('/weeks')">
-        <div class="card-content white-text">
-          <span class="card-title">Weeks</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-	</div>
-	<div class="col s6">
-		<div class="card blue-grey darken-1" onclick="go_to_page('/groups')">
-        <div class="card-content white-text">
-          <span class="card-title">Groups</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-	</div>
-	<div class="col s6">
-		<div class="card blue-grey darken-1" onclick="go_to_page('/savings')">
-        <div class="card-content white-text">
-          <span class="card-title">Savings</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-	</div>
-	<div class="col s6">
-		<div class="card blue-grey darken-1" onclick="go_to_page('/admins')">
-        <div class="card-content white-text">
-          <span class="card-title">Admin</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-	</div>
-	<div class="col s6">
-		<div class="card blue-grey darken-1" onclick="go_to_page('/reports')">
-        <div class="card-content white-text">
-          <span class="card-title">Reports</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
-	</div>
-  <div class="col s6">
-		<div class="card blue-grey darken-1" onclick="go_to_page('/logout')">
-        <div class="card-content white-text">
-          <span class="card-title">Log Me Out</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
-          <a href="#">This is a link</a>
-        </div>
-      </div>
+	
+	
 	</div>
 </div>
 
@@ -91,4 +16,40 @@
   const go_to_page = (name) =>{
     window.location = name;
   }
+
+  $.ajax({
+    type: "get",
+    url: `${base_url}/api/dashAPI.php`,
+    headers,
+    dataType: "json",
+    success: function (response) {
+      console.log(response)
+      for(let m of response.dash){
+        $('#dash').append(`<div class="col s6">
+		<div class="card" onclick="go_to_page('${m.url}')">
+    
+            <div class="card-image">
+              <img src="${m.img}">
+              <span class="card-title" style="font-size: 25px; color: red; font-weight: bold;">${m.num}</span>
+          </div>  
+          <div class="card-content">
+              <p>${m.name} </p>
+            </div>          
+    </div>    
+	</div>`)
+      }
+      $('#dash').append(`<div class="col s6">
+		<div class="card" onclick="go_to_page('/logout')">
+    
+            <div class="card-image">
+              <img src="/assets/img/logout.png">
+              <span class="card-title" style="font-size: 25px; color: red; font-weight: bold;"></span>
+          </div>  
+          <div class="card-content">
+              <p>Log Me Out </p>
+            </div>          
+    </div>    
+	</div>`)
+    }
+  });
 </script>

@@ -1,6 +1,6 @@
 <div class="valign-wrapper center-align">
 <div class="row">
-<img class="responsive-img" src="assets/img/login.png">
+<img class="responsive-img" src="assets/img/pin.png">
     <form class="col s12" id="pinForm">
       <div class="row">
         <div class="input-field col s12">
@@ -9,7 +9,7 @@
           <label for="pin">Enter OTP</label>
         </div>
         </div>
-        <button type="submit" class="waves-effect waves-light btn">Continue...</button>
+        <button type="submit" class="waves-effect waves-light btn green">Continue...</button>
       </div>
     </form>
 </div>

@@ -11,7 +11,7 @@
             <label for="icon_prefix">Enter Email...</label>
           </div>
           <!-- </div> -->
-          <button class="waves-effect waves-light btn">Login...</button>
+          <button class="waves-effect waves-light btn green">Login...</button>
         </div>
         
       </form>
