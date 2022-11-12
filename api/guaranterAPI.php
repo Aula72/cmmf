@@ -11,7 +11,8 @@ switch($meth){
         if(isset($_GET['id'])){
 
         }else{
-
+            
+            
         }
         break;
     case 'POST':
@@ -24,7 +25,12 @@ switch($meth){
         if($he){
             $msg['status']=1;
             $msg['message']='Guaranter was added successful...';
-            $helper->update_account($m_id, $amount, 7);
+            $helper->update_account($m_id, $amount, 11);
+            $m = intval($helper->get_loan_amount($lo_id))-intval($helper->guarant_balance($lo_id));
+            // $msg["message"] = $m;
+            if($m==0){
+                $helper->query("update loans set ls_id='2' where lo_id=:lo", [":lo"=>$lo_id]);
+            }
         }
         break;
     case 'PUT':

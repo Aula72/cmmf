@@ -37,7 +37,8 @@ $code = $help->get_last_id('g_id','grouping')+1;
     url: `${base_url}/api/groupAPI.php`,
     data: JSON.stringify({
       location: $('#loc').val(),
-	    name: $('#name').val()   
+	    name: $('#name').val(),
+      code: $('#code').val()   
     }),
     headers:headers,
     dataType: "json",

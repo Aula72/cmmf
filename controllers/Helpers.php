@@ -80,7 +80,7 @@ class Helper{
     public function required_fields($r = []){
         foreach($r as $t){            
             if($t==='' || $t===null){
-                die(json_encode(["error"=>"All fields are required..."]));
+                die(json_encode(["error"=>"Some fields are not filled check form and try again..."]));
             }
             
         }
@@ -132,9 +132,28 @@ class Helper{
         return $h;
     }
 
-    public function get_guaranters($id, $amount){
-        $k = $this->query("SELECT * FROM account_balance WHERE m_id !=:id and amount>:amount;",[":id"=>$id, ':amount'=>$amount]);
+    public function get_guaranters($id, $grp,$amount){
+        $k = $this->query("select * from group_member where g_id=:group and m_id in (select m_id from account_balance where amount>:amount and m_id !=:id)",[":id"=>$id,":group"=>$grp, ':amount'=>$amount]);
         return $k->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function get_loan_amount($id){
+        // $id = $this->get_loan_id($id);
+        $loan = $this->query("select * from loans where lo_id=:lo or lo_code=:lo", [":lo"=>$id]);
+        $loan = $loan->fetch(\PDO::FETCH_ASSOC);
+        return $loan["lo_amount"];
+    }
+
+    public function guarant_balance($id){
+        $ht = $this->query("select sum(amount) as amount from guaranter where lo_id=:id",[":id"=>$id]);
+        $ht = $ht->fetch(\PDO::FETCH_ASSOC);
+        return $ht["amount"];
+    }
+
+    public function loan_status($id){
+        $ht = $this->query("select * from loan_status where ls_id=:id", [":id"=>$id]);
+        $ht = $ht->fetch(\PDO::FETCH_ASSOC);
+        return $ht["name"];
     }
 }
 

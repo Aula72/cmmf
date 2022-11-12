@@ -14,7 +14,8 @@ switch($meth){
                 
                 $msg["loan"] = $tra->fetch(\PDO::FETCH_ASSOC);
                 $msg["member"] = $helper->get_member($msg["loan"]["m_id"]);
-                $msg["status"] = 1;
+                $msg["status"] = $msg["loan"]["ls_id"];
+                $msg["status_name"] = ucfirst($helper->loan_status($msg["loan"]["ls_id"]));
                 $gra = $helper->query("select * from guaranter where lo_id=:id",[":id"=>$msg['loan']['lo_id']]);
                 $msg["guaranters"] = [];
                 foreach($gra->fetchAll(\PDO::FETCH_ASSOC) as $row){
@@ -47,9 +48,12 @@ switch($meth){
         $m_id = $data["member"];
         $user_id = $helper->get_token()["user_id"];	
         $lo_amount = $data["amount"];
-
+        $st = 1;
+        if(intval($lo_amount)<intval($helper->account_balance($m_id))){
+            $st = 2;
+        }
         $helper->required_fields([$lo_code, $lo_amount, $lo_expiry,$lo_rate]);
-        $loan  =  $helper->query("insert into $tb_name set 	lo_code=:code,	lo_rate=:rate, lo_expiry=:expiry,m_id=:member,user_id=:user,lo_amount=:amount",[":code"=>$lo_code,":rate"=>$lo_rate,":member"=>$m_id,":amount"=>$lo_amount, ":user"=>$user_id, ":expiry"=>$lo_expiry]);
+        $loan  =  $helper->query("insert into $tb_name set 	lo_code=:code,	lo_rate=:rate, lo_expiry=:expiry,m_id=:member,user_id=:user,lo_amount=:amount, status=:status",[":status"=>$st,":code"=>$lo_code,":rate"=>$lo_rate,":member"=>$m_id,":amount"=>$lo_amount, ":user"=>$user_id, ":expiry"=>$lo_expiry]);
         if($loan){
             $msg["status"]=1;
             $msg["message"] = "Loan $lo_code was created successfully...";

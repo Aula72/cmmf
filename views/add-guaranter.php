@@ -1,6 +1,10 @@
 <?php 
 $rt = explode("/",$_SERVER['REQUEST_URI']);
 $id = $help->get_loan_id($rt[2]);
+$own = $help->get_member($id["m_id"]);
+
+$bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
+// var_dump($own);
 // $id = $id?$id:$rt[2];
 // var_dump($help->get_loan_id($rt[2]));
 // echo $id['lo_id'];
@@ -16,8 +20,8 @@ $id = $help->get_loan_id($rt[2]);
         <div class="input-field col s12 browser-default">
           <select id="member" class="validate" required>
             <?php 
-                foreach($help->get_guaranters($id['m_id'], $id['lo_amount']) as $row){
-                    echo "<option value=".$row['m_id'].">".$help->get_member($row['m_id'])['m_fname']." ".$help->get_member($row['m_id'])['m_fname']."(".$help->get_member($row['m_id'])['m_code'].")</option>";
+                foreach($help->get_guaranters($id['m_id'], $own["g_id"],$id['lo_amount']) as $row){
+                    echo "<option value=".$row['m_id'].">".$help->get_member($row['m_id'])['m_code']."</option>";
                 }
             ?>
 		    
@@ -30,7 +34,7 @@ $id = $help->get_loan_id($rt[2]);
           <label for="name">Amount</label>
         </div>
         <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Add Ledger
+  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action" id="btns">Add Gauranter
     <i class="material-icons right">send</i>
   </button>
   </div>
@@ -40,8 +44,17 @@ $id = $help->get_loan_id($rt[2]);
 
 <script>
     page_title('Add Guaranter');
+    let loan_amount = "<?php echo $bal; ?>"
     $("#amount").on("input",()=>{
-        console.log($("#amount").val())
+        console.log(`Loan amount ${loan_amount} enter amount ${$("#amount").val()}`)
+        if(Number(loan_amount)<Number($("#amount").val())){
+            toast(`Required amount: ${loan_amount} is exceeded...`, xtime);
+           
+            $(":submit").attr("disabled", true);
+        }else{
+            $(":submit").removeAttr("disabled");
+        }
+        
     })
     $("#addGuaranter").submit(e=>{
         e.preventDefault();

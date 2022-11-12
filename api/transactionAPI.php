@@ -28,7 +28,10 @@ switch($meth){
         if($trans){
             $msg["status"]= 1;
             $msg["message"] = "Transaction $t_code was successfull...";
-            $helper->update_account($m_id, $t_amount, $trans_type_id);
+            if($trans_type_id==4){
+                $helper->update_account($m_id, $t_amount, $trans_type_id);
+            }
+            
         }
         break;
     case 'PUT':

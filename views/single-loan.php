@@ -1,5 +1,9 @@
 <?php 
 $rt = explode("/",$_SERVER['REQUEST_URI']);
+$id = $help->get_loan_id($rt[2]);
+$own = $help->get_member($id["m_id"]);
+
+$bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
 ?>
 <h3 id="name" class="center-align"></h3>
 <table>
@@ -55,13 +59,20 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
     
     <li><a class="btn-floating red"><i class="material-icons">T</i></a></li>
     <li><a class="btn-floating yellow darken-1"><i class="material-icons">L</i></a></li>
-    <li><a class="btn-floating purple" href="/loans/<?php echo $rt[2]?>/add-guaranter"><i class="material-icons">G</i></a></li>
+    <li id="add-guaranter"><a class="btn-floating purple" href="/loans/<?php echo $rt[2]?>/add-guaranter" ><i class="material-icons">G</i></a></li>
     <!-- <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
   </ul>
 </div>
 <script>
     page_title('Loading....');
     let id = "<?php echo $rt[2]; ?>";
+    let amt = "<?php echo $bal; ?>"
+    
+    if(Number(amt)>0){
+        $("#add-guaranter").css({display:"inline-block"});
+    }else{
+        $("#add-guaranter").css({display:"none"});
+    }
     $.ajax({
         type: "get",
         url: `${base_url}/api/loanAPI.php?id=${id}`,
@@ -76,7 +87,7 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
             $("#name").text(response.loan.lo_code)
             $("#owner").text(`${q.m_lname} ${q.m_fname}`)
             $('#phone').text(`${q.m_phone}`);
-            $('#status').text(p.ls_id)
+            $('#status').text(response.status_name)
             $('#amount').text(p.lo_amount)
             $("#duedate").text(p.lo_expiry)
             $("#phone").text(q.m_phone);
