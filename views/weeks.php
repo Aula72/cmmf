@@ -30,6 +30,7 @@
     $.get(`${base_url}/api/weekAPI.php`,(data, status)=>{
         let w = data;
         let row = '';
+        if(w.weeks.length){
         for(var x of w.weeks){
             row += `<tr >
             <td>${x.w_code}</td>
@@ -39,6 +40,14 @@
           </tr>`;
         }
         $('#list_weeks').html(row);
+      }else{
+        let p = confirm("No weeks yet, to added first week first add group")
+        if(p){
+          window.location = "/add-group";
+        }else{
+          window.history.go(-1)
+        }
+      }
     });
 
     const week = (id) =>{

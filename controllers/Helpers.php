@@ -120,8 +120,11 @@ class Helper{
     }
     public function sum_bal_type($id, $t){
         $k = $this->query("select sum(t_amount) as amnt from trans_action where m_id=:id and trans_type_id=:type", [":id"=>$id, ":type"=>$t]);
-        return $k->fetch(\PDO::FETCH_ASSOC)['amnt'];
+       
+        $k = $k->fetch(\PDO::FETCH_ASSOC);
+        return $k["amnt"];
     }
+    
     public function get_loan_id($id){
         $bal = $this->query("select * from loans where lo_code=:id or lo_id=:id",[":id"=>$id]);
         $h = $bal->fetch(\PDO::FETCH_ASSOC);
@@ -134,3 +137,6 @@ class Helper{
         return $k->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
+
+// $h = new Helper;
+// echo json_encode(["err"=>$h->sum_bal_type(4, 4)]);

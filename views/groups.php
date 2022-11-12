@@ -33,9 +33,19 @@
         dataType: "json",
         success: function (response) {
             console.log(response)
-            for(let p of response.group){
-                $('#groupList').append(`<tr class="modal-trigger" onclick="go_to(${p.g_id})"><td>${p.g_code}</td><td>${p.g_name}</td><td>${p.g_location}</td></tr>`);
+            if(response.group.length){
+                for(let p of response.group){
+                    $('#groupList').append(`<tr class="modal-trigger" onclick="go_to(${p.g_id})"><td>${p.g_code}</td><td>${p.g_name}</td><td>${p.g_location}</td></tr>`);
+                }
+            }else{
+                let t = confirm("No groups yet, add first group...")
+                if(t){
+                    window.location = "add-group";
+                }else{
+                    window.history.go(-1)
+                }
             }
+            
         }
     });
 

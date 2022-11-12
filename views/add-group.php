@@ -1,6 +1,6 @@
 <?php 
 $code = $help->get_last_id('g_id','grouping')+1;
-$code = "G".$code;
+// $code = "G".$code;
 ?>
 <div class="row">
 	<form id="addGroup">
@@ -15,7 +15,7 @@ $code = "G".$code;
 	          <label for="loc">Group Location</label>
 	        </div>
 			<div class="input-field col s12">
-	          <input id="code" type="text" value="<?php echo $code; ?>" class="validate" disabled>
+	          <input id="code" type="text" value="" class="validate" required>
 	          <label for="code">Group Code</label>
 	        </div>
 		</div>
@@ -49,10 +49,6 @@ $code = "G".$code;
           
           window.location = "/groups";
         }, xtime);
-
-        
-       
-
       }else{
         toast(response.error)
       }

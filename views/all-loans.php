@@ -18,6 +18,7 @@
         dataType: "json",
         success: function (response) {
             console.log(response);
+            if(response.loans.length){
             for(let x of response.loans){
               $("#loanList").append(`<div style="border: 2px; border-color:green;" class="s12 col" onclick="go_to('${x.lo_code}')">
     <h5>Loan:  ${x.lo_code}</h5>
@@ -25,7 +26,15 @@
     <span>Rate: ${x.lo_rate}%</span>
   </div>`)
             }
+        
+      }else{
+        let op = confirm("No loans yet, add first loan")
+        if(op){
+          window.location  = "/add-loan"
+        }else{
+          window.history.go(-1)
         }
+      }}
     });
 
     const go_to = (i) =>{
