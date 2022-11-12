@@ -35,7 +35,7 @@ switch($meth){
         break;
     case 'POST':
         $code = $helper->get_last_id('g_id', $tb_name)+1;
-        $code = 'G'.$code;
+        $code = $data["code"];
         $name = $data["name"];
         $user = $helper->get_token()["user_id"];
         $loc = $data["location"];

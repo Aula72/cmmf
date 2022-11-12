@@ -15,7 +15,7 @@ $code = $help->get_last_id('g_id','grouping')+1;
 	          <label for="loc">Group Location</label>
 	        </div>
 			<div class="input-field col s12">
-	          <input id="code" type="text" value="" class="validate" required>
+	          <input id="code" type="text"  class="validate" required>
 	          <label for="code">Group Code</label>
 	        </div>
 		</div>
