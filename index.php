@@ -1,8 +1,10 @@
 <?php 
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+// die(json_encode(["err"=>$_SERVER]));
+// die(json_encode(["err"=>$_SERVER['SERVER_PROTOCOL']]));
 ?>
 <script>
-	let base_url = "http://<?php echo $_SERVER['HTTP_HOST']?>";
+	let base_url = "<?php echo isset($_SERVER['HTTPS'])?'https':'http'; ?>://<?php echo $_SERVER['HTTP_HOST']?>";
 	let token = localStorage.getItem("token");
 	let user_mail = localStorage.getItem("mail");
 	let xtime = 5000;
