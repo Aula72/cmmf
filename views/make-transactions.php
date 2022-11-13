@@ -8,7 +8,7 @@ $code = "TRS".time()."CMMF";
 
 ?>
 <div class="row">
-	<form id="addTransaction">
+	<form class="col s12"id="addTransaction">
         <div class="input-field col s12">
           <select  id="w_id" name="m_id" >
             <option value="" selected>Select Week</option>

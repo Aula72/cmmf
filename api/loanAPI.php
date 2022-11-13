@@ -11,7 +11,6 @@ switch($meth){
         if(isset($_GET['id'])){
             $tra = $helper->query("select * from $tb_name where lo_id=:id or lo_code=:id",[":id"=>$_GET['id']]);
             if($tra->rowCount()>0){
-                
                 $msg["loan"] = $tra->fetch(\PDO::FETCH_ASSOC);
                 $msg["member"] = $helper->get_member($msg["loan"]["m_id"]);
                 $msg["status"] = $msg["loan"]["ls_id"];
@@ -29,6 +28,13 @@ switch($meth){
                         "name"=> $r['m_fname']." ".$r['m_lname']
                     ));
                 }
+                $msg["payments"]  = [];
+                $x = $msg["loan"]["lo_id"];
+                $m = $helper->query("select * from loan_payment where lo_id=:lo",[":lo"=>$x]);
+                foreach($m->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                    array_push($msg["payments"], $row);
+                }
+                $msg["fines"] = [];
             }else{
                 $msg["loan"] = "No such loan";
                 $msg["status"] = 0;
@@ -53,7 +59,7 @@ switch($meth){
             $st = 2;
         }
         $helper->required_fields([$lo_code, $lo_amount, $lo_expiry,$lo_rate]);
-        $loan  =  $helper->query("insert into $tb_name set 	lo_code=:code,	lo_rate=:rate, lo_expiry=:expiry,m_id=:member,user_id=:user,lo_amount=:amount, status=:status",[":status"=>$st,":code"=>$lo_code,":rate"=>$lo_rate,":member"=>$m_id,":amount"=>$lo_amount, ":user"=>$user_id, ":expiry"=>$lo_expiry]);
+        $loan  =  $helper->query("insert into $tb_name set 	lo_code=:code,	lo_rate=:rate, lo_expiry=:expiry,m_id=:member,user_id=:user,lo_amount=:amount, ls_id=:status",[":status"=>$st,":code"=>$lo_code,":rate"=>$lo_rate,":member"=>$m_id,":amount"=>$lo_amount, ":user"=>$user_id, ":expiry"=>$lo_expiry]);
         if($loan){
             $msg["status"]=1;
             $msg["message"] = "Loan $lo_code was created successfully...";

@@ -1,5 +1,5 @@
 <div class="row">
-	<form id="addLedger">
+	<form class="col s12" id="addLedger">
 		<div class="input-field col s12">
           <input id="name" type="text"  class="validate">
           <label for="name">Ledger Name</label>

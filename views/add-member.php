@@ -8,7 +8,7 @@ $do1 = ($d-80)."-01-01";
 ?>
 <h4 class="center-align">Add Member</h4>
 <div class="row">
-	<form id="addMember">
+	<form class="col s12" id="addMember">
 		<!-- <div class="row"> -->
       <div class="input-field col s12">
           <input id="mcode" type="text" data-length='3' class="validate" >

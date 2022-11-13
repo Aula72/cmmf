@@ -12,7 +12,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
 ?>
 <h4 class="center-align">Add Guaranter</h4>
 <div class="row">
-	<form id="addGuaranter">
+	<form class="col s12" id="addGuaranter">
 		<div class="input-field col s12">
           <input id="name" type="text"  class="validate" value="<?php echo $id['lo_code'];?>" disabled>
           <label for="name">Loan Number</label>

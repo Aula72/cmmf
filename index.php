@@ -24,6 +24,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 	const print_now = () =>{
 		$('a.btn-floating').css({display:'none'})
 		$('#nav').css({display:'none'})
+		
 		window.print();
 		$('a.btn-floating').css({display:'inline-block'})
 		$('#nav').css({display:'inline-block'})

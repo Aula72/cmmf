@@ -11,7 +11,7 @@
     </tbody>
 </table>
 
-<div class="fixed-action-btn">
+<div class="fixed-action-btn" id="admin">
 <a class="btn-floating btn-large green" href="/add-admin">
     <i class="large material-icons">add</i>
 </a>
@@ -78,4 +78,6 @@
             change_status(a, b, c)
         }
     }
+
+    user_mail=="kibirigetwaha123@gmail.com"?$("#admin").show():$("#admin").hide();
 </script>

@@ -2,7 +2,7 @@
 $t = explode("/",$_SERVER['REQUEST_URI']);
 ?>
 <div class="row">
-	<form id="addNextOfKin">
+	<form class="col s12" id="addNextOfKin">
 		<!-- <div class="row"> -->
       <input type="hidden" name="" id="member" value="<?php echo $t[2]; ?>">
         <div class="input-field col s12">
