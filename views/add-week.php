@@ -5,6 +5,7 @@ $code = "W".$code;
 $grp = $help->query("select * from grouping");
 ?>
 <div class="row">
+<h4 class="center-align">Add Week</h4>
 	<form class="col s12" id="addWeek">
 		    <div class="input-field col s12">
           <input id="code" type="text" value="" class="validate">

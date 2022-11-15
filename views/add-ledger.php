@@ -1,4 +1,5 @@
 <div class="row">
+    <h4 class="center-align">Add Ledger</h4>
 	<form class="col s12" id="addLedger">
 		<div class="input-field col s12">
           <input id="name" type="text"  class="validate">

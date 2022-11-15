@@ -6,7 +6,7 @@ $d = intval(date('Y'));
 $do = ($d-20)."-01-01";
 $do1 = ($d-80)."-01-01";
 ?>
-<h4 class="center-align">Add Member</h4>
+<h4 class="center-align">Add New Member</h4>
 <div class="row">
 	<form class="col s12" id="addMember">
 		<!-- <div class="row"> -->

@@ -2,6 +2,7 @@
 $t = explode("/",$_SERVER['REQUEST_URI']);
 ?>
 <div class="row">
+<h4 class="center-align">Add Next of Kin</h4>
 	<form class="col s12" id="addNextOfKin">
 		<!-- <div class="row"> -->
       <input type="hidden" name="" id="member" value="<?php echo $t[2]; ?>">

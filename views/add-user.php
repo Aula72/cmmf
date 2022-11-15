@@ -1,4 +1,5 @@
 <div class="row">
+<h4 class="center-align">Add Admin</h4>
     <form class="col s12" id="addUser">
       <div class="row">
         <div class="input-field col s12">

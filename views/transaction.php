@@ -5,6 +5,7 @@ $code = $help->get_last_id("t_id", "trans_action")+1;
 $code = "TRANS".$code."CMMF";
 ?>
 <div class="row">
+<h4 class="center-align">Make Transaction</h4>
 	<form id="addTransaction">
 		<div class="input-field col s12">
           <select  id="m_id" name="m_id" >

@@ -3,6 +3,7 @@ $code = $help->get_last_id('g_id','grouping')+1;
 // $code = "G".$code;
 ?>
 <div class="row">
+  <h4 class="center-align">Add New Group</h4>
 	<form id="addGroup">
 		<div class="row">
 			<div class="input-field col s12">

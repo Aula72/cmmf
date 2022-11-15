@@ -1,4 +1,10 @@
 
+<div class="carousel carousel-slider">
+    <a class="carousel-item" href="#one!"><img src="/assets/img/loans.png"></a>
+    <a class="carousel-item" href="#two!"><img src="/assets/img/users.png"></a>
+    <a class="carousel-item" href="#three!"><img src="/assets/img/weeks.png"></a>
+    <a class="carousel-item" href="#four!"><img src="/assets/img/groups.png"></a>
+</div>
 <div class="row" id="dash">
 	
 	
@@ -51,5 +57,10 @@
     </div>    
 	</div>`)
     }
+  });
+
+  $('.carousel.carousel-slider').carousel({
+    fullWidth: true,
+    indicators: true,
   });
 </script>

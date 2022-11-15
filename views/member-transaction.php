@@ -32,7 +32,7 @@ $code = "TRS".time()."CMMF";
           <option value="" selected>Select Ledger Type</option>
             <?php
                 foreach($ledgers->fetchAll(PDO::FETCH_ASSOC) as $row){
-                    echo "<option value=".$row['ty_id'].">".$row['ty_name']." (x".$row['mult'].")</option>";
+                    echo "<option value=".$row['ty_id'].">".$row['ty_name']."</option>";
                 }
             ?>
           </select>

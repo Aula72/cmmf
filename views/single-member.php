@@ -1,6 +1,7 @@
 <?php 
 $t = explode("/",$_SERVER['REQUEST_URI']);
 ?>
+<h4 class="center-align">Member Details</h4>
 <table>
   <tr>
     <td>Name</td>

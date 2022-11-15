@@ -11,6 +11,7 @@ if($code<100){
 $code = "LN".$code.date("mY");
 ?>
 <div class="row">
+<h4 class="center-align">Add New Loan</h4>
 	<form class="col s12" id="addLoan">
 		<div class="input-field col s12">
           <select name="" id="member">

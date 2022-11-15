@@ -25,14 +25,19 @@ switch($meth){
         $t_desc = $data["comment"];	
         $w_id = $data['week'];
         $helper->required_fields([$m_id, $w_id, $trans_type_id, $t_code, $t_amount]);
-        $trans = $helper->query("insert into $tb_name set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
-        if($trans){
-            $msg["status"]= 1;
-            $msg["message"] = "Transaction $t_code was successfull...";
-            if($trans_type_id==4){
-                $helper->update_account($m_id, $t_amount, $trans_type_id);
+        if(intval($_amount)>0){
+            $trans = $helper->query("insert into $tb_name set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
+            if($trans){
+                $msg["status"]= 1;
+                $msg["message"] = "Transaction $t_code was successfull...";
+                if($trans_type_id==4){
+                    $helper->update_account($m_id, $t_amount, $trans_type_id);
+                }
+                
             }
-            
+        }else{
+            $msg["status"]= 1;
+            $msg["message"] = "TRXN $t_code was not processed, amount was insufficient...";
         }
         break;
     case 'PUT':
