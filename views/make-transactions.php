@@ -72,7 +72,7 @@ $code = "TRS".time()."CMMF";
     page_title('New Transaction');
     let i = "<?php echo $i; ?>"
     let y = "<?php echo $rt[2]; ?>"
-    
+    localStorage.removeItem("msg");
     $("#addTransaction").submit(e=>{
         e.preventDefault();
         //console.log(i*6)
@@ -117,8 +117,7 @@ $code = "TRS".time()."CMMF";
     // console.log(m)
     // console.log(n)
 }
-toast(localStorage.getItem("msg"), xtime)
-localStorage.removeItem("msg");
+// toast(localStorage.getItem("msg"), xtime)
 });
 // $('#m_id').on('change', (e)=>{
 //     console.log($('#m_id').val())

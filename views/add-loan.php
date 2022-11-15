@@ -41,7 +41,7 @@ $code = "LN".$code.date("mY");
           <label for="expiry">Expiry Date</label>
         </div>
         <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center" type="submit" name="action">Save Loan
+  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Save Loan
     <i class="material-icons right">send</i>
   </button>
   </div>
