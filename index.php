@@ -79,7 +79,7 @@ $r = new \Cmmf\Route;
 $help = new \Cmmf\Helper; 
 
 
-$help->mail_send(12356, "moncytod@gmail.com");
+// $help->mail_send(12356, "moncytod@gmail.com");
 
 // die(json_encode(["url"=>$url]));
 if(stripos('api', $url)){
