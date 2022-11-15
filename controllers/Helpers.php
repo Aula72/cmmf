@@ -176,8 +176,21 @@ class Helper{
 
         // mail("Sending@provider.com", $grt, $msg, $headers);
 
-        $msg = "<h2>CMMF OTP</h2><p>Enter {$otp} as your otp to continue...</p><p>Please don't share your OTP with anyone!</p>";
-        $headers = "From: ".OTP_MAIL;
+        $msg = "
+        <html>
+        <head>
+        <title>OTP Verification</title>
+        </head>
+        <body>
+            <p>Your are using CMMF your verification code is:</p>
+            <h1 style='text-align: center; color: green;'>{$otp}</h1>
+            <p>Please don't share your OTP with anyone</p>
+            <p>Thanks for using CMMF</p>
+        </body>
+        </html>
+        ";
+        $headers = "From: <".OTP_MAIL.">";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $subj  = "Verification OTP of CMMF";
 
         mail($mail, $subj, $msg, $headers);
