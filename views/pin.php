@@ -29,6 +29,7 @@
         toast(data.message);
         setTimeout(() => {
           window.location = "/";
+          // localStorage.removeItem("otp")
         }, xtime);        
       }else{
         toast(data.message);

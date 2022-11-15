@@ -185,6 +185,7 @@ class Helper{
             <p>Your are using CMMF your verification code is:</p>
             <h1 style='text-align: center; color: green;'>{$otp}</h1>
             <p>Please don't share your OTP with anyone</p>
+            <p>Follow link to continues <a href='https://cmmf.fueless.co.ug/otp'>Verify OTP</a></p>
             <p>Thanks for using CMMF</p>
         </body>
         </html>
