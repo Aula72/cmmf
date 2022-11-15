@@ -96,6 +96,10 @@ class Helper{
         $ty = $this->query("select * from group_member where m_id=:id",[":id"=>$id]);
         return $ty->fetch(\PDO::FETCH_ASSOC);
     }
+    public function get_week($id){
+        $ty = $this->query("select * from weeks where w_id=:id",[":id"=>$id]);
+        return $ty->fetch(\PDO::FETCH_ASSOC);
+    }
     public function create_account($m_id, $user_id){
         return $this->query("insert into account_balance set m_id=:m, user_id=:id, amount=:a",[":m"=>$m_id, ":id"=>$user_id, ":a"=>0]);
     }
@@ -154,6 +158,12 @@ class Helper{
         $ht = $this->query("select * from loan_status where ls_id=:id", [":id"=>$id]);
         $ht = $ht->fetch(\PDO::FETCH_ASSOC);
         return $ht["name"];
+    }
+
+    public function get_ledger_name($id){
+        $ht = $this->query("select * from trans_types where ty_id=:id", [":id"=>$id]);
+        $ht = $ht->fetch(\PDO::FETCH_ASSOC);
+        return $ht["ty_name"];
     }
 }
 

@@ -43,7 +43,7 @@ $code = $help->get_last_id('g_id','grouping')+1;
     headers:headers,
     dataType: "json",
     success: function (response) {
-      console.log(response)
+      // console.log(response)
       if(response.status==1){
         toast(response.message)
         setTimeout(() => {

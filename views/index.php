@@ -23,7 +23,7 @@
     headers,
     dataType: "json",
     success: function (response) {
-      console.log(response)
+      // console.log(response)
       for(let m of response.dash){
         $('#dash').append(`<div class="col s6">
 		<div class="card" onclick="go_to_page('${m.url}')">

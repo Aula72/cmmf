@@ -9,7 +9,49 @@ $data = json_decode(file_get_contents("php://input"), true);
 switch($meth){
     case 'GET':
         if(isset($_GET['id'])){
+            if(isset($_GET['week'])){
+                $h = $helper->query("select * from trans_action where trans_type_id=:id and w_id=:w",[':id'=>$_GET['id'], ':w'=>$_GET['week']]);
+                $msg["trans"] = [];
+                $p = 0;
+                foreach($h->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                    $m = $helper->get_member($row["m_id"]);
+                    array_push($msg["trans"], Array(
+                        "created_at"=>$row["created_at"],
+                        "m_id"=>$row["m_id"],
+                        "t_amount"=>$row["t_amount"],
+                        "t_code"=>$row["t_code"],
+                        "t_desc"=>$row["t_desc"],
+                        "t_id"=>$row["t_id"],
+                        "trans_type_id"=>$row["trans_type_id"],
+                        "updated_at"=>$row["updated_at"],
+                        "user_id"=>$row["user_id"],
+                        "w_id"=>$row["w_id"],
+                        "member"=>$m["m_code"],
+                        "week"=>$helper->get_week($row["w_id"])["w_code"]
+                    ));
 
+                    $p += $row["t_amount"];
+                    
+                }
+                $msg["trans_sum"] = number_format($p);
+            }else{
+                $h = $helper->query("select * from trans_action where t_id=:id",[':id'=>$_GET['id']]);
+                $row = $h->fetch(\PDO::FETCH_ASSOC);
+                
+                $msg["created_at"]=$row["created_at"];
+                $msg["m_id"]=$row["m_id"];
+                $msg["t_amount"]=$row["t_amount"];
+                $msg["t_code"]=$row["t_code"];
+                $msg["t_desc"]=$row["t_desc"];
+                $msg["t_id"]=$row["t_id"];
+                $msg["trans_type_id"]=$row["trans_type_id"];
+                $msg["updated_at"]=$row["updated_at"];
+                $msg["user_id"]=$row["user_id"];
+                $msg["w_id"]=$row["w_id"];
+                $msg["member"]=$helper->get_member($row['m_id'])['m_code'];
+                $msg["week"]=$helper->get_week($row["w_id"])["w_code"];
+
+            }
         }else{
 
         }

@@ -9,7 +9,8 @@ $data = json_decode(file_get_contents("php://input"), true);
 switch($meth){
     case 'GET':
         if(isset($_GET['id'])){
-
+            $m = $helper->query("select * from trans_action where t_id=:id", [":id"=>$_GET['id']]);
+            $msg["trans"] = $m->fetch(\PDO::FETCH_ASSOC);
         }else{
 
         }

@@ -11,8 +11,9 @@
       </div>
     </li>
     <li><a href="/"><i class="material-icons">home</i>Dashboard</a></li>
-    <li><a href="/weeks"><i class="material-icons">date_range</i>Weeks</a></li>
     <li><a href="/groups"><i class="material-icons">diversity_2</i>Groups</a></li>
+    <li><a href="/weeks"><i class="material-icons">date_range</i>Weeks</a></li>
+    
     <!-- <li><a href="/group-members"><i class="material-icons">groups</i>Group Members</a></li> -->
     <li><a href="/ledgers"><i class="material-icons">table_view</i>Ledgers</a></li>
     <li><a href="/loans"><i class="material-icons">attach_money</i>Loans</a></li>

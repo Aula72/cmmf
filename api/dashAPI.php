@@ -12,13 +12,7 @@ switch($meth){
 
         }else{
             $msg["dash"] = [];
-            $weeks = $helper->query("select count(w_id) as ws from weeks");
-            $w["num"] = $weeks->fetch(PDO::FETCH_ASSOC)['ws'];
-            $w["img"] = "/assets/img/weeks.png";
-            $w["name"] = "Weeks";
-            $w["url"] = "/weeks";
-
-            array_push($msg["dash"], $w);
+            
             $groups = $helper->query("select count(g_id) as ws from grouping");
             $w["num"] = $groups->fetch(PDO::FETCH_ASSOC)['ws'];
             $w["img"] = "/assets/img/groups.png";
@@ -26,18 +20,25 @@ switch($meth){
             $w["url"] = "/groups";
 
             array_push($msg["dash"], $w);
-            $groups = $helper->query("select count(m_id) as ws from group_member");
-            $w["num"] = $groups->fetch(PDO::FETCH_ASSOC)['ws'];
-            $w["img"] = "/assets/img/member.png";
-            $w["name"] = "Members";
-            $w["url"] = "#";
+            $weeks = $helper->query("select count(w_id) as ws from weeks");
+            $w["num"] = $weeks->fetch(PDO::FETCH_ASSOC)['ws'];
+            $w["img"] = "/assets/img/weeks.png";
+            $w["name"] = "Weeks";
+            $w["url"] = "/weeks";
 
             array_push($msg["dash"], $w);
-            $groups = $helper->query("select sum(t_amount) as ws from trans_action where trans_type_id='4'");
+            // $groups = $helper->query("select count(m_id) as ws from group_member");
+            // $w["num"] = $groups->fetch(PDO::FETCH_ASSOC)['ws'];
+            // $w["img"] = "/assets/img/member.png";
+            // $w["name"] = "Members";
+            // $w["url"] = "#";
+
+            // array_push($msg["dash"], $w);
+            $groups = $helper->query("select count(ty_id) as ws from trans_types");
             $w["num"] = number_format($groups->fetch(PDO::FETCH_ASSOC)['ws']);
             $w["img"] = "/assets/img/payments.jpg";
-            $w["name"] = "Savings";
-            $w["url"] = "#";
+            $w["name"] = "Ledgers";
+            $w["url"] = "/ledgers";
 
             array_push($msg["dash"], $w);
 

@@ -41,7 +41,9 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 	// 	}
 	// }
 	// track_load_progress();
+	let nm = new Intl.NumberFormat("en-US")
 
+	
 	
 </script>
 <style>

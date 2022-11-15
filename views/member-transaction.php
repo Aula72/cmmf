@@ -1,6 +1,10 @@
 <?php 
 $t = explode("/",$_SERVER['REQUEST_URI']);
-$weeks = $help->query("select * from weeks");
+$k = $t[2];
+$mem = $help->get_member($k);
+$k=$mem["g_id"];
+// echo $k;
+$weeks = $help->query("select * from weeks where g_id=:id",[":id"=>$k]);
 $ledgers = $help->query("select * from trans_types");
 $code = $help->get_last_id("t_id", "trans_action")+1;
 $code = "TRS".time()."CMMF";

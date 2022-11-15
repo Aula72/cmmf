@@ -21,6 +21,7 @@ $r->set_route(['/groups', 'views/groups.php', 'GET']);
 $r->set_route(["/groups/".$po[2], 'views/single-group.php', 'GET']);
 $r->set_route(['/logout', 'views/logout.php', 'GET']);
 $r->set_route(['/ledgers', 'views/ledgers.php', 'GET']);
+$r->set_route(["/ledgers/{$po[2]}", 'views/ledger-details.php', 'GET']);
 $r->set_route(["/add-ledger", "views/add-ledger.php", "GET"]);
 $r->set_route(['/loans', 'views/all-loans.php', "GET"]);
 $r->set_route(["/loans/{$po[2]}", 'views/single-loan.php', "GET"]);

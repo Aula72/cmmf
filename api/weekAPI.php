@@ -11,6 +11,18 @@ switch($meth){
         if(isset($_GET['id'])){
             $weeks = $helper->query("select * from weeks where w_id=:id or w_code=:id", [":id"=>$_GET['id']]);
             $msg["weeks"] = $weeks->fetch(PDO::FETCH_ASSOC)?$weeks->fetch(PDO::FETCH_ASSOC):"No such week";
+        }else if(isset($_GET['grp'])){
+            $weeks = $helper->query("select * from weeks where g_id=:g order by w_id desc", [':g'=>$_GET['grp']]);
+            $msg["weeks"] = [];
+            foreach($weeks->fetchAll(PDO::FETCH_ASSOC) as $row){
+                array_push($msg['weeks'], [
+                    "w_id"=>$row["w_id"],
+                    "w_code"=>$row["w_code"],
+                    "g_id"=>$row["g_id"],
+                    "w_date"=>$row['w_date'],
+                    "g_code"=>$helper->group_code($row["g_id"])
+                ]);
+            }
         }else{
             $weeks = $helper->query("select * from weeks order by w_id desc");
             $msg["weeks"] = [];

@@ -21,14 +21,14 @@
         headers:headers,
         dataType: "json",
         success: function (response) {
-            console.log(response)
+            // console.log(response)
             for(let x of response.ledger_type){
                 $('#ledgerList').append(`<tr onclick="ledger(${x.ty_id})"><td>${x.ty_name}</td><td>${x.mult==1?'Credit':'Debit'}</td></tr>`);
             }
         }
     });
     const ledger = (i) =>{
-        localStorage.setItem('ledger_id', i);
+        // localStorage.setItem('ledger_id', i);
         window.location = `/ledgers/${i}`
     }
 </script>

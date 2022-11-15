@@ -17,12 +17,12 @@
         headers:headers,
         dataType: "json",
         success: function (response) {
-            console.log(response);
+            // console.log(response);
             if(response.loans.length){
             for(let x of response.loans){
               $("#loanList").append(`<div style="border: 2px; border-color:green;" class="s12 col" onclick="go_to('${x.lo_code}')">
     <h5>Loan:  ${x.lo_code}</h5>
-    <p>Amount: ${x.lo_amount}<span style="float:right">Expires On: ${x.lo_expiry}</span></p>
+    <p>Amount: ${nm.format(x.lo_amount)}<span style="float:right">Expires On: ${x.lo_expiry}</span></p>
     <span>Rate: ${x.lo_rate}%</span>
   </div>`)
             }

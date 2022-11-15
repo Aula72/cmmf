@@ -71,7 +71,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
   </a>
   <ul>
     
-    <li><a class="btn-floating red" href="/loans/<?php echo $rt[2]; ?>/loan-payment"><i class="material-icons">money_add</i></a></li>
+    <li id="add-payment"><a class="btn-floating red" href="/loans/<?php echo $rt[2]; ?>/loan-payment"><i class="material-icons">euro</i></a></li>
     <!-- <li><a class="btn-floating yellow darken-1"><i class="material-icons">L</i></a></li> -->
     <li id="add-guaranter"><a class="btn-floating purple" href="/loans/<?php echo $rt[2]?>/add-guaranter" ><i class="material-icons">G</i></a></li>
     <li><a class="btn-floating blue" onclick="print_now()"><i class="material-icons">print</i></a></li>
@@ -98,24 +98,26 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
             $("#owner").text(`${q.m_lname} ${q.m_fname}`)
             $('#phone').text(`${q.m_phone}`);
             $('#status').text(response.status_name)
-            $('#amount').text(`${p.lo_amount} /=`)
+            $('#amount').text(`${nm.format(p.lo_amount)} /=`)
             $("#duedate").text(p.lo_expiry)
             $("#phone").text(q.m_phone);
-            $("#due").text(`${(1+p.lo_rate/100)*p.lo_amount} /=`)
+            $("#due").text(`${nm.format((1+p.lo_rate/100)*p.lo_amount)} /=`)
             $("#sdate").text(p.created_at.substring(0, 10))
             response.fines.length?$("#fines").show():$("#fines").hide();
             response.guaranters.length?$("#guaranters").show():$("#guaranters").hide();
             response.payments.length?$("#payments").show():$("#payments").hide();
-            if(response.status==2){
+            if(response.status==1){
                 $("#add-guaranter").css({display:"inline-block"});
             }else{
                 $("#add-guaranter").css({display:"none"});
             }
+
+            response.status==2?$("#add-payment").show():$("#add-payment").hide();
             for(let c of response.guaranters){
                 $("#gList").append(`<tr><td>${c.name}</td><td>${c.amount}</td></tr>`)
             }
             for(let c of response.payments){
-                $("#pList").append(`<tr onclick="trans_details(${c.p_id})"><td>${c.trans_id}</td><td>${c.amount}</td><td>${c.created_at}</td></tr>`)
+                $("#pList").append(`<tr onclick="trans_details(${c.p_id})"><td>${c.trans_id}</td><td>${nm.format(c.amount)}/=</td><td>${c.created_at}</td></tr>`)
             }
         }
     });
@@ -128,9 +130,9 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
             headers,
             dataType: "json",
             success: function (response) {
-                console.log(response)
+                // console.log(response)
                 let res = response.trans;
-                alert(`TRXN. ID:   ${res.trans_id}\nAmount:     ${res.amount}/=\nDate:       ${res.created_at}\nComments:   ${res.p_comment}`)
+                alert(`TRXN. ID:   ${res.trans_id}\nAmount:     ${nm.format(res.amount)}/=\nDate:       ${res.created_at}\nComments:   ${res.p_comment}`)
             }
         });
     }

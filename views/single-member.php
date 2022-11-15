@@ -84,6 +84,7 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
     </tr>
   </tbody>
 </table>
+<div id="trans">
 <h5 class="center-align">Transactions</h5>
       <table>
         <thead>
@@ -98,6 +99,9 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
           
         </tbody>
       </table>
+</div>
+<div id="loans">
+
 <h5 class="center-align">Loans</h5>
       <table>
         <thead>
@@ -113,7 +117,8 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
           
         </tbody>
       </table>
-      <h5 class="center-align">Next of Kin</h5>
+</div>
+      <!-- <h5 class="center-align">Next of Kin</h5>
       <table>
         <thead>
           <tr>
@@ -140,7 +145,7 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
             <td>$7.00</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
       <div class="fixed-action-btn">
   <a class="btn-floating btn-large green">
     <i class="large material-icons">edit</i>
@@ -161,7 +166,7 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
     headers:headers,
     dataType: "json",
     success: function (response) {
-      console.log(response)
+      // console.log(response)
       let x = response.member;
       page_title(`Member: ${x.m_fname} ${x.m_lname}`);
       $("#acc").text(response.balance)
@@ -221,18 +226,35 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
       $("#fine").text(`${k.fines} /=`)
       let trans = response.transaction;
       for(let c of trans){
-        $("#tList").append(`<tr><td>${c.t_code}</td><td>${c.t_amount}</td><td>${c.created_at.substring(0, 10)}</td></tr>`)
+        $("#tList").append(`<tr onclick="trans_detail(${c.t_id})"><td>${c.t_code}</td><td>${nm.format(c.t_amount)}</td><td>${c.created_at.substring(0, 10)}</td></tr>`)
       }
       let loan = response.loans;
       for(let b of loan){
         $("#lLoans").append(`<tr onclick="go_to_loan(${b.lo_id})"><td>${b.lo_code}</td><td>${b.lo_amount}</td><td>${b.created_at.substring(0, 10)}</td></tr>`);
       }
+
+      trans.length?$("#trans").show():$("#trans").hide();
+      loan.length?$("#loans").show():$("#loans").hide();
     }
   });
 
   const go_to_loan = (i) =>{
     window.location = `/loans/${i}`
   }
+
+  const trans_detail =(id) =>{
+        $.ajax({
+            type: "get",
+            url: `${base_url}/api/transactionAPI.php?id=${id}`,
+            headers,
+            dataType: "json",
+            success: function (response) {
+                // console.log(response)
+                let res = response.trans;
+                alert(`TRXN. ID:   ${res.t_code}\nAmount:     ${nm.format(res.t_amount)}/=\nDate:       ${res.created_at}\nComments:   ${res.t_desc}`)
+            }
+        });
+    }
 </script>
             
 
