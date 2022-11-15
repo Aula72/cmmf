@@ -21,6 +21,8 @@ if($check->rowCount()>0){
 		$msg["status"] = 1;
 		$msg["message"] = "Login was successful an OTP was sent to your email address";
 		$msg["otp"] = $otp;
+		// mail(OTP_MAIL, $grt, $msg, $headers);
+		$help->mail_send($otp, $uname);
 		$otp = password_hash($otp, PASSWORD_DEFAULT);
 		$check_token = $help->query("select * from otp where user_id=:uid",[":uid"=>$user["user_id"]]);
 		if($check_token->rowCount()>0){

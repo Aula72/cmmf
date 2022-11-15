@@ -165,6 +165,23 @@ class Helper{
         $ht = $ht->fetch(\PDO::FETCH_ASSOC);
         return $ht["ty_name"];
     }
+
+    public function mail_send($otp, $mail){
+        // ini_set("SMTP", $mail);
+        // ini_set("sendmail_from", OTP_MAIL);
+
+        // // $message = "The mail message was sent with the following mail setting:\r\nSMTP = aspmx.l.google.com\r\nsmtp_port = 25\r\nsendmail_from = YourMail@address.com";
+
+        // $headers = "From: ".OTP_MAIL;
+
+        // mail("Sending@provider.com", $grt, $msg, $headers);
+
+        $msg = "<h2>CMMF OTP</h2><p>Enter {$otp} as your otp to continue...</p><p>Please don't share your OTP with anyone!</p>";
+        $headers = "From: ".OTP_MAIL;
+        $subj  = "Verification OTP of CMMF";
+
+        mail($mail, $subj, $msg, $headers);
+    }
 }
 
 // $h = new Helper;
