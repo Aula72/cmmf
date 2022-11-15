@@ -10,8 +10,8 @@ $mail = $_GET["email"];
 
 <script>
     let mail = "<?php echo $mail; ?>"
-    setTimeout(() => {
-        localStorage.setItem("mail", mail)
+    localStorage.setItem("mail", mail)
+    setTimeout(() => {        
         window.location = "/otp"
     }, xtime);
     
