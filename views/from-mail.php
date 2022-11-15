@@ -1,5 +1,6 @@
 <?php 
-$mail = $_GET["email"];
+$t= explode("/", $_SERVER["REQUEST_URI"]);
+$mail = $t[2];
 ?>
 
 <div class="valign-wrapper">
