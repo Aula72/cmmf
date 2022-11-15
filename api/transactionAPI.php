@@ -24,8 +24,10 @@ switch($meth){
         $t_amount = $data["amount"];
         $t_desc = $data["comment"];	
         $w_id = $data['week'];
+        // $msg["message"]  = $data["amount"];
+        // die(json_encode($msg["message"]));
         $helper->required_fields([$m_id, $w_id, $trans_type_id, $t_code, $t_amount]);
-        if(intval($_amount)>0){
+        if($data["amount"]>0){
             $trans = $helper->query("insert into $tb_name set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
             if($trans){
                 $msg["status"]= 1;

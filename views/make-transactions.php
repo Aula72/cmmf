@@ -96,7 +96,7 @@ $code = "TRS".time()."CMMF";
                 "code":$("#t_code").val(),
                 "trans_type":$("#trans_type").val(),
                 "comment":$("#t_desc").val(),
-                "amount":  m[x] 
+                "amount":  Number(m[x]) 
             }),
             headers:headers,
             dataType: "json",
