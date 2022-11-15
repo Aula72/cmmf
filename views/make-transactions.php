@@ -72,7 +72,6 @@ $code = "TRS".time()."CMMF";
     page_title('New Transaction');
     let i = "<?php echo $i; ?>"
     let y = "<?php echo $rt[2]; ?>"
-    localStorage.removeItem("msg");
     $("#addTransaction").submit(e=>{
         e.preventDefault();
         //console.log(i*6)
@@ -85,6 +84,7 @@ $code = "TRS".time()."CMMF";
         }
         // console.log(m);
         // console.log(n)
+        
         for(let x in m){  
             //console.log(n[x]) 
         $.ajax({
@@ -103,7 +103,8 @@ $code = "TRS".time()."CMMF";
             success: function (response) {
                 console.log(response)
                 if(response.status){
-                    localStorage.setItem("msg", response.message)
+                    // localStorage.setItem("msg", response.message)
+                    toast(response.message, xtime)
                     setTimeout(() => {
                         window.location  = `/groups/${y}/make-transactions`
                     }, xtime);

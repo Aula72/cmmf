@@ -29,22 +29,26 @@
                 // alert(user_mail)
                 let x  = ''
                 for(let m of response.admin){
-                    
-                    x +=`<tr class='${m.status==1?"":"red"}' onclick='cpp(${m.user_id}, ${m.mail}, ${m.status})'><td>${m.lname} ${m.fname}</td><td>${m.mail}</td></tr>`;9
+                    x +=`<tr class='${m.status==1?"":"red"}' onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'><td>${m.lname} ${m.fname}</td><td>${m.mail}</td></tr>`;9
                 }
                 $("#adminList").html(x)
             }
         });
     }
-    const do_nothing = () =>{
+    // const do_nothing = () =>{
 
-    }
+    // }
+    // const loo = (a, b, c) =>{
+    //     if(user_mail=="tkibirige@cmmf.com"){
+    //         cpp(a, b, c)
+    //     }
+    // }
     get_admins();
     const change_status = (id, ma, s) =>{
-        // alert(ma)
-        // if()
+        // alert(user_mail)
+        if(user_mail=="kibirigetwaha@gmail.com"){
         let  msg = `Activate ${ma}'s account`
-        if(id==1){
+        if(id!=1){
             if(s==1){
                 msg = `Deactivate ${ma}'s account`
             }
@@ -58,26 +62,27 @@
             dataType: "json",
             success: function (response) {
                 if(response.status){
-                    Materialize.toast(response.message, xtime)
+                    toast(response.message, xtime)
                     setTimeout(() => {
                         get_admins();
                     }, xtime);
                 }else{
-                    Materialize.toast(response.error, xtime) 
+                    toast(response.error, xtime) 
                 }
             }
     });
         }
-    }
-    }
-
-    const cpp =(a, b, c)=> {
-        if(a==1){
-            do_nothing()
-        }else{
-            change_status(a, b, c)
         }
     }
+    }
 
-    user_mail=="kibirigetwaha123@gmail.com"?$("#admin").show():$("#admin").hide();
+    // const cpp =(a, b, c)=> {
+    //     if(a==1){
+    //         do_nothing()
+    //     }else{
+    //         change_status(a, b, c)
+    //     }
+    // }
+
+    // user_mail=="kibirigetwaha123@gmail.com"?$("#admin").show():$("#admin").hide();
 </script>

@@ -39,6 +39,14 @@ switch($meth){
                 $msg["loan"] = "No such loan";
                 $msg["status"] = 0;
             }
+        }else if(isset($_GET["sbal"])){
+            $u = $helper->query("select sum(amount) as amt from guaranter where m_id=:id",[":id"=>$_GET['sbal']]);
+            $u = $u->fetch(\PDO::FETCH_ASSOC);
+
+            $p = $helper->query("select sum(amount) as amt from account_balance where m_id=:id",[":id"=>$_GET['sbal']]);
+            $p = $p->fetch(\PDO::FETCH_ASSOC);
+
+            $msg["message"] = intval($p["amt"]) - intval($u["amt"]);
         }else{
             $loans = $helper->query("select * from loans order by lo_id desc");
             $msg["loans"] = [];

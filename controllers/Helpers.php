@@ -8,6 +8,7 @@ include_once "../config/constants.php";
 include_once "../config/db.php";
 class Helper{
     protected $conn;
+    private $text = SECRET;
     public function __construct(){
         $this->conn = new \Cmmf\Database();
         $this->conn = $this->conn->connect();
@@ -175,7 +176,7 @@ class Helper{
         // $headers = "From: ".OTP_MAIL;
 
         // mail("Sending@provider.com", $grt, $msg, $headers);
-
+        $sec = $this->text.time();
         $msg = "
         <html>
         <head>
@@ -185,7 +186,7 @@ class Helper{
             <p>Your are using CMMF your verification code is:</p>
             <h1 style='text-align: center; color: green;'>{$otp}</h1>
             <p>Please don't share your OTP with anyone</p>
-            <p>Follow link to continues <a href='https://cmmf.fueless.co.ug/verifier/{$mail}'>Verify OTP</a></p>
+            <p>Follow link to continues <a href='https://cmmf.fueless.co.ug/verifier/{$mail}/{$sec}' target='_blank'>Verify OTP</a></p>
             <p>Thanks for using CMMF</p>
         </body>
         </html>

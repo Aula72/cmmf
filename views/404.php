@@ -2,7 +2,7 @@
 <img class="responsive-img" src="/assets/img/404.png">
 
 <div class="center-align">
-    <a href="/" class="center-align">Go to Home Page</a>
+    <a href="/" class="center-align" >Go to Home Page</a>
 </div>
 
 <div class="center-align">

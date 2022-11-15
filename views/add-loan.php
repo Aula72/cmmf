@@ -1,28 +1,34 @@
 <?php 
-$mem  = $help->query("select * from group_member");
-$code = intval($help->get_last_id("lo_id", "loans"))+1;
-if($code<100){    
-    if($code<10){
-        $code = '00'.$code;
-    }else{
-        $code = "0".$code;
-    }
-}
+$mem  = $help->query("select * from grouping");
+
 $code = "LN".$code.date("mY");
 ?>
 <div class="row">
 <h4 class="center-align">Add New Loan</h4>
 	<form class="col s12" id="addLoan">
-		<div class="input-field col s12">
-          <select name="" id="member">
+		<div class="col s12">
+    <div class="input-field col s6 browser-default">
+          <select name="" id="group" onchange="group1(this.value)">
             <option value="" selected>Choose Member</option>
             <?php
                 foreach($mem->fetchAll(PDO::FETCH_ASSOC) as $row){
-                    echo "<option value=".$row['m_id'].">".$row['m_fname']." ".$row['m_lname']."  (".$row['m_code'].")</option>";
+                    echo "<option value=".$row['g_id'].">".$row['g_code']."</option>";
                 }
             ?>
           </select>
-          <label for="member">Member Details</label>
+          <label for="member">Group</label>
+        </div>
+        <div class="input-field col s6 browser-default">
+          <select name="" id="member" onchange="member1(this.value)">
+            <option value="" selected>Choose Member</option>
+            
+          </select>
+          <label for="member">Member</label>
+        </div>
+              </div>
+        <div class="input-field col s12 browser-default">
+          <input type="text" value="Person's Loanable amount "  name="" id="bal" disabled>
+          <label for="bal">Standing Balance</label>
         </div>
         <div class="input-field col s12 browser-default">
           <input type="number" data-length="2" name="" id="rate">
@@ -51,6 +57,18 @@ $code = "LN".$code.date("mY");
 
 <script>
   page_title('New Loan');
+  const member1 = (i) =>{
+      $.ajax({
+        type: "get",
+        url: `${base_url}/api/loanAPI.php?sbal=${i}`,
+        headers,
+        dataType: "json",
+        success: function (response) {
+          // console.log(response)
+          $("#bal").val(nm.format(response.message));
+        }
+      });
+    }
     $('#addLoan').submit(e=> {
         e.preventDefault(); 
         $.ajax({
@@ -78,4 +96,24 @@ $code = "LN".$code.date("mY");
             }
         });
     });
+
+    const group1 =(i) =>{
+      $.ajax({
+        type: "get",
+        url: `${base_url}/api/groupAPI.php?id=${i}`,
+        headers,
+        dataType: "json",
+        success: function (response) {
+          // console.log(response)
+          let x = "<option>Select Member</option>"
+          for(let m of response.members){
+            x+=`<option value="${m.m_id}">${m.m_code}</option>`
+          }
+          $("#member").html(x)
+          $('select').material_select();
+        }
+      });
+    }
+
+    // member(5)
 </script>

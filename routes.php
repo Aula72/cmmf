@@ -10,7 +10,7 @@ $r->set_route(["/otp", "views/pin.php", "GET"]);
 $r->set_route(['/login', 'views/login.php', 'GET']);
 $r->set_route(['/add-member', 'views/add-member.php','GET']);
 $r->set_route(['/members', 'views/members.php','GET']);
-$r->set_route(["/members/".$po[2], 'views/single-member.php','GET']);
+$r->set_route(["/members/{$po[2]}", 'views/single-member.php','GET']);
 $r->set_route(["/members/$po[2]/add-transaction", 'views/member-transaction.php','GET']);
 $r->set_route(["/members/$po[2]/add-next-of-kin", 'views/add-next-of-kin.php','GET']);
 $r->set_route(['/add-group', 'views/add-group.php','GET']);
@@ -18,7 +18,7 @@ $r->set_route(['/add-next-of-kin', 'views/add-next-of-kin.php', 'GET']);
 $r->set_route(['/add-week', 'views/add-week.php', 'GET']);
 $r->set_route(['/weeks', 'views/weeks.php', 'GET']);
 $r->set_route(['/groups', 'views/groups.php', 'GET']);
-$r->set_route(["/groups/".$po[2], 'views/single-group.php', 'GET']);
+$r->set_route(["/groups/{$po[2]}", 'views/single-group.php', 'GET']);
 $r->set_route(['/logout', 'views/logout.php', 'GET']);
 $r->set_route(['/ledgers', 'views/ledgers.php', 'GET']);
 $r->set_route(["/ledgers/{$po[2]}", 'views/ledger-details.php', 'GET']);
@@ -32,7 +32,7 @@ $r->set_route(["/add-admin", "views/add-user.php", "GET"]);
 $r->set_route(['/make-transaction', "views/transaction.php", "GET"]);
 $r->set_route(["/groups/{$po[2]}/make-transactions", "views/make-transactions.php", "GET"]);
 $r->set_route(["/loans/{$po[2]}/loan-payment", "views/loan-payment.php", "GET"]);
-$r->set_route(["/verifier/{$po[2]}", "views/from-mail.php", "GET"]);
+$r->set_route(["/verifier/{$po[2]}/{$po[3]}", "views/from-mail.php", "GET"]);
 // $r->set_route(['/members'])
 foreach($r->get_routes() as $route){ 
     
