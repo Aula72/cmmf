@@ -36,7 +36,10 @@
           // localStorage.setItem("otp", "yes")
           window.location = "/otp"
         },xtime);
-        // alert(data.otp)
+        if(window.location.host!="cmmf.fueless.co.ug"){
+          alert(data.otp)
+        }
+        
       }else{
         toast(data.message)
         
