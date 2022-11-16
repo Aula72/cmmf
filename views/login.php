@@ -7,7 +7,7 @@
           
           <div class="input-field col s12">
             <i class="material-icons prefix">email</i>
-            <input id="m" type="email" class="validate" required>
+            <input id="m" type="email" autocomplete="false" class="validate" required>
             <label for="icon_prefix">Enter Email...</label>
           </div>
           <!-- </div> -->

@@ -5,7 +5,7 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">password</i>
-          <input id="pin" type="password" class="validate" required>
+          <input id="pin" type="password" autocomplete="false" class="validate" required>
           <label for="pin">Enter OTP</label>
         </div>
         </div>
