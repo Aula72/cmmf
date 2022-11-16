@@ -136,7 +136,7 @@ const change_ledge = (i) =>{
     let grp = `<?php echo $rt[2]; ?>`
     let week = $("#w_id").val()
 
-    console.log(`Group: ${grp}\nWeek: ${week}\nLedger: ${i}`)
+    // console.log(`Group: ${grp}\nWeek: ${week}\nLedger: ${i}`)
     $.ajax({
         type: "get",
         url: `${base_url}/api/groupAPI.php?payment&grp=${grp}&week=${week}&ledger=${i}`,

@@ -28,7 +28,7 @@ $code = "TRS".time()."CMMF";
           <label for="t_code">Week</label>
         </div>
         <div class="input-field col s12">
-          <select  id="trans_type" name="trans_type" >
+          <select  id="trans_type" name="trans_type" onchange="ledger_change(this.value)">
           <option value="" selected>Select Ledger Type</option>
             <?php
                 foreach($ledgers->fetchAll(PDO::FETCH_ASSOC) as $row){
@@ -39,7 +39,7 @@ $code = "TRS".time()."CMMF";
           <label for="name">Transaction Type</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <input type="number"  id="t_amount" data-length="7" required>
+          <input type="number"  value="" id="t_amount" data-length="7" required>
           <label for="t_amount">Amount</label>
         </div>
         
@@ -86,4 +86,22 @@ $code = "TRS".time()."CMMF";
         }
     });
 });
+
+const ledger_change = (i) =>{
+    let mem = `<?php echo $t[2]; ?>`
+    let week = $("#w_id").val()
+
+    console.log(`Member: ${mem}\nWeek: ${week}\nLedger: ${i}`)
+    $.ajax({
+        type: "get",
+        url: `${base_url}/api/groupAPI.php?mem=${mem}&week=${week}&ledger=${i}`,
+        headers,
+        dataType: "json",
+        success: function (response) {
+            // console.log(response)            
+            $("#t_amount").val(response.payments)          
+            
+        }
+    });
+}
 </script>

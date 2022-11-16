@@ -31,6 +31,11 @@ switch($meth){
             foreach($u->fetchAll(\PDO::FETCH_ASSOC) as $row){
                 array_push($msg["payments"], $row);
             }
+        }else if(isset($_GET['mem'])){
+            // die(json_encode($_GET));
+            $u = $helper->query("SELECT m_id, m_code, g_id, ifnull((select DISTINCT ifnull(t_amount, 0) from trans_action where trans_action.m_id = m_id  and trans_action.w_id=:w and trans_action.trans_type_id=:t  limit 1), 0) as t_amount  FROM group_member where m_id=:g", [":g"=>$_GET["mem"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
+            $u = $u->fetch(\PDO::FETCH_ASSOC);
+            $msg["payments"] = $u["t_amount"];
         }else{
             $group = $helper->query("select * from $tb_name");
             $msg["group"] = [];
