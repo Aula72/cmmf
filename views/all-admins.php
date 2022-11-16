@@ -84,5 +84,5 @@
     //     }
     // }
 
-    // user_mail=="kibirigetwaha123@gmail.com"?$("#admin").show():$("#admin").hide();
+    user_mail=="kibirigetwaha123@gmail.com"?$("#admin").show():$("#admin").hide();
 </script>
