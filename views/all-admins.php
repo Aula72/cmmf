@@ -46,7 +46,7 @@
     get_admins();
     const change_status = (id, ma, s) =>{
         // alert(user_mail)
-        if(user_mail=="kibirigetwaha@gmail.com"){
+        if(user_mail=="kibirigetwaha123@gmail.com"){
         let  msg = `Activate ${ma}'s account`
         if(id!=1){
             if(s==1){
