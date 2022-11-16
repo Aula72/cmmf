@@ -153,9 +153,9 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
   </a>
   <ul>
     
-    <li><a class="btn-floating red" href="/members/<?php echo $t[2]; ?>/add-transaction"><i class="material-icons">T</i></a></li>
-    <li><a class="btn-floating yellow darken-1"><i class="material-icons">L</i></a></li>
-    <li><a class="btn-floating purple" href="/members/<?php echo $t[2]; ?>/add-next-of-kin"><i class="material-icons">K</i></a></li>
+    <li><a class="btn-floating red" href="/members/<?php echo $t[2]; ?>/add-transaction"><i class="material-icons">payments</i></a></li>
+    <li><a class="btn-floating yellow darken-1"><i class="material-icons">credit_score</i></a></li>
+    <li><a class="btn-floating purple" href="/members/<?php echo $t[2]; ?>/add-next-of-kin"><i class="material-icons">diversity_1</i></a></li>
     <li><a class="btn-floating blue" onclick="print_now();"><i class="material-icons">print</i></a></li>
   </ul>
 <script>

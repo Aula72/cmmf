@@ -1,6 +1,6 @@
 
 <nav id="nav" class="green">CMMF
-<ul id="slide-out" class="side-nav green">
+<ul id="slide-out" class="side-nav green ">
     <li><div class="user-view">
       <div class="background">
         <img src="/assets/img/account.png" width="100%">
@@ -10,17 +10,17 @@
       <a href="#!email"><span class="white-text email" id="email"></span></a>
       </div>
     </li>
-    <li><a href="/"><i class="material-icons">home</i>Dashboard</a></li>
-    <li><a href="/groups"><i class="material-icons">diversity_2</i>Groups</a></li>
-    <li><a href="/weeks"><i class="material-icons">date_range</i>Weeks</a></li>
+    <li><a href="/" class="white-text"><i class="material-icons white-text">home</i>Dashboard</a></li>
+    <li><a href="/groups" class="white-text"><i class="material-icons white-text">diversity_2</i>Groups</a></li>
+    <li><a href="/weeks" class="white-text"><i class="material-icons white-text">date_range</i>Weeks</a></li>
     
     <!-- <li><a href="/group-members"><i class="material-icons">groups</i>Group Members</a></li> -->
-    <li><a href="/ledgers"><i class="material-icons">table_view</i>Ledgers</a></li>
-    <li><a href="/loans"><i class="material-icons">attach_money</i>Loans</a></li>
+    <li><a href="/ledgers" class="white-text"><i class="material-icons white-text">table_view</i>Ledgers</a></li>
+    <li><a href="/loans" class="white-text"><i class="material-icons white-text">attach_money</i>Loans</a></li>
     <li><div class="divider"></div></li>
-    <li><a href="/admin"><i class="material-icons">keyboard</i>Admins</a></li>
-    <li><a class="waves-effect" href="#!"><i class="material-icons">account_circle</i>My Account</a></li>
-    <li><a href="/logout"><i class="material-icons">logout</i>Log Me Out</a></li>
+    <li><a href="/admin" class="white-text"><i class="material-icons white-text">keyboard</i>Admins</a></li>
+    <!-- <li><a class="waves-effect" href="#!"><i class="material-icons">account_circle</i>My Account</a></li> -->
+    <li><a href="/logout" class="white-text"><i class="material-icons white-text">logout</i>Log Me Out</a></li>
     
   </ul>
 

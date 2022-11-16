@@ -73,7 +73,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
     
     <li id="add-payment"><a class="btn-floating red" href="/loans/<?php echo $rt[2]; ?>/loan-payment"><i class="material-icons">euro</i></a></li>
     <!-- <li><a class="btn-floating yellow darken-1"><i class="material-icons">L</i></a></li> -->
-    <li id="add-guaranter"><a class="btn-floating purple" href="/loans/<?php echo $rt[2]?>/add-guaranter" ><i class="material-icons">G</i></a></li>
+    <li id="add-guaranter"><a class="btn-floating purple" href="/loans/<?php echo $rt[2]?>/add-guaranter" ><i class="material-icons">escalator_warning</i></a></li>
     <li><a class="btn-floating blue" onclick="print_now()"><i class="material-icons">print</i></a></li>
   </ul>
 </div>
