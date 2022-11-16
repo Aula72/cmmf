@@ -17,6 +17,7 @@
     <!-- <li><a href="/group-members"><i class="material-icons">groups</i>Group Members</a></li> -->
     <li><a href="/ledgers" class="white-text"><i class="material-icons white-text">table_view</i>Ledgers</a></li>
     <li><a href="/loans" class="white-text"><i class="material-icons white-text">attach_money</i>Loans</a></li>
+    <li><a href="/reports" class="white-text"><i class="material-icons white-text">book</i>Reports</a></li>
     <li><div class="divider"></div></li>
     <li><a href="/admin" class="white-text"><i class="material-icons white-text">keyboard</i>Admins</a></li>
     <!-- <li><a class="waves-effect" href="#!"><i class="material-icons">account_circle</i>My Account</a></li> -->

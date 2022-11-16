@@ -60,76 +60,51 @@ $code = "TRS".time()."CMMF";
     page_title('New Transaction');
     let i = "<?php echo $i; ?>"
     let y = "<?php echo $rt[2]; ?>"
-
+    
     let tym = [];
-    $(document).ready(function () {
+    let msgg = true;
         
     
     $("#addTransaction").submit(e=>{
         e.preventDefault();
-        //console.log(i*6)
         console.log(tym)
-        let m = []
-        let n = []
-        for(var x=0; x<i; x++){
-            m.push($(`#amount${x}`).val());
-            n.push($(`#id${x}`).val());
-       
-        }
-        console.log(m);
-        // console.log(n)
         
-        for(let x of tym){  
-            // console.log(n[x]) 
-        $.ajax({
-            type: "post",
-            url: `${base_url}/api/transactionAPI.php`,
-            data: JSON.stringify({
-                "week":$("#w_id").val(),
-                "member":x.m_id,
-                "code":$("#t_code").val(),
-                "trans_type":$("#trans_type").val(),
-                "comment":$("#t_desc").val(),
-                "amount":  Number(x.t_amount) 
-            }),
-            headers:headers,
-            dataType: "json",
-            success: function (response) {
-                console.log(response)
-                if(response.status){
-                    // localStorage.setItem("msg", response.message)
-                    toast(response.message, xtime)
-                    setTimeout(() => {
-                        window.location  = `/groups/${y}/make-transactions`
-                    }, xtime);
-                }else{
-                    localStorage.setItem("msg", response.error)
+        
+        for(let x of tym){ 
+            $.ajax({
+                type: "post",
+                url: `${base_url}/api/transactionAPI.php`,
+                data: JSON.stringify({
+                    "week":$("#w_id").val(),
+                    "member":x.m_id,
+                    "code":$("#t_code").val(),
+                    "trans_type":$("#trans_type").val(),
+                    "comment":$("#t_desc").val(),
+                    "amount":  Number(x.t_amount) 
+                }),
+                headers:headers,
+                dataType: "json",
+                success: function (response) {
+                    if(response.status){
+                        msgg = true                    
+                    }else{
+                        msgg = false
+                    }
                 }
-            }
-            
-        });
-        
-    // console.log(m)
-    // console.log(n)
-}
-// toast(localStorage.getItem("msg"), xtime)
+                
+            });
+        }
+        if(msgg){
+            toast("TRXN <?php echo $code; ?> was successful...", xtime)
+            setTimeout(() => {
+                    window.location  = `/groups/${y}/make-transactions`
+            }, xtime);
+        }else{
+            toast("TRXN <?php echo $code; ?> was not successful...", xtime)
+        }
 });
-// $('#m_id').on('change', (e)=>{
-//     console.log($('#m_id').val())
-// })
-
-// $('#trans_type').on('change', (e)=>{
-//     console.log($('#trans_type').val())
-// })
 
 
-
-// if($("#w_id").val("")){
-//     $("#trans_type").attr("disabled", true);
-// }else{
-//     $("#trans_type").removeAttr("disabled");
-// }
-});
 
 
 const change_ledge = (i) =>{
@@ -167,14 +142,6 @@ const get_mee = (x, y) =>{
         break; //Stop this loop, we found it!
      }
    }
-    // let man = tym.filter(k=>{
-    //     console.log(k.id)
-    //     if(k.id == y){
-    //         k.t_amount = x
-    //     }
-    // })
-
-    // console.log(man)
 }
 
 
