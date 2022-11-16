@@ -24,11 +24,21 @@ switch($meth){
         $t_amount = $data["amount"];
         $t_desc = $data["comment"];	
         $w_id = $data['week'];
+
+        //check
+        // die(json_encode($data));
+        $p = $helper->query("select * from trans_action where w_id=:w and m_id=:m and trans_type_id=:id", [":m"=>$m_id, ":w"=>$w_id, ":id"=>$trans_type_id]);
+        
         // $msg["message"]  = $data["amount"];
         // die(json_encode($msg["message"]));
         $helper->required_fields([$m_id, $w_id, $trans_type_id, $t_code, $t_amount]);
+        
         if($data["amount"]>0){
-            $trans = $helper->query("insert into $tb_name set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
+            if($p->rowCount()==0){
+                $trans = $helper->query("insert into $tb_name set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
+            }else{
+                $trans = $helper->query("update $tb_name set   t_amount=:amount, t_desc=:comment where w_id=:week and m_id=:member and trans_type_id=:trans",[":member"=>$m_id,":trans"=>$trans_type_id,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
+            }
             if($trans){
                 $msg["status"]= 1;
                 $msg["message"] = "Transaction $t_code was successfull...";

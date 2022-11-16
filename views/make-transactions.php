@@ -10,7 +10,8 @@ $code = "TRS".time()."CMMF";
 <div class="row">
 <h4 class="center-align">Make Transaction To Group</h4>
 	<form class="col s12"id="addTransaction">
-        <div class="input-field col s12">
+    <div class=" col s12">
+        <div class="input-field col s4">
           <select  id="w_id" name="m_id" >
             <option value="" selected>Select Week</option>
             <?php
@@ -22,8 +23,8 @@ $code = "TRS".time()."CMMF";
           <label for="name">Week Details</label>
         </div>
 		
-        <div class="input-field col s12">
-          <select  id="trans_type" name="trans_type" >
+        <div class="input-field col s8">
+          <select  id="trans_type" name="trans_type" onchange="change_ledge(this.value)">
           <option value="" selected>Select Ledger Type</option>
             <?php
                 foreach($ledgers->fetchAll(PDO::FETCH_ASSOC) as $row){
@@ -33,23 +34,10 @@ $code = "TRS".time()."CMMF";
           </select>
           <label for="name">Ledger Type</label>
         </div>
+    </div>
         <table>
-            <tbody>
-                <?php 
-                // var_dump($members->fetchAll());
-                $i = 0;
-                foreach($members->fetchAll(PDO::FETCH_ASSOC) as $row){
-                    
-                    echo '<tr><td>'.$row['m_code'].'</td>';
-                    echo '<td><div class="input-field col s12">
-                    <input type="text" id="amount'.$i.'" value="0">
-                    <label for="t_code">Amount</label>
-                    <input type="hidden" id="id'.$i.'" value="'.$row['m_id'].'">
-                  </div></td>';
-                    echo "</tr>";
-                    $i ++;
-                }
-                ?>
+            <tbody id="membs">
+                
             </tbody>
         </table>
         
@@ -72,9 +60,15 @@ $code = "TRS".time()."CMMF";
     page_title('New Transaction');
     let i = "<?php echo $i; ?>"
     let y = "<?php echo $rt[2]; ?>"
+
+    let tym = [];
+    $(document).ready(function () {
+        
+    
     $("#addTransaction").submit(e=>{
         e.preventDefault();
         //console.log(i*6)
+        console.log(tym)
         let m = []
         let n = []
         for(var x=0; x<i; x++){
@@ -82,21 +76,21 @@ $code = "TRS".time()."CMMF";
             n.push($(`#id${x}`).val());
        
         }
-        // console.log(m);
+        console.log(m);
         // console.log(n)
         
-        for(let x in m){  
-            //console.log(n[x]) 
+        for(let x of tym){  
+            // console.log(n[x]) 
         $.ajax({
             type: "post",
             url: `${base_url}/api/transactionAPI.php`,
             data: JSON.stringify({
                 "week":$("#w_id").val(),
-                "member":n[x],
+                "member":x.m_id,
                 "code":$("#t_code").val(),
                 "trans_type":$("#trans_type").val(),
                 "comment":$("#t_desc").val(),
-                "amount":  Number(m[x]) 
+                "amount":  Number(x.t_amount) 
             }),
             headers:headers,
             dataType: "json",
@@ -127,4 +121,61 @@ $code = "TRS".time()."CMMF";
 // $('#trans_type').on('change', (e)=>{
 //     console.log($('#trans_type').val())
 // })
+
+
+
+// if($("#w_id").val("")){
+//     $("#trans_type").attr("disabled", true);
+// }else{
+//     $("#trans_type").removeAttr("disabled");
+// }
+});
+
+
+const change_ledge = (i) =>{
+    let grp = `<?php echo $rt[2]; ?>`
+    let week = $("#w_id").val()
+
+    console.log(`Group: ${grp}\nWeek: ${week}\nLedger: ${i}`)
+    $.ajax({
+        type: "get",
+        url: `${base_url}/api/groupAPI.php?payment&grp=${grp}&week=${week}&ledger=${i}`,
+        headers,
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+            let up = ""
+            for(let r of response.payments){
+                up += `<tr>
+                    <td>${r.m_code}</td>
+                    <td><div class="input-field col s12">
+                    <input type="text" oninput="get_mee(this.value, 'id${r.m_id}')" id="amount${r.m_id}" value="${r.t_amount}">
+                    
+                    <input type="hidden" id="id${r.m_id}" value="${r.m_id}"></td>
+                </tr>`;
+                tym.push({m_id:r.m_id, t_amount:r.t_amount, id:`id${r.m_id}`, m_id:r.m_id})
+            }
+            $("#membs").html(up);
+        }
+    });
+}
+
+const get_mee = (x, y) =>{
+    for (var i in tym) {
+     if (tym[i].id == y) {
+        tym[i].t_amount = x;
+        break; //Stop this loop, we found it!
+     }
+   }
+    // let man = tym.filter(k=>{
+    //     console.log(k.id)
+    //     if(k.id == y){
+    //         k.t_amount = x
+    //     }
+    // })
+
+    // console.log(man)
+}
+
+
 </script>

@@ -43,16 +43,11 @@
     let em = localStorage.getItem("mail")
     let st = window.location.pathname;
     if(ses=='' || ses==null){
-        $('#nav').css({display:"none"});    
-        
-        // if()    
+        $('#nav').css({display:"none"});
     }
     if(em=='' || em==null && st != '/login'){
           window.location = "/login";
     }
-    // if((st!='/login' || st !="/otp") && (ses=='' || ses==null)){
-    //   window.location = '/login';
-    // }
-
     
 </script>
+

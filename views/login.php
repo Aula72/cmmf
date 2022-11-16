@@ -1,7 +1,10 @@
 <div class="valign-wrapper center-align">
   <div class="row">
-      <img class="responsive-img" src="assets/img/login.png">
-      <form class="col s12" id="login">
+      <!-- <div class="col l6 push-l5"> -->
+          <img class="responsive-img " src="assets/img/login.png">
+      <!-- </div> -->
+      <!-- <div class="col l6 pull-l5"> -->
+      <form class="col s12 " id="login">
         
         <div class="row">
           
@@ -11,10 +14,12 @@
             <label for="icon_prefix">Enter Email...</label>
           </div>
           <!-- </div> -->
+          <br>
           <button class="waves-effect waves-light btn green">Login...</button>
         </div>
         
       </form>
+<!-- </div> -->
       </div>
 </div>
 
