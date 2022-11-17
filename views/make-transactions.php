@@ -65,6 +65,45 @@ $code = "TRS".time()."CMMF";
     let msgg = true;
         
     
+const change_ledge = (i) =>{
+    let grp = `<?php echo $rt[2]; ?>`
+    let week = $("#w_id").val()
+
+    // console.log(`Group: ${grp}\nWeek: ${week}\nLedger: ${i}`)
+    $.ajax({
+        type: "get",
+        url: `${base_url}/api/groupAPI.php?payment&grp=${grp}&week=${week}&ledger=${i}`,
+        headers,
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+            let up = ""
+            let iom = ""
+            for(var r of response.payments){
+                console.log(r)
+                up += `<tr>
+                    <td>${r.m_code}</td>
+                    <td><div class="input-field col s12">
+                    <input type="text" oninput="get_mee(this.value, 'id${r.m_id}')" id="amount${r.m_id}" value="${r.t_amount}">
+                    
+                    <input type="hidden" id="id${r.m_id}" value="${r.m_id}"></td>
+                </tr>`;
+                tym.push({m_id:r.m_id, t_amount:r.t_amount, id:`id${r.m_id}`, m_code:r.m_code})
+            }
+            
+            $("#membs").html(up);
+        }
+    });
+}
+
+const get_mee = (x, y) =>{
+    for (var i in tym) {
+     if (tym[i].id == y) {
+        tym[i].t_amount = x;
+        break; //Stop this loop, we found it!
+     }
+   }
+}
     $("#addTransaction").submit(e=>{
         e.preventDefault();
         console.log(tym)
@@ -107,42 +146,6 @@ $code = "TRS".time()."CMMF";
 
 
 
-const change_ledge = (i) =>{
-    let grp = `<?php echo $rt[2]; ?>`
-    let week = $("#w_id").val()
-
-    // console.log(`Group: ${grp}\nWeek: ${week}\nLedger: ${i}`)
-    $.ajax({
-        type: "get",
-        url: `${base_url}/api/groupAPI.php?payment&grp=${grp}&week=${week}&ledger=${i}`,
-        headers,
-        dataType: "json",
-        success: function (response) {
-            console.log(response)
-            let up = ""
-            for(let r of response.payments){
-                up += `<tr>
-                    <td>${r.m_code}</td>
-                    <td><div class="input-field col s12">
-                    <input type="text" oninput="get_mee(this.value, 'id${r.m_id}')" id="amount${r.m_id}" value="${r.t_amount}">
-                    
-                    <input type="hidden" id="id${r.m_id}" value="${r.m_id}"></td>
-                </tr>`;
-                tym.push({m_id:r.m_id, t_amount:r.t_amount, id:`id${r.m_id}`, m_id:r.m_id})
-            }
-            $("#membs").html(up);
-        }
-    });
-}
-
-const get_mee = (x, y) =>{
-    for (var i in tym) {
-     if (tym[i].id == y) {
-        tym[i].t_amount = x;
-        break; //Stop this loop, we found it!
-     }
-   }
-}
 
 
 </script>

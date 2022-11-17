@@ -26,14 +26,14 @@ switch($meth){
             }
             
         }else if(isset($_GET['payment'])){
-            $u = $helper->query("SELECT m_id, m_code, g_id, ifnull((select DISTINCT ifnull(t_amount, 0) from trans_action where trans_action.m_id = m_id  and trans_action.w_id=:w and trans_action.trans_type_id=:t  limit 1), 0) as t_amount  FROM group_member where g_id=:g", [":g"=>$_GET["grp"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
+            $u = $helper->query("SELECT distinct group_member.m_id, group_member.m_code, group_member.g_id, ifnull((select DISTINCT ifnull(trans_action.t_amount, 0) from trans_action where    trans_action.w_id=:w and trans_action.trans_type_id=:t and trans_action.m_id = group_member.m_id limit 1), 0) as t_amount  FROM group_member, trans_action where g_id=:g and trans_action.m_id = group_member.m_id;", [":g"=>$_GET["grp"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
             $msg["payments"] = [];
             foreach($u->fetchAll(\PDO::FETCH_ASSOC) as $row){
                 array_push($msg["payments"], $row);
             }
         }else if(isset($_GET['mem'])){
             // die(json_encode($_GET));
-            $u = $helper->query("SELECT m_id, m_code, g_id, ifnull((select DISTINCT ifnull(t_amount, 0) from trans_action where trans_action.m_id = m_id  and trans_action.w_id=:w and trans_action.trans_type_id=:t  limit 1), 0) as t_amount  FROM group_member where m_id=:g", [":g"=>$_GET["mem"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
+            $u = $helper->query("select ifnull(t_amount, 0) as t_amount from trans_action where m_id = :g  and w_id=:w and trans_type_id=:t limit 1", [":g"=>$_GET["mem"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
             $u = $u->fetch(\PDO::FETCH_ASSOC);
             $msg["payments"] = $u["t_amount"];
         }else{
