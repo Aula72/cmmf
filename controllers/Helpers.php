@@ -198,6 +198,12 @@ class Helper{
 
         mail($mail, $subj, $msg, $headers);
     }
+
+    public function get_relationship($id){
+        $ht = $this->query("select * from kin_relations where r_id=:id", [":id"=>$id]);
+        $ht = $ht->fetch(\PDO::FETCH_ASSOC);
+        return $ht["r_name"];
+    }
 }
 
 // $h = new Helper;

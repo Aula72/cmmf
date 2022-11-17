@@ -119,34 +119,23 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
         </tbody>
       </table>
 </div>
-      <!-- <h5 class="center-align">Next of Kin</h5>
+<div id="lnext">
+      <h5 class="center-align">Next of Kin</h5>
       <table>
         <thead>
           <tr>
               <th>Name</th>
-              <th>Item Name</th>
-              <th>Item Price</th>
+              <th>Relationship</th>
+              <th>Phone</th>
+              
           </tr>
         </thead>
 
-        <tbody>
-          <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-          </tr>
-          <tr>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-          </tr>
-          <tr>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-          </tr>
+        <tbody id="nList">
+          
         </tbody>
-      </table> -->
+      </table>
+</div>
       <div class="fixed-action-btn">
   <a class="btn-floating btn-large green">
     <i class="large material-icons">edit</i>
@@ -160,7 +149,7 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
   </ul>
 <script>
   page_title('loading...');
-  let m_id = localStorage.getItem("m_id");
+  let m_id = "<?php echo $t[2]; ?>";
   $.ajax({
     type: "get",
     url: `${base_url}/api/groupMemberAPI.php?id=${m_id}`,
@@ -233,9 +222,12 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
       for(let b of loan){
         $("#lLoans").append(`<tr onclick="go_to_loan(${b.lo_id})"><td>${b.lo_code}</td><td>${b.lo_amount}</td><td>${b.created_at.substring(0, 10)}</td></tr>`);
       }
-
+      for(let b of k.next_of_kin){
+        $("#nList").append(`<tr onclick="next_of_k(${b.n_id})"><td>${b.full_name}</td><td>${b.relation}</td><td>${b.phone}</td></tr>`);
+      }
       trans.length?$("#trans").show():$("#trans").hide();
       loan.length?$("#loans").show():$("#loans").hide();
+      k.next_of_kin.length?$("#lnext").show():$("#lnext").hide();
     }
   });
 
@@ -243,6 +235,19 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
     window.location = `/loans/${i}`
   }
 
+  const next_of_k =(i)=>{
+    $.ajax({
+      type: "get",
+      url: `${base_url}/api/nextOfKinAPI.php?id=${i}`,
+      headers,
+      dataType: "json",
+      success: function (response) {
+        console.log(response)
+        let n = response.kin;
+        alert(`----Next of Kin Details-----\nFull Name:  ${n.full_name}\nDate of Birth:   ${n.dob}\nPhone:   ${n.phone}\nRelationship:  ${n.relation}\nLocation:   ${n.location}`)
+      }
+    });
+  }
   const trans_detail =(id) =>{
         $.ajax({
             type: "get",

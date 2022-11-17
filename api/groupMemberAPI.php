@@ -18,7 +18,13 @@ switch($meth){
                 $nxt = $helper->query("select * from next_of_kin where m_id=:id",[':id'=>$id]);
                 $msg["next_of_kin"] = [];
                 foreach($nxt->fetchAll(\PDO::FETCH_ASSOC) as $row){
-                    array_push($msg['next_of_kin'], $row);
+                    array_push($msg['next_of_kin'], Array(
+                        "n_id"=>$row["n_id"],
+                        "m_id"=>$row["m_id"],
+                        "full_name"=>$row["n_fname"]." ".$row["n_lname"],
+                        "phone"=>$row["n_phone"],
+                        "relation"=>$helper->get_relationship($row["n_relation"])
+                    ));
                 }
                 //loans 
                 $loan = $helper->query("select * from loans where m_id=:id", [':id'=>$id]);
