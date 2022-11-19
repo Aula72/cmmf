@@ -56,6 +56,14 @@ switch($meth){
         }
         break;
     case 'POST':
+        // $year  = $help->query("select * from finanial_year order by y_id desc limit 1");
+        // $m = $mem->fetch(\PDO::FETCH_ASSOC);
+        // $y = $year->fetch(\PDO::FETCH_ASSOC);
+
+        // $u = $y["name"]>10?$y["name"]:"0".$y["name"];
+        // // $code = "LN".$code.date("mY");
+        // $oi = $help->get_last_id("lo_id","loans")+1;
+        // $lo_code = $m["g_code"].$u.$io;
         $lo_code = $data["code"];
         $lo_rate = $data["rate"];
         $lo_expiry = $data["expiry"];

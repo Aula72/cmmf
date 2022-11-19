@@ -50,7 +50,28 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 	// 	}
 	
 	// }
-	
+
+	const number_with_zeros = (i, x) =>{
+		var p = 10**x - i
+		var ol = p.toString().length - i.toString().length
+		if(ol>0){
+			
+			var r = ""
+			for(var u=0; u<ol; u++){
+				r += "0"
+			}
+			r += i
+			return r;
+		}else{
+			return i;
+		}
+
+	}
+	// console.log(number_with_zeros(2, 3))
+	// console.log(number_with_zeros(999, 3))
+	// console.log(number_with_zeros(1000, 3))
+	// console.log(number_with_zeros(100, 3))
+	// console.log(number_with_zeros(99, 3))
 </script>
 <style>
 	#toast-container {

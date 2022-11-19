@@ -18,6 +18,8 @@
 </div>
 <script>
     page_title('Admin');
+    let bn = user_mail!="kibirigetwaha123@gmail.com"
+    
     const get_admins =() =>{
         $.ajax({
             type: "GET",
@@ -29,7 +31,7 @@
                 // alert(user_mail)
                 let x  = ''
                 for(let m of response.admin){
-                    x +=`<tr class='${m.status==1?"":"red"}' onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'><td>${m.lname} ${m.fname}</td><td>${m.mail}</td></tr>`;9
+                    x +=`<tr class='${m.status==1?"":"red"}' ><td>${m.lname} ${m.fname}</td><td>${m.mail}</td><td ${bn?this.visibility='visible':this.visibility='hidden'}><a href="/admin/${m.user_id}/edit"><i class="small material-icons green-text">edit</i></a></td><td ${bn?this.visibility='visible':this.visibility='hidden'}><i class="small material-icons blue-text" onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'>manage_accounts</i></td></tr>`;
                 }
                 $("#adminList").html(x)
             }
@@ -45,8 +47,7 @@
     // }
     get_admins();
     const change_status = (id, ma, s) =>{
-        // alert(user_mail)
-        if(user_mail=="kibirigetwaha123@gmail.com"){
+        
         let  msg = `Activate ${ma}'s account`
         if(id!=1){
             if(s==1){
@@ -73,7 +74,7 @@
     });
         }
         }
-    }
+    
     }
 
     // const cpp =(a, b, c)=> {
@@ -84,5 +85,10 @@
     //     }
     // }
 
-    user_mail=="kibirigetwaha123@gmail.com"?$("#admin").show():$("#admin").hide();
+    if(bn){
+        $("#admin").show()
+    }
+    else{
+        $("#admin").hide();
+    }
 </script>

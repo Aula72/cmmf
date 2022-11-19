@@ -37,18 +37,51 @@ switch($meth){
         }
         break;
     case 'POST':
-        $mail = $data["mail"];
-        $fname = $data["fname"];
+        
+        $data = json_decode(file_get_contents("php://input"), true);
+
         $lname = $data["lname"];
-        $status = 0;
-        $helper->required_fields([$mail, $fname, $lname]);
-        $helper->get_token();
-        $user = $helper->query("insert into $tb_name set mail=:mail, fname=:fname, lname=:lname, status=:status",[":mail"=>$mail, ":fname"=>$fname, ":lname"=>$lname, ":status"=>$status]);
-        if($user){
+        $fname = $data["fname"];
+        $mail = $data["mail"];
+        $status = 2;
+        $helper->required_fields([$mail, $fname, $lname, $status]);
+        $check = $helper->query("select * from user where mail=:mail",[":mail"=>$mail]);
+        // die(json_encode(["num"=>$check->rowCount()]));
+        if($data["edit_user"]){
+            // die(json_encode(["update"=>$data]));
+            $status = $data["status"];
             $msg["status"] = 1;
-            $msg["message"] = "User was added successfully...";
+            $mu = $helper->query("update  user set fname=:fname, lname=:lname, mail=:mail, status=:status where user_id=:id",[":fname"=>$fname, ":lname"=>$lname, ":mail"=>$mail, ':status'=>$status, ":id"=>$data["edit_user"]]);
+            $msg["message"] = "Account updated successfully";
+        }else{
+            
+            if($check->rowCount()>0){
+                // die(json_encode(["num"=>$check->rowCount()]));
+                $msg["status"] = 0;
+                $msg["message"] = "Account already exists";
+            }else{
+                
+                // die(json_encode(["create"=>$data]));
+                $ty = $helper->query("insert into  user set 
+                        fname=:fname, 
+                        lname=:lname, 
+                        mail=:mail, 
+                        status=:status",
+                    [
+                        ":fname"=>$fname, 
+                        ":lname"=>$lname, 
+                        ":mail"=>$mail, 
+                        ":status"=>$status
+                    ]);
+                // $helper->query("insert into $tb_name set fname=:f, lname=:ln, mail=:m, `status`=:s",[":f"=>$fname, ":ln"=>$lname, ":m"=>$mail, ":s"=>$status]);
+                // die(json_encode(["simon"=>$ty]));
+                
+                $msg["status"] = 1;
+                $msg["message"] = "Account created successfully";
+               
+                
+            }
         }
-        break;
     case 'PUT':
         $id = $_GET["id"];
         $mail = $data["mail"];

@@ -138,10 +138,10 @@ $t = explode("/",$_SERVER['REQUEST_URI']);
 </div>
       <div class="fixed-action-btn">
   <a class="btn-floating btn-large green">
-    <i class="large material-icons">edit</i>
+    <i class="large material-icons">more</i>
   </a>
   <ul>
-    
+  <li><a class="btn-floating black" href="/members/<?php echo $t[2]; ?>/edit"><i class="material-icons">edit</i></a></li>
     <li><a class="btn-floating red" href="/members/<?php echo $t[2]; ?>/add-transaction"><i class="material-icons">payments</i></a></li>
     <li><a class="btn-floating yellow darken-1"><i class="material-icons">credit_score</i></a></li>
     <li><a class="btn-floating purple" href="/members/<?php echo $t[2]; ?>/add-next-of-kin"><i class="material-icons">diversity_1</i></a></li>

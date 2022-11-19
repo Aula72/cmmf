@@ -204,7 +204,20 @@ class Helper{
         $ht = $ht->fetch(\PDO::FETCH_ASSOC);
         return $ht["r_name"];
     }
+
+    public function get_financial_year($id){
+        $ht = $this->query("select * from finanial_year where y_id=:id", [":id"=>$id]);
+        $ht = $ht->fetch(\PDO::FETCH_ASSOC);
+        return $ht["name"];
+    }
+
+    // public function number_with_zeros($num, $len){
+    //     $i = 10**$len;
+    //     $i = $i - $num;
+    //     $i = strval($i);
+
+    //     return $i.length;
+    // }
 }
 
-// $h = new Helper;
-// echo json_encode(["err"=>$h->sum_bal_type(4, 4)]);
+

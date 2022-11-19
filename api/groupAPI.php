@@ -45,34 +45,39 @@ switch($meth){
         }
         break;
     case 'POST':
-        $code = $helper->get_last_id('g_id', $tb_name)+1;
-        $code = $data["code"];
-        $name = $data["name"];
-        $user = $helper->get_token()["user_id"];
-        $loc = $data["location"];
-
-        $group = $helper->query("insert into $tb_name set g_code=:code, g_name=:name, g_location=:location, user_id=:user",[":code"=>$code,":name"=>$name,":location"=>$loc,':user'=>$user]);
-        if($group){
-            $msg["status"]=1;
-            $msg["message"] = "Group $code was created successfully";
+        if($_GET["id"]){
+            $name = $data["name"];
+            $helper->get_token();
+            $loc = $data["location"];
+            $code = $_GET['id'];
+            $group = $helper->query("update $tb_name set  g_name=:name, g_location=:location where g_code=:code",[":code"=>$code,":name"=>$name,":location"=>$loc]);
+            if($group){
+                $msg["status"]=1;
+                $msg["message"] = "Group was update successfully";
+            }else{
+                $msg["status"]=0;
+                $msg["message"] = "Operation failed";
+            }
         }else{
-            $msg["status"]=0;
-            $msg["message"] = "Operation failed";
+            $code = $helper->get_last_id('g_id', $tb_name)+1;
+            $code = $data["code"];
+            $name = $data["name"];
+            $user = $helper->get_token()["user_id"];
+            $loc = $data["location"];
+
+            $group = $helper->query("insert into $tb_name set g_code=:code, g_name=:name, g_location=:location, user_id=:user",[":code"=>$code,":name"=>$name,":location"=>$loc,':user'=>$user]);
+            if($group){
+                $msg["status"]=1;
+                $msg["message"] = "Group $code was created successfully";
+            }else{
+                $msg["status"]=0;
+                $msg["message"] = "Operation failed";
+            }
         }
+        
         break;
     case 'PUT':
-        $name = $data["name"];
-        $helper->get_token();
-        $loc = $data["location"];
-        $code = $_GET['id'];
-        $group = $helper->query("update $tb_name set  g_name=:name, g_location=:location where g_code=:code",[":code"=>$code,":name"=>$name,":location"=>$loc]);
-        if($group){
-            $msg["status"]=1;
-            $msg["message"] = "Group was update successfully";
-        }else{
-            $msg["status"]=0;
-            $msg["message"] = "Operation failed";
-        }
+        
         break;
     case 'DELETE':
 

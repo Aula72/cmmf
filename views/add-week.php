@@ -3,6 +3,7 @@ $code = $help->get_last_id('w_id','weeks')+1;
 $code = "W".$code;
 
 $grp = $help->query("select * from grouping");
+$year = $help->query("select * from finanial_year order by y_id desc");
 ?>
 <div class="row">
 <h4 class="center-align">Add Week</h4>
@@ -10,6 +11,17 @@ $grp = $help->query("select * from grouping");
 		    <div class="input-field col s12">
           <input id="code" type="text" value="" class="validate">
           <label for="code">Code</label>
+        </div>
+        <div class="input-field col s12 browser-default">
+          <select id="year" name="g_id" class="validate">
+          <option value="" disabled selected>Choose your option</option>
+          <?php 
+            foreach($year->fetchAll() as $row){
+              echo "<option value=".$row['y_id'].">".$row["name"]."</option>";
+            }
+          ?>
+		      </select>
+		    <label>Financial Year</label>
         </div>
         <div class="input-field col s12 browser-default">
           <select id="g_id" name="g_id" class="validate">
@@ -47,6 +59,7 @@ $grp = $help->query("select * from grouping");
         group: $("#g_id").val(),
         code: $("#code").val(),
         dat: $('#w_date').val(),
+        year: $("#year").val()
       }),    
       headers:headers,
       dataType: "json",

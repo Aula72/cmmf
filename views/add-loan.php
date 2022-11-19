@@ -1,7 +1,15 @@
 <?php 
 $mem  = $help->query("select * from grouping");
+$year  = $help->query("select * from finanial_year order by y_id desc limit 1");
+// $m = $mem->fetch(\PDO::FETCH_ASSOC);
+$y = $year->fetch(\PDO::FETCH_ASSOC);
 
-$code = "LN".$code.date("mY");
+$u = $y["name"]>10?$y["name"]:"0".$y["name"];
+// $code = "LN".$code.date("mY");
+$oi = $help->get_last_id("lo_id","loans")+1;
+// $code = $m["g_code"].$u.$io;
+
+// $g = $help->number_with_zeros(3, 4);
 ?>
 <div class="row">
 <h4 class="center-align">Add New Loan</h4>
@@ -39,7 +47,7 @@ $code = "LN".$code.date("mY");
           <label for="amount">Amount</label>
         </div>
         <div class="input-field col s12 browser-default">
-          <input type="text" max-length="2" value="<?php echo $code; ?>" id="code" disabled>
+          <input type="text"  value="" id="code" disabled>
           <label for="code">Code</label>
         </div>
         <div class="input-field col s12 browser-default">
@@ -57,6 +65,9 @@ $code = "LN".$code.date("mY");
 
 <script>
   page_title('New Loan');
+  let loan_code = "";
+  let u = "<?php echo $u; ?>"
+  let inc = "<?php echo $oi; ?>"
   const member1 = (i) =>{
       $.ajax({
         type: "get",
@@ -98,13 +109,16 @@ $code = "LN".$code.date("mY");
     });
 
     const group1 =(i) =>{
+      // console.log(ty)
       $.ajax({
         type: "get",
         url: `${base_url}/api/groupAPI.php?id=${i}`,
         headers,
         dataType: "json",
         success: function (response) {
-          // console.log(response)
+          console.log(response)
+          loan_code = `${response.group.g_code}-${u}-${number_with_zeros(inc, 3)}`;
+          $("#code").val(loan_code);
           let x = "<option>Select Member</option>"
           for(let m of response.members){
             x+=`<option value="${m.m_id}">${m.m_code}</option>`
