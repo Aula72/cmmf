@@ -1,13 +1,14 @@
 <?php 
 $t = explode("/", $_SERVER["REQUEST_URI"]);
 $m = isset($t[2])?"Edit User":"Add New User";
-$user = $help->query("select * from user where user_id=:id", [":id"=>$t[2]]);
-$user = $user->fetch(\PDO::FETCH_ASSOC);
+
 if(isset($t[2])){
-  $fname = $user["fname"];
-  $lname = $user["lname"];
-  $mail = $user["mail"];
-  $status = $user["status"];
+  $user4 = $help->query("select * from user where user_id=:id", [":id"=>$t[2]]);
+  $user4 = $user4->fetch(\PDO::FETCH_ASSOC);
+  $fname = $user4["fname"];
+  $lname = $user4["lname"];
+  $mail = $user4["mail"];
+  $status = $user4["status"];
 }else{
   $fname = null;
   $lname = null;
@@ -65,14 +66,15 @@ if(isset($t[2])){
             headers:headers,
             dataType: "json",
             success: function (response) {
-                if(response.status){
-                    Materialize.toast(response.message, xtime)
+                // if(response.status){
+                    toast('Operation was successful...', xtime)
                     setInterval(() => {
                         window.location = "/admin";
                     }, xtime);
-                }else{
-                    Materialize.toast(response.error, xtime)
-                }
+                // }else{
+                //     Materialize.toast(response.error, xtime)
+                // }
+
             }
         });
     })
