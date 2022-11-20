@@ -134,7 +134,7 @@ switch($meth){
             $m_gender=$data["gender"];
             $m_dob = $data["dob"];
             // die(json_encode($data));
-            $helper->required_fields([$m_nin, $m_code, $g_id, $m_fname,$m_lname, $m_phone, $m_dob]);
+            $helper->required_fields([$m_nin, $m_code, $g_id, $m_fname,$m_lname, $m_phone, $m_dob, $m_gender]);
             $h = $helper->query("insert into $tb_name set m_code=:code, g_id=:grp, user_id=:user, m_fname=:fname, m_lname=:lname,m_phone=:phone, m_nin=:nin,m_gender=:gender,	m_dob=:dob",[
                 ":code"=>$m_code,
                 ":grp"=>$g_id,
