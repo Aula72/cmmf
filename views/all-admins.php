@@ -18,7 +18,7 @@
 </div>
 <script>
     page_title('Admin');
-    let bn = user_mail!="kibirigetwaha123@gmail.com"
+    let bn = user_mail=="kibirigetwaha123@gmail.com"
     
     const get_admins =() =>{
         $.ajax({
