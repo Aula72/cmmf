@@ -6,6 +6,7 @@ $meth = $_SERVER['REQUEST_METHOD'];
 
 $data = json_decode(file_get_contents("php://input"), true);
 $tb_name = 'grouping';
+$helper->get_token();
 switch($meth){
     case 'GET':
         if(isset($_GET['id'])){

@@ -29,7 +29,7 @@
     $.ajax({
         type: "get",
         url: `${base_url}/api/groupAPI.php`,
-        header:headers,
+        headers,
         dataType: "json",
         success: function (response) {
             // console.log(response)

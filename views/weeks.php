@@ -28,8 +28,14 @@
 </div>
 <script>
     page_title('Weeks');
-    $.get(`${base_url}/api/weekAPI.php`,(data, status)=>{
-        let w = data;
+    $.ajax({
+      type: "get",
+      url: `${base_url}/api/weekAPI.php`,
+      headers,
+      dataType: "json",
+      success: function (response) {
+        let w = response;
+        console.log(w)
         let row = '';
         if(w.weeks.length){
         for(var x of w.weeks){
@@ -41,16 +47,20 @@
            
           </tr>`;
         }
-        $('#list_weeks').html(row);
-      }else{
-        let p = confirm("No weeks yet, to added first week first add group")
-        if(p){
-          window.location = "/add-week";
+           $('#list_weeks').html(row);
         }else{
-          window.history.go(-1)
+          let p = confirm("No weeks yet, to added first week first add group")
+          if(p){
+            window.location = "/add-week";
+          }else{
+            window.history.go(-1)
+          }
         }
       }
     });
+    // $.get(`${base_url}/api/weekAPI.php`,(data, status)=>{
+        
+    // });
 
     const week = (id) =>{
         alert(id);

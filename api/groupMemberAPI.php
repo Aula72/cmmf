@@ -5,7 +5,7 @@ $helper = new \Cmmf\Helper;
 $meth = $_SERVER['REQUEST_METHOD'];
 $tb_name = 'group_member';
 $data = json_decode(file_get_contents("php://input"), true);
-
+$helper->get_token();
 switch($meth){
     case 'GET':
         if(isset($_GET['id'])){

@@ -5,6 +5,7 @@ $helper = new \Cmmf\Helper;
 $meth = $_SERVER['REQUEST_METHOD'];
 $tb_name = 'guaranter';
 $data = json_decode(file_get_contents("php://input"), true);
+$helper->get_token();
 
 switch($meth){
     case 'GET':
