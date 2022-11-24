@@ -21,35 +21,20 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 		document.title = `${title} > CMMF`;
 	}
 
-	const print_now = () =>{
+	const print_now = (prt='') =>{
 		$('a.btn-floating').css({display:'none'})
-		$('#nav').css({display:'none'})
-		
+		$('#nav').css({display:'none'});
+		$("#ghead").append(`<p style="text-align:center; ">${prt}</p>`)
+		$("#ghead").show();
 		window.print();
+		$("#ghead").hide();
 		$('a.btn-floating').css({display:'inline-block'})
 		$('#nav').css({display:'inline-block'})
 	}
-	//page load progress
-	// let size = file.getSize() //size of file
-	// const track_load_progress = () =>{
-	// 	let loaded = file.getLoaded();
-	// 	let p = parseInt(loaded/size)
-	// 	$("#loader").css({display:"inline-block"})
-	// 	if(p==100){
-	// 		$("#loader").css({display:"none"})
-	// 		setTimeout("track_load_progress()", 20);
-	// 	}
-	// }
-	// track_load_progress();
+	
 	let nm = new Intl.NumberFormat("en-US")
 
-	// let h = localStorage.getItem("otp")
-	// if(window.location!="/otp"){
-	// 	if(h){
-	// 		// window.location = "/otp"
-	// 	}
 	
-	// }
 
 	const number_with_zeros = (i, x) =>{
 		var p = 10**x - i
@@ -67,11 +52,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 		}
 
 	}
-	// console.log(number_with_zeros(2, 3))
-	// console.log(number_with_zeros(999, 3))
-	// console.log(number_with_zeros(1000, 3))
-	// console.log(number_with_zeros(100, 3))
-	// console.log(number_with_zeros(99, 3))
+	
 </script>
 <style>
 	#toast-container {

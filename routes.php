@@ -1,7 +1,7 @@
 <?php 
 include_once 'views/incs/head.php';
 include_once 'views/incs/nav.php'; 
-
+include_once 'views/incs/print_head.php';
 
 $po = explode('/', $_SERVER['REQUEST_URI']);
 $r->set_route(['/', "views/index.php",'GET']);

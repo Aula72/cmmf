@@ -3,8 +3,12 @@ $mem  = $help->query("select * from grouping");
 
 $code = "LN".$code.date("mY");
 ?>
-
-<div class="row">
+<style type="text/css" media="print">
+  @page { 
+    size: landscape; 
+    }
+</style>
+<div class="row" id="trow">
         <h4 class="center-align" id="gcode"></h4>
         <div class="input-field center-align col s8">
           <select  id="g_id" name="m_id" >
@@ -18,7 +22,7 @@ $code = "LN".$code.date("mY");
           <label for="name">Group Details</label>
         </div>
         <div class="input-field center-align col s2">
-            <button class="btn btn-small green" onclick="print_now()">Print</button>
+            <button class="btn btn-small green" onclick="print_report()">Print</button>
         </div>
 </div>
 
@@ -30,8 +34,8 @@ $code = "LN".$code.date("mY");
                 <th>Savings</th>
                 <th>Social Fund</th>
                 <th>Fine</th>
-                <th>Education In</th>
-                <th>Education Out</th>
+                <th>Edn. In</th>
+                <th>Edn. Out</th>
                 <th>Subsciption</th>
                 <th>Repayment</th>
                 <th>Loan Out</th>
@@ -48,7 +52,7 @@ $code = "LN".$code.date("mY");
 </div>
 
 <div class="fixed-action-btn">
-  <a class="btn-floating btn-large green" onclick="print_now()">
+  <a class="btn-floating btn-large green" onclick="print_report()">
     <i class="large material-icons">print</i>
   </a>
 </div>
@@ -90,6 +94,13 @@ $code = "LN".$code.date("mY");
         });
         $("#groups").show();
     })
+
+
+    const print_report =()=>{
+        $("#trow").hide();
+        print_now();
+        $("#trow").show();
+    }
 </script>
 
 <style>
