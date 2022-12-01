@@ -218,6 +218,9 @@ class Helper{
 
     //     return $i.length;
     // }
+    public function create_log($u_id, $u_statement){
+        $this->query("insert into user_logs set user_id=:id, lo_statement=:statement", [":id"=>$u_id,":statement"=>$u_statement]);
+    }
 }
 
 

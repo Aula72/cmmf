@@ -53,6 +53,7 @@ switch($meth){
                 $helper->query("insert into finanial_year set name=:na", [":na"=>$_GET["year"]]);
                 $msg["message"] = "Financial Year Added Successfully";
                 $msg["status"] =1;
+                $helper->create_log($helper->get_token()["user_id"], "Added year, {$_GET["year"]}");
             }else{
                 $msg["message"] = "Please enter number";
                 $msg["status"] =0;
@@ -70,6 +71,8 @@ switch($meth){
             if($weeks){
                 $msg["status"]=1;
                 $msg["message"] = "Week $code was created successfully";
+                $helper->create_log($helper->get_token()["user_id"], "Created week,  $code.");
+
             }else{
                 $msg["status"]=0;
                 $msg["message"] = "Operation failed";

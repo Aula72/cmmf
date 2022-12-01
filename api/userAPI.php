@@ -27,6 +27,7 @@ switch($meth){
                 $msg["status"]=1;
                 $msg["message"] = $lo==1?"User activated successfully...":"User deactivated successfully";
                 $helper->query("update $tb_name set status=:ns where user_id=:us",[":ns"=>$lo, ':us'=>$id]);
+                $helper->create_log($helper->get_token()["user_id"], "User {$l['fname']} {$l['lname']} {$msg['message']}");
             }
         }else{
             $user = $helper->query("select * from $tb_name");
@@ -53,6 +54,7 @@ switch($meth){
             $msg["status"] = 1;
             $mu = $helper->query("update  user set fname=:fname, lname=:lname, mail=:mail, status=:status where user_id=:id",[":fname"=>$fname, ":lname"=>$lname, ":mail"=>$mail, ':status'=>$status, ":id"=>$data["edit_user"]]);
             $msg["message"] = "Account updated successfully";
+            
         }else{
             
             if($check->rowCount()>0){
@@ -78,7 +80,7 @@ switch($meth){
                 
                 $msg["status"] = 1;
                 $msg["message"] = "Account created successfully";
-               
+                $helper->create_log($helper->get_token()["user_id"], "User Added {$fname} {$lname} {$mail}");
                 
             }
         }
@@ -94,6 +96,7 @@ switch($meth){
         if($user){
             $msg["status"] = 1;
             $msg["message"] = "User was updated successfully...";
+            $helper->create_log($helper->get_token()["user_id"], "User Updated {$fname} {$lname} {$mail}");
         }
         break;
     case 'DELETE':

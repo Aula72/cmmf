@@ -55,6 +55,7 @@ switch($meth){
             if($group){
                 $msg["status"]=1;
                 $msg["message"] = "Group was update successfully";
+                $helper->create_log($helper->get_token()["user_id"], "Group {$code} updated");
             }else{
                 $msg["status"]=0;
                 $msg["message"] = "Operation failed";
@@ -70,6 +71,7 @@ switch($meth){
             if($group){
                 $msg["status"]=1;
                 $msg["message"] = "Group $code was created successfully";
+                $helper->create_log($helper->get_token()["user_id"], "Group {$code} added");
             }else{
                 $msg["status"]=0;
                 $msg["message"] = "Operation failed";

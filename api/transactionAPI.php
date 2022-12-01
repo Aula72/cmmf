@@ -20,7 +20,8 @@ switch($meth){
         $user_id = $helper->get_token()["user_id"];	
         $m_id = $data["member"];
         $trans_type_id = $data["trans_type"];
-        $t_code = $data["code"];
+        // $t_code = $data["code"];
+        $t_code = "TRS".time()."CMMF";
         $t_amount = $data["amount"];
         $t_desc = $data["comment"];	
         $w_id = $data['week'];
@@ -52,6 +53,7 @@ switch($meth){
                 }
                 
             }
+            $helper->create_log($helper->get_token()["user_id"], "Transaction {$t_code} amnt {$t_amount} made");
         }else{
             $msg["status"]= 1;
             $msg["message"] = "TRXN $t_code was not processed, amount was insufficient...";

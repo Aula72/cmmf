@@ -30,6 +30,7 @@ if($check->rowCount()>0){
 		}else{
 			$help->query("insert into otp set otp=:otp, user_id=:user, expiry=DATE_ADD(NOW(), INTERVAL 1 DAY)",[":otp"=>$otp,":user"=>$user["user_id"]]);
 		}
+		$help->create_log($user["user_id"], "Token sent");
 	}else{
 		$msg["status"] = 0;
 		$msg["message"] = "Sorry account is not active, please contact general admin to help on this issue";

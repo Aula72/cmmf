@@ -39,6 +39,7 @@ switch($meth){
             }
             // $msg["message"]  = $due;
             // if(intval())
+            $helper->create_log($user_id, "Loan {$loan['lo_code']} amt {$amount} paid by {$user_id}");
         }
         break;
     case 'PUT':
