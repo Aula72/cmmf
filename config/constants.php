@@ -5,7 +5,7 @@ if($_SERVER['HTTP_HOST']=='cmmf.fueless.co.ug'){
     define("DBHOST","localhost");
     define("DBUSER","twaha_adin");
     define("DBPASS","B9?({a,^}*5v");
-    define("DBNAME","cmmf");  
+    define("DBNAME","new_cmmf");  
     define("MAIL_PSW", "LjgbNC2R}DiV");
     define("OTP_MAIL", "otp@cmmf.fueless.co.ug");
 }else{
