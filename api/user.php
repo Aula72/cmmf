@@ -20,6 +20,8 @@ $members = $help->query("select * from group_member order by m_id desc limit {$c
 $trans = $help->query("select * from trans_action order by t_id desc limit {$cn}");
 $logs = $help->query("select * from user_logs order by log_id desc limit {$cn}");
 
+$t = $help->query("select * from group_member order by m_id");
+
 //docs
 
 $u["logs"] = [];
@@ -81,8 +83,20 @@ foreach($loans->fetchAll(\PDO::FETCH_ASSOC) as $row){
 	array_push($u["loans"], $row);
 }
 
+// $u["s"] =[];
+// die(json_encode($t->fetchAll(\PDO::FETCH_ASSOC)));
+// foreach($t->fetchAll(\PDO::FETCH_ASSOC) as $row){
+// 	array_push($u["loans"], $row);
+	
+// 	$help->loanable_member($row["m_id"], 1);
+// }
+
+
+
 if(isset($_GET["type"])){
 	echo json_encode($u[$_GET['type']]?[$_GET['type']=>$u[$_GET['type']]]:["message"=>"{$_GET['type']} Is not availed option, available options are tokens, users, opts, trans, loans, weeks, members, groups"]);
 }else{
 	echo json_encode($u);
 }
+
+

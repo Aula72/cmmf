@@ -47,23 +47,35 @@ switch($meth){
                     ]);
                 }
                 $msg["group_code"] = $helper->group_code($msg["member"]["g_id"]);
-                $msg["balance"] = number_format($helper->account_balance($id));
-                $msg["savings"] = number_format($helper->sum_bal_type($id, 4));
-                $msg["social_fund"] = number_format($helper->sum_bal_type($id, 5));
-                $msg["fines"] = number_format($helper->sum_bal_type($id, 6));
-                $msg["education_in"] = number_format($helper->sum_bal_type($id, 7));
-                $msg["education_out"] = number_format($helper->sum_bal_type($id, 8));
-                $msg["subscription"] = number_format($helper->sum_bal_type($id, 9));
-                $msg["repayment"] = number_format($helper->sum_bal_type($id, 10));
-                $msg["loan_out"] = number_format($helper->sum_bal_type($id, 11));
-                $msg["loan_charge"] = number_format($helper->sum_bal_type($id, 12));
-                $msg["loan_forms"] = number_format($helper->sum_bal_type($id, 13));
-                $msg["membership"] = number_format($helper->sum_bal_type($id, 14));
+                $msg["balance"] = $helper->account_balance($id)==null?0:$helper->account_balance($id);
+                $msg["savings"] = $helper->sum_bal_type($id, 4)==null?0:$helper->sum_bal_type($id, 4);
+                $msg["social_fund"] = $helper->sum_bal_type($id, 5)==null?0:$helper->sum_bal_type($id, 5);
+                $msg["fines"] = $helper->sum_bal_type($id, 6)==null?0:$helper->sum_bal_type($id, 6);
+                $msg["education_in"] = $helper->sum_bal_type($id, 7)==null?0:$helper->sum_bal_type($id, 7);
+                $msg["education_out"] = $helper->sum_bal_type($id, 8)==null?0:$helper->sum_bal_type($id, 8);
+                $msg["subscription"] = $helper->sum_bal_type($id, 9)==null?0:$helper->sum_bal_type($id, 9);
+                $msg["repayment"] = $helper->sum_bal_type($id, 10)==null?0:$helper->sum_bal_type($id, 10);
+                $msg["loan_out"] = $helper->sum_bal_type($id, 11)==null?0:$helper->sum_bal_type($id, 11);
+                $msg["loan_charge"] = $helper->sum_bal_type($id, 12)==null?0:$helper->sum_bal_type($id, 12);
+                $msg["loan_forms"] = $helper->sum_bal_type($id, 13)==null?0:$helper->sum_bal_type($id, 13);
+                $msg["membership"] = $helper->sum_bal_type($id, 14)==null?0:$helper->sum_bal_type($id, 14);
                 $msg["ids"] = $id;
                 $transaction = $helper->query("select * from trans_action where m_id=:me", [":me"=>$id]);
                 $msg["transaction"] = [];
                 foreach($transaction->fetchAll(PDO::FETCH_ASSOC) as $row){
                     array_push($msg["transaction"], $row);
+                }
+
+                $history = $helper->query("select * from member_history order by id desc");
+                $msg["history"] = [];
+                foreach($history->fetchAll(PDO::FETCH_ASSOC) as $row){
+                    array_push($msg["history"], [
+                        "id"=>$row["id"],
+                        "user_id"=>$row["user_id"],
+                        "created_at"=>$row["created_at"],
+                        "action"=>$row["action"],
+                        "text"=>json_decode($row["text"])
+                    ]);
                 }
             }else{
                 $msg["member"] = "No such member";
@@ -119,6 +131,16 @@ switch($meth){
             if($h){
                 $msg["message"] = "Member update successfully";
                 $msg["status"] = 1;
+                $rec["code"]=$m_code;
+                $rec["grp"]=$g_id;
+                $rec["id"]=$id;
+                $rec["fname"]=$m_fname;
+                $rec["lname"]=$m_lname;
+                $rec["phone"]=$m_phone;
+                $rec["nin"]=$m_nin;
+                $rec["dob"]=$m_dob;
+             
+                $helper->member_history($id,'EDT', json_encode($rec));
             }else{
                 $msg["message"] = "Updateing member failed";
                 $msg["status"] = 0;
@@ -152,6 +174,20 @@ switch($meth){
                 $msg["message"] = "Member added successfully";
                 $msg["status"] = 1;
                 $helper->create_account($id, $helper->get_token()["user_id"]);
+                $helper->member_history(
+                    $id,'CRT', 
+                    json_encode([
+                        "code"=>$m_code,
+                        "grp"=>$g_id,
+                        "id"=>$helper->get_last_id('m_id', 'group_member'),
+                        "fname"=>$m_fname,
+                        "lname"=>$m_lname,
+                        "phone"=>$m_phone,
+                        "nin"=>$m_nin,
+                        "dob"=>$m_dob
+                    ]));
+
+                $helper->loanable_member($id, 1);
             }else{
                 $msg["message"] = "Adding member failed";
                 $msg["status"] = 0;
@@ -187,6 +223,14 @@ switch($meth){
         if($h){
             $msg["message"] = "Member update successfully";
             $msg["status"] = 1;
+            $helper->member_history($id,'EDT', json_encode(["code"=>$m_code,
+            "grp"=>$g_id,
+            "id"=>$id,
+            "fname"=>$m_fname,
+            "lname"=>$m_lname,
+            "phone"=>$m_phone,
+            "nin"=>$m_nin,
+            "dob"=>$m_dob]));
         }else{
             $msg["message"] = "Updateing member failed";
             $msg["status"] = 0;
@@ -199,5 +243,5 @@ switch($meth){
         die(json_encode(["error"=>"Invalid operation"]));
         break;
     }
-
+$msg["logged"] = $helper->get_token()["logged"];
 echo json_encode($msg);

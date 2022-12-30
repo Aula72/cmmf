@@ -21,6 +21,8 @@ if($check->rowCount()>0){
 		$msg["status"] = 1;
 		$msg["message"] = "Login was successful an OTP was sent to your email address";
 		$msg["otp"] = $otp;
+		$msg["full_name"] = $user["fname"][0].". ".$user["lname"];
+		$msg["long_name"] = $user["fname"]." ".$user["lname"];
 		// mail(OTP_MAIL, $grt, $msg, $headers);
 		$help->mail_send($otp, $uname);
 		$otp = password_hash($otp, PASSWORD_DEFAULT);

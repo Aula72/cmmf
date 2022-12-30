@@ -68,13 +68,17 @@ $code = "TRANS".$code."CMMF";
         dataType: "json",
         success: function (response) {
             // console.log(response)
-            if(response.status){
-                Materialize.toast(response.message, xtime)
-                setTimeout(() => {
-                    window.location  = "/make-transaction"
-                }, xtime);
-            }else{
-                Materialize.toast(response.error, xtime)
+            try{
+              if(response.status){
+                  toast(response.message, xtime)
+                  setTimeout(() => {
+                      window.location  = "/make-transaction"
+                  }, xtime);
+              }else{
+                  toast(response.error, xtime)
+              }
+            }catch(TypeError){
+              logout();
             }
         }
     });

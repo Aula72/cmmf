@@ -4,21 +4,19 @@ $id = $help->get_loan_id($rt[2]);
 $own = $help->get_member($id["m_id"]);
 
 $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
-// var_dump($own);
-// $id = $id?$id:$rt[2];
-// var_dump($help->get_loan_id($rt[2]));
-// echo $id['lo_id'];
-
 ?>
-<h4 class="center-align">Add Guaranter</h4>
 <div class="row">
-	<form class="col s12" id="addGuaranter">
-		<div class="input-field col s12">
-          <input id="name" type="text"  class="validate" value="<?php echo $id['lo_code'];?>" disabled>
-          <label for="name">Loan Number</label>
-        </div>
-        <div class="input-field col s12 browser-default">
-          <select id="member" class="validate" required>
+    <div id="warnings" class="text-center m-3"></div>
+	<form class="" id="addGuaranter">
+		
+
+        <div id="loan-num-div"></div>
+        
+        <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Guaranter</label>
+        <div class="col-sm-10">
+          <select class="form-select rounded-pill" id="member" class="validate" required>
+            <option value="" select>Select Member</option>
             <?php 
                 foreach($help->get_guaranters($id['m_id'], $own["g_id"],$id['lo_amount']) as $row){
                     echo "<option value=".$row['m_id'].">".$help->get_member($row['m_id'])['m_code']."</option>";
@@ -26,16 +24,12 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
             ?>
 		    
         </select>
-        <label>Guaranter</label>
+            </div>
         </div>
-        <input type="hidden" name="" id="loan" value="<?php echo $id["lo_id"];?>">
-        <div class="input-field col s12">
-          <input id="amount" type="number"  class="validate" value="">
-          <label for="name">Amount</label>
-        </div>
-        <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action" id="btns">Add Gauranter
-    <i class="material-icons right">send</i>
+        <div id="loanable"></div>
+        <input type="hidden" name="" id="loan" value="<?php echo $id["lo_id"];?>">        
+        <div id="amnt-div"></div>
+        <div id="btn-div"></div>
   </button>
   </div>
 	</form>
@@ -45,17 +39,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
 <script>
     page_title('Add Guaranter');
     let loan_amount = "<?php echo $bal; ?>"
-    $("#amount").on("input",()=>{
-        console.log(`Loan amount ${loan_amount} enter amount ${$("#amount").val()}`)
-        if(Number(loan_amount)<Number($("#amount").val())){
-            toast(`Required amount: ${loan_amount} is exceeded...`, xtime);
-           
-            $(":submit").attr("disabled", true);
-        }else{
-            $(":submit").removeAttr("disabled");
-        }
-        
-    })
+    
     $("#addGuaranter").submit(e=>{
         e.preventDefault();
         $.ajax({
@@ -70,16 +54,58 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
             dataType:"json",
             success:(response)=>{
                 // console.log(response)
-                if(response.status){
-                    toast(response.message)
-                    setTimeout(() => {
-                        window.location = `/loans/<?php echo $id['lo_code'];?>`;
-                    }, xtime);
-                }else{
-                    toast(response.error)
+                try{
+                    if(response.status){
+                        toast(response.message)
+                        setTimeout(() => {
+                            window.location = `/loans/<?php echo $id['lo_code'];?>`;
+                        }, xtime);
+                    }else{
+                        toast(response.error)
+                    }
+                }catch(TypeError){
+                    logout();
                 }
             }
         })
     })
+    // Input({div:"loan-num-div"})
+    Button({div:"btn-div", type:"submit",btn:'success', label:"Submit", icon:"send"})
+    Input({div:"amnt-div", label:"Amount", type:"number", value:"", id:"amount"})
+    Input({div:"loan-num-div", type:"text",label:"Loan Number", value:"<?php echo $id['lo_code'];?>", dis:"disabled"})
     
+    let loanable = undefined
+    $("#member").on("change", ()=>{
+        // console.log($("#member").val())
+        $.ajax({
+            type: "get",
+            url: `${base_url}/api/groupMemberAPI.php?id=${$("#member").val()}`,
+            headers,
+            dataType: "json",
+            success: function (response) {
+                loanable  = response.balance
+                Input({div:"loanable", type:"text", dis:"disabled", value:loanable, id:"", label:"Net Worth"})
+            }
+        });
+    })
+
+    $("#amount").on("input",()=>{
+        
+        $("#warnings").show();
+        console.log(loanable - Number($("#amount").val()))
+        if(Number(loan_amount)<Number($("#amount").val())){
+            $("#warnings").html(`Required amount: ${loan_amount} is exceeded...`);
+            $(":submit").attr("disabled", true);
+        }else if(Number($("#amount").val())>loanable){
+            $("#warnings").html(`Required amount: ${loanable} is exceeded...`);
+            $(":submit").attr("disabled", true);
+        }else if(Number($("#amount").val())==0){
+            $(":submit").attr("disabled", true);
+            $("#warnings").hide();
+        }else{
+            $("#warnings").html(`Operation can be performed...`);
+            $(":submit").removeAttr("disabled");
+        }
+        
+    })
 </script>

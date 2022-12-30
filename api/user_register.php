@@ -9,8 +9,8 @@ $data = json_decode(file_get_contents("php://input"), true);
 $uname = $data["uname"];
 $mail = $data["mail"];
 $status = 2;
-
-// die(json_encode($data));
+$help->get_token();
+die(json_encode($data));
 // $help->req_method('post');
 
 $check = $help->query("select * from user where uname=:uname or mail=:mail",[":uname"=>$uname, ":mail"=>$mail]);

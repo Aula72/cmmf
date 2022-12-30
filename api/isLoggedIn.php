@@ -25,5 +25,5 @@ switch($meth){
         die(json_encode(["error"=>"Invalid operation"]));
         break;
     }
-
+$msg["logged"] = $helper->get_token()["logged"];
 echo json_encode($msg);

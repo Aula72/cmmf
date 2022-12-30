@@ -1,24 +1,9 @@
 <div class="row">
-    <h4 class="center-align">Add Ledger</h4>
-	<form class="col s12" id="addLedger">
-		<div class="input-field col s12">
-          <input id="name" type="text"  class="validate">
-          <label for="name">Ledger Name</label>
-        </div>
-        <div class="input-field col s12 browser-default">
-          <select id="mult" class="validate" required>
-            <option value="1">Increase</option>
-            <option value="-1">Decrease</option>
-		    
-        </select>
-        <label>Type</label>
-        </div>
-        <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Add Ledger
-    <i class="material-icons right">send</i>
-  </button>
-  </div>
-	</form>
+	<form class="col s12" id="addLedger">		
+        <div id="name-div"></div>
+        <div id="type-div"></div>
+        <div id="btn-div"></div>        
+  	</form>
 </div>
 
 <script>
@@ -35,17 +20,24 @@
             headers:headers,
             dataType: "json",
             success: function (response) {
-                if(response.status==1){
-                    Materialize.toast(response.message,xtime)
-                    setTimeout(() => {
-                        window.location = '/ledgers'
-                    }, xtime);
-                }else{
-                    Materialize.toast(response.error,xtime)
+                try{
+                    if(response.status==1){
+                        toast(response.message)
+                        setTimeout(() => {
+                            window.location = '/ledgers'
+                        }, xtime);
+                    }else{
+                        toast(response.error,'danger')
+                    }
+                }catch(TypeError){
+                    logout();
                 }
             }
         });
     })
     
+    Button({div:"btn-div", label:"Submit", icon:"send", type:"submit", btn:"success"})
+    Input({div:"name-div", label:"Name", id:"name", value:"", type:"text"})
+    Select({div:"type-div", id:"mult",label:"Type", options:[{value:1, title:"Increase"},{value:-1, title:"Decrease"}], })
 </script>
 

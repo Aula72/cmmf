@@ -1,7 +1,5 @@
 <?php 
-include_once 'views/incs/head.php';
-include_once 'views/incs/nav.php'; 
-include_once 'views/incs/print_head.php';
+
 
 $po = explode('/', $_SERVER['REQUEST_URI']);
 $r->set_route(['/', "views/index.php",'GET']);
@@ -36,6 +34,8 @@ $r->set_route(["/groups/{$po[2]}/make-transactions", "views/make-transactions.ph
 $r->set_route(["/loans/{$po[2]}/loan-payment", "views/loan-payment.php", "GET"]);
 $r->set_route(["/verifier/{$po[2]}", "views/from-mail.php", "GET"]);
 $r->set_route(["/reports", "views/reports.php", "GET"]);
+$r->set_route(["/weeks/{$po[2]}/week-transactions","views/week-transaction.php", "GET"]);
+$r->set_route(["/logs", "views/logs.php", "GET"]);
 // $r->set_route(['/members'])
 foreach($r->get_routes() as $route){ 
     
@@ -53,4 +53,4 @@ foreach($r->get_routes() as $route){
     }
 }
 require_once "views/404.php";
-// require_once "views/incs/foot.php";
+include_once "views/incs/foot.php";

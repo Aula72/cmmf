@@ -47,10 +47,12 @@ class Helper{
         $rt = $this->query("select * from tokens where token=:token",[":token"=>$tok]);
         $y = $rt->fetch();
         if($y['user_id']==NULL){
-            die(json_encode(["error"=>"Authentication error please login..."]));
+            die(json_encode(["error"=>"Authentication error please login...", "logged"=>false]));
         }
+        // $msg["logged"]  = true;
         return [
-            "user_id"=>$y["user_id"]
+            "user_id"=>$y["user_id"],
+            "logged"=>true           
         ];
     }
     public function checkToken(){
@@ -220,6 +222,61 @@ class Helper{
     // }
     public function create_log($u_id, $u_statement){
         $this->query("insert into user_logs set user_id=:id, lo_statement=:statement", [":id"=>$u_id,":statement"=>$u_statement]);
+    }
+
+    public function loan_history($txt, $id, $typ){
+        $this->query("insert into loan_history set lo_id=:id, txt=:amt, user_id=:user,lo_type=:typ",[
+            ":id"=>$id,
+            ":amt"=>$amount,
+            ":typ"=>$typ,
+            ":user"=>$this->get_token()['user_id']
+        ]);
+    }
+
+    // public function user_types
+
+    public function member_history($mid, $act, $txt){
+        $this->query("insert into member_history set m_id=:mid, action=:act, text=:txt, user_id=:user",[
+            ":mid"=>$mid,
+            ":act"=>$act,
+            ":user"=>$this->get_token()['user_id'],
+            ":txt"=>$txt
+        ]);
+    }
+
+    public function loan_balance($loid){
+        $loan = $this->query("select * from loans where lo_id=:lo",[":lo"=>$loid]);
+        $loan = $loan->fetch(\PDO::FETCH_ASSOC);
+
+        if($loan["ls_id"]==1){
+            $res = "T.B.D";
+        }else if($loan["ls_id"]==3){
+            $res = "CANCELLED";
+        }else if($loan["ls_id"]==4){
+            $res = "0";
+        }else{
+            $uo = $this->query("select ifnull(sum(amount),0) as amount from loan_payment where lo_id=:lo",[":lo"=>$loid]);
+            $res = $uo->fetch(\PDO::FETCH_ASSOC);
+            $res = number_format((1+intval($loan["lo_rate"])/100)*intval($loan["lo_amount"]) - $res["amount"]);
+        }
+        return $res;
+    }
+
+    public function user_types($id){
+        $user = $this->query("select * from user_types where uid=:u", [":u"=>$id]);
+        $user = $user->fetch(\PDO::FETCH_ASSOC);
+
+        return $user["uname"];
+    }
+
+    public function loanable_member($id, $t){
+        $y = $this->query("select * from loanable_member where m_id=:i",[":i"=>$id]);
+        if($y->rowCount()==0){
+            $this->query("insert into loanable_member set m_id=:id, status=:s",[":id"=>$id, ":s"=>$t]);
+        }else{
+            $this->query("update loanable_member set status=:s where m_id=:id",[":id"=>$id, ":s"=>$t]);
+        }
+        
     }
 }
 

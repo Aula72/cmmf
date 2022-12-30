@@ -44,6 +44,7 @@ switch($meth){
         if($ht){
             $msg["status"] = 1;
             $msg["message"] = "Next of Kin added successfully to user details...";
+            $helper->member_history($m_id, 'NXK', json_encode(["member"=>$m_id, "fname"=>$n_fname, "lname"=>$n_lname,"relation"=>$n_relation, "phone"=>$n_phone,"dob"=>$n_dob, "location"=>$n_location]));
         }
         break;
     case 'PUT':

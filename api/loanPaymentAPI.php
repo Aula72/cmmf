@@ -18,6 +18,7 @@ switch($meth){
         }
         break;
     case 'POST':
+        // die(json_encode($data));
         $trans_id = "TRN".time()."CMMF";	
         $lo_id = $data["loan"];	
         $amount = $data["amount"];	
@@ -36,9 +37,11 @@ switch($meth){
             $due = intval($loan["lo_amount"])*(1+intval($loan["lo_rate"])/100) - intval($y["amt"]);
             if($due==0){
                 $helper->query("update loans set ls_id=:ls where lo_id=:lo",[":lo"=>$lo_id, ":ls"=>4]);
+                $helper->loanable_member($loan["m_id"], 1);
             }
             // $msg["message"]  = $due;
             // if(intval())
+            $helper->loan_history($amount, $lo_id, 'PYT');
             $helper->create_log($user_id, "Loan {$loan['lo_code']} amt {$amount} paid by {$user_id}");
         }
         break;

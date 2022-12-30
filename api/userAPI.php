@@ -5,7 +5,7 @@ $helper = new \Cmmf\Helper;
 $meth = $_SERVER['REQUEST_METHOD'];
 $tb_name = 'user';
 $data = json_decode(file_get_contents("php://input"), true);
-
+$helper->get_token();
 switch($meth){
     case 'GET':
         if(isset($_GET['id'])){
@@ -29,11 +29,30 @@ switch($meth){
                 $helper->query("update $tb_name set status=:ns where user_id=:us",[":ns"=>$lo, ':us'=>$id]);
                 $helper->create_log($helper->get_token()["user_id"], "User {$l['fname']} {$l['lname']} {$msg['message']}");
             }
+        }else if(isset($_GET['type'])){
+            $user = $helper->query("select * from user_types");
+            $msg["types"] = [];
+            foreach($user->fetchAll(PDO::FETCH_ASSOC) as $row){
+                array_push($msg['types'], ["value"=>$row["uid"],"title"=>$row["uname"]]);
+            }
+        }else if(isset($_GET["type_name"])){
+            $msg["name"] = $helper->user_types($_GET["type_name"]);
         }else{
             $user = $helper->query("select * from $tb_name");
             $msg["admin"] = [];
-            foreach($user->fetchAll(PDO::FETCH_ASSOC) as $row){
-                array_push($msg['admin'], $row);
+            foreach($user->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                array_push($msg['admin'], [
+                    "user_id"=>$row["user_id"],
+                    "mail"=>$row["mail"],                    
+                    "fname"=>$row["fname"],
+                    "lname"=>$row["lname"],
+                    "status"=>$row["status"],
+                    "user_type_id"=>$row["user_type_id"],
+                    "created_at"=>$row["created_at"],
+                    "updated_at"=>$row["updated_at"],
+                    "typn"=>$helper->user_types($row["user_id"]),
+                    
+                ]);
             }
         }
         break;
@@ -44,6 +63,7 @@ switch($meth){
         $lname = $data["lname"];
         $fname = $data["fname"];
         $mail = $data["mail"];
+        $types = $data["types"];
         $status = 2;
         $helper->required_fields([$mail, $fname, $lname, $status]);
         $check = $helper->query("select * from user where mail=:mail",[":mail"=>$mail]);
@@ -68,12 +88,16 @@ switch($meth){
                         fname=:fname, 
                         lname=:lname, 
                         mail=:mail, 
-                        status=:status",
+                        status=:status,
+                        user_type_id=:types
+                        ",
+                        
                     [
                         ":fname"=>$fname, 
                         ":lname"=>$lname, 
                         ":mail"=>$mail, 
-                        ":status"=>$status
+                        ":status"=>$status,
+                        ":types"=>$types
                     ]);
                 // $helper->query("insert into $tb_name set fname=:f, lname=:ln, mail=:m, `status`=:s",[":f"=>$fname, ":ln"=>$lname, ":m"=>$mail, ":s"=>$status]);
                 // die(json_encode(["simon"=>$ty]));
@@ -90,9 +114,10 @@ switch($meth){
         $fname = $data["fname"];
         $lname = $data["lname"];
         $status = $data["status"];
-        $helper->required_fields([$mail, $fname, $lname]);
+        $types = $data["types"];
+        $helper->required_fields([$mail, $fname, $lname, $types]);
         $helper->get_token();
-        $user = $helper->query("update $tb_name set mail=:mail, fname=:fname, lname=:lname, status=:status where user_id=:id",[":mail"=>$mail, ":fname"=>$fname, ":lname"=>$lname, ":status"=>$status]);
+        $user = $helper->query("update $tb_name set mail=:mail,user_type_id=:types, fname=:fname, lname=:lname, status=:status where user_id=:id",[":mail"=>$mail, ":fname"=>$fname, ":lname"=>$lname, ":status"=>$status, ":types"=>$types]);
         if($user){
             $msg["status"] = 1;
             $msg["message"] = "User was updated successfully...";

@@ -15,8 +15,10 @@ if($_SERVER['HTTP_HOST']=='cmmf.fueless.co.ug'){
     define("DBNAME", "cmmf");
 }
 
+define("POX", "3456 Kampala, Uganda");
 
 
 
 
-define("APP_NAME",'KeBERA');
+
+define("APP_NAME",'CMMF');

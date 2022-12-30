@@ -2,58 +2,18 @@
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 // die(json_encode(["err"=>$_SERVER]));
 // die(json_encode(["err"=>$_SERVER['SERVER_PROTOCOL']]));
+define("APP_NAME","CMMF");
+
+include_once 'views/incs/head.php';
+include_once 'views/incs/nav.php'; 
+include_once 'views/incs/print_head.php';
 ?>
 <script>
 	let base_url = "<?php echo isset($_SERVER['HTTPS'])?'https':'http'; ?>://<?php echo $_SERVER['HTTP_HOST']?>";
-	let token = localStorage.getItem("token");
-	let user_mail = localStorage.getItem("mail");
-	let xtime = 5000;
-	let headers = {
-		"content-type":"application/json",
-		"auth":token,
-		"accept":"*/*",
-	}
-	// console.log(user_mail)
-	const toast = (x) =>{
-		Materialize.toast(`<p style="white-space:pre-wrap; word-break:break-word; text-align:center;">${x}</p>`, xtime);
-	}
-	const page_title = (title) =>{
-		document.title = `${title} > CMMF`;
-	}
-
-	const print_now = (prt='') =>{
-		$('a.btn-floating').css({display:'none'})
-		$('#nav').css({display:'none'});
-		$("#ghead").append(`<p style="text-align:center; ">${prt}</p>`)
-		$("#ghead").show();
-		window.print();
-		$("#ghead").hide();
-		$('a.btn-floating').css({display:'inline-block'})
-		$('#nav').css({display:'inline-block'})
-	}
-	
-	let nm = new Intl.NumberFormat("en-US")
-
-	
-
-	const number_with_zeros = (i, x) =>{
-		var p = 10**x - i
-		var ol = p.toString().length - i.toString().length
-		if(ol>0){
-			
-			var r = ""
-			for(var u=0; u<ol; u++){
-				r += "0"
-			}
-			r += i
-			return r;
-		}else{
-			return i;
-		}
-
-	}
-	
 </script>
+<script src="<?php echo isset($_SERVER['HTTPS'])?'https':'http'; ?>://<?php echo $_SERVER['HTTP_HOST']?>/general.js"></script>
+
+
 <style>
 	#toast-container {
 		top: 0 !important;
@@ -77,6 +37,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 <?php 
 require_once "views/incs/load.php";
 require_once "controllers/Routes.php";
+require_once "config/constants.php";
 require_once "config/db.php";
 require_once "controllers/Helpers.php";
 

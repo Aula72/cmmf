@@ -12,11 +12,15 @@ $oi = $help->get_last_id("lo_id","loans")+1;
 // $g = $help->number_with_zeros(3, 4);
 ?>
 <div class="row">
-<h4 class="center-align">Add New Loan</h4>
+<!-- <h4 class="center-align">Add New Loan</h4> -->
 	<form class="col s12" id="addLoan">
 		<div class="col s12">
-    <div class="input-field col s6 browser-default">
-          <select name="" id="group" onchange="group1(this.value)">
+      
+    <div class="row mb-3">
+    <label class="col-sm-2 col-form-label" for="member">Group</label>
+    <div class="col-sm-10">
+    
+          <select class="form-select rounded-pill" name="" id="group" onchange="group1(this.value)">
             <option value="" selected>Choose Member</option>
             <?php
                 foreach($mem->fetchAll(PDO::FETCH_ASSOC) as $row){
@@ -24,40 +28,57 @@ $oi = $help->get_last_id("lo_id","loans")+1;
                 }
             ?>
           </select>
-          <label for="member">Group</label>
+              </div>
         </div>
-        <div class="input-field col s6 browser-default">
-          <select name="" id="member" onchange="member1(this.value)">
+        
+        <!-- <div id="grp-select"></div> -->
+        <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="member">Member</label>
+        <div class="col-sm-10">
+          <select class="form-select rounded-pill" name="" id="member" onchange="member1(this.value)">
             <option value="" selected>Choose Member</option>
             
           </select>
-          <label for="member">Member</label>
+              </div>
         </div>
               </div>
-        <div class="input-field col s12 browser-default">
+        <!-- <div class="input-field col s12 browser-default">
           <input type="text" value="Person's Loanable amount "  name="" id="bal" disabled>
           <label for="bal">Standing Balance</label>
-        </div>
-        <div class="input-field col s12 browser-default">
+        </div> -->
+        <div id="std"></div>
+        <!-- <div id="amt-div"></div> -->
+        <!-- <div class="input-field col s12 browser-default">
           <input type="number" data-length="2" name="" id="rate">
           <label for="rate">Rate</label>
+        </div> -->
+        
+
+        <div class="row mb-3">
+          <label for="inputText" class="col-sm-2 col-form-label">Amount</label>
+          <div class="col-sm-10">
+            <input type="number" id="amount"  oninput="check_amount()" class="form-control rounded-pill">
+          </div>
+          <div class="text-center mt-1"><p id="warning"></p></div>
+          
         </div>
-        <div class="input-field col s12 browser-default">
-          <input type="number" data-length='7'  value="" id="amount" >
-          <label for="amount">Amount</label>
-        </div>
-        <div class="input-field col s12 browser-default">
+        <div id="amt-div"></div>
+        <div id="new-div"></div>
+        <div id="code-div"></div>
+        <!-- <div class="input-field col s12 browser-default">
           <input type="text"  value="" id="code" disabled>
           <label for="code">Code</label>
-        </div>
-        <div class="input-field col s12 browser-default">
+        </div> -->
+        <div id="date-div"></div>
+        <!-- <div class="input-field col s12 browser-default">
           <input type="date" min="2022-12-23" value="" id="expiry" >
           <label for="expiry">Expiry Date</label>
-        </div>
-        <div class="col s12 align-center">
+        </div> -->
+        <div id="btn-div"></div>
+        <!-- <div class="col s12 align-center">
   	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Save Loan
     <i class="material-icons right">send</i>
-  </button>
+  </button> -->
   </div>
 	</form>
 </div>
@@ -77,6 +98,7 @@ $oi = $help->get_last_id("lo_id","loans")+1;
         success: function (response) {
           // console.log(response)
           $("#bal").val(nm.format(response.message));
+          localStorage.setItem("b", response.message)
         }
       });
     }
@@ -97,12 +119,12 @@ $oi = $help->get_last_id("lo_id","loans")+1;
             success: function (response) {
                 // console.log(response)
                 if(response.status){
-                    Materialize.toast(response.message, xtime);
+                    toast(response.message);
                     setTimeout(() => {
                         window.location = "/loans"
                     }, xtime);
                 }else{
-                    Materialize.toast(response.error, xtime);
+                    toast(response.error, 'danger');
                 }
             }
         });
@@ -110,9 +132,12 @@ $oi = $help->get_last_id("lo_id","loans")+1;
 
     const group1 =(i) =>{
       // console.log(ty)
+    // $("#group").on("change", ()=>{
+      // e.preventDefault();
+      // console.log($("#group").val())
       $.ajax({
         type: "get",
-        url: `${base_url}/api/groupAPI.php?id=${i}`,
+        url: `${base_url}/api/groupAPI.php?loanable=${i}`,
         headers,
         dataType: "json",
         success: function (response) {
@@ -124,10 +149,67 @@ $oi = $help->get_last_id("lo_id","loans")+1;
             x+=`<option value="${m.m_id}">${m.m_code}</option>`
           }
           $("#member").html(x)
-          $('select').material_select();
+          // $('select').material_select();
         }
       });
+    // })
+      
+    }
+    
+
+    $.ajax({
+      type: "get",
+      url:  `${base_url}/api/groupAPI.php`,
+      headers,
+      dataType: "json",
+      success: function (response) {
+        // console.log(response)
+        try{
+          let grp = []
+          for(let r of response.group){
+            grp.push({value:r.g_id, title: r.g_code})
+          }
+        }catch(TypeError){
+          logout();
+        }
+        // console.log(grp)
+        // Select({div:"grp-select", label:"Group",id:"group", value:"", options:grp})
+      }
+    });
+    // const oninput =()=>{
+    //   console.log('fjld')
+    // }
+    // member(5)
+    Input({div:"date-div", value:"", label:"Expiry Date", type:"date", id:"expiry"})
+    Input({div:"code-div", value:"", label:"Code", id:"code", dis:"disabled"})
+    Input({div:'amt-div',value:'', label:'Rate', id:'rate', dlength:2, type:"number",})
+    Input({div:"new-div", value:"", "label":"Amount Payable", id:"amnt", type:"number", dis:"disabled"})
+    Input({div:"std",id:"bal",label:"Standing Balance", value:'',tp:"number",dis:"disabled"})
+    Button({div:"btn-div", type:"submit", label:"Submit", icon:"send", btn:"success", })
+
+    const check_amount = () =>{
+      
+      let c = $("#amount").val()
+      let m  = localStorage.getItem("b")
+      let r =  Number(c)-Number(m)
+      
+      if(Number(c)<Number(m)){
+          
+          $("#warning").text("Loan will be immediately active after creating it...")
+          $("#warning").css({color:"green"})
+      }else{
+        
+        $("#warning").text(`An extra of ${nm.format(r)} will be needed to make this loan active...`)
+        $("#warning").css({color:"red"})
+      }
+      
+      // localStorage.removeItem("b")
     }
 
-    // member(5)
+    $("#rate").on("input", ()=>{
+      // console.log(Number($("#rate").val()))
+      $("#amnt").val(Number($("#amount").val())*(1+Number($("#rate").val())/100))
+    })
+
+    console.log($("#group").val())
 </script>

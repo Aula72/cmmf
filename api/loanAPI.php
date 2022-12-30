@@ -12,6 +12,7 @@ switch($meth){
             $tra = $helper->query("select * from $tb_name where lo_id=:id or lo_code=:id",[":id"=>$_GET['id']]);
             if($tra->rowCount()>0){
                 $msg["loan"] = $tra->fetch(\PDO::FETCH_ASSOC);
+                $msg["balance"] = $helper->loan_balance($msg["loan"]["lo_id"])==null?(1+intval($msg["loan"]["lo_rate"])/100)*$msg["loan"]["lo_amount"]:$helper->loan_balance($msg["loan"]["lo_id"]);
                 $msg["member"] = $helper->get_member($msg["loan"]["m_id"]);
                 $msg["status"] = $msg["loan"]["ls_id"];
                 $msg["status_name"] = ucfirst($helper->loan_status($msg["loan"]["ls_id"]));
@@ -51,7 +52,20 @@ switch($meth){
             $loans = $helper->query("select * from loans order by lo_id desc");
             $msg["loans"] = [];
             foreach($loans->fetchAll(PDO::FETCH_ASSOC) as $row){
-                array_push($msg["loans"], $row);
+                array_push($msg["loans"], [
+                    "lo_id"=>$row["lo_id"],
+                    "lo_code"=>$row["lo_code"],
+                    "lo_rate"=>$row["lo_rate"],
+                    "m_id"=>$row["m_id"],
+                    "user_id"=>$row["user_id"],
+                    "lo_amount"=>$row["lo_amount"],
+                    "created_at"=>$row["created_at"],
+                    "updated_at"=>$row["updated_at"],
+                    "ls_id"=>$row["ls_id"],
+                    "lo_expiry"=>$row["lo_expiry"],
+                    "balance"=>$helper->loan_balance($row["lo_id"]),
+                    // "balance"=>$helper->loan_balance($row["lo_id"])==null?(1+intval($row["lo_rate"])/100)*$row["lo_amount"]:$helper->loan_balance($row["lo_id"]),
+                ]);
             }
         }
         break;
@@ -80,6 +94,8 @@ switch($meth){
             $msg["status"]=1;
             $msg["message"] = "Loan $lo_code was created successfully...";
         }
+        $helper->loanable_member($m_id, 0);
+        $helper->loan_history($lo_amount, $helper->get_last_id("lo_id","loans"),"CREATE");
         break;
     case 'PUT':
 

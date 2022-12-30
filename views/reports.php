@@ -10,8 +10,9 @@ $code = "LN".$code.date("mY");
 </style>
 <div class="row" id="trow">
         <h4 class="center-align" id="gcode"></h4>
-        <div class="input-field center-align col s8">
-          <select  id="g_id" name="m_id" >
+        <div class="mb-3">
+        <label for="name">Group Details</label>
+          <select class="form-select rounded-pill" id="g_id" name="m_id" >
             <option value="" selected>Select Group</option>
             <?php
                 foreach($mem->fetchAll(PDO::FETCH_ASSOC) as $row){
@@ -19,7 +20,7 @@ $code = "LN".$code.date("mY");
                 }
             ?>
           </select>
-          <label for="name">Group Details</label>
+          
         </div>
         <div class="input-field center-align col s2">
             <button class="btn btn-small green" onclick="print_report()">Print</button>
@@ -27,7 +28,7 @@ $code = "LN".$code.date("mY");
 </div>
 
 <div class="row" id="groups" style="display:none;">
-    <table class="responsive bordered">
+    <table class="table">
         <thead>
             <tr>
                 <th>Mem No.</th>
@@ -58,6 +59,7 @@ $code = "LN".$code.date("mY");
 </div>
 
 <script>
+    page_title("Reports");
     $("#g_id").on("change", e=>{
         e.preventDefault()
         console.log($("#g_id").val())
@@ -65,6 +67,7 @@ $code = "LN".$code.date("mY");
         $.ajax({
             type: "get",
             url: `${base_url}/api/reportsAPI.php?id=${j}`,
+            headers,
             data: "data",
             dataType: "json",
             success: function (response) {

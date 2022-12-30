@@ -32,6 +32,8 @@ switch($meth){
             if($m==0){
                 $helper->query("update loans set ls_id='2' where lo_id=:lo", [":lo"=>$lo_id]);
             }
+            $helper->loan_history($amount, $lo_id, 'ADDG');
+            $helper->member_history($m_id, 'GRT', json_encode(["member"=>$m_id, "loan"=>$lo_id, "amount"=>$amount]));
         }
         break;
     case 'PUT':
@@ -44,5 +46,5 @@ switch($meth){
         die(json_encode(["error"=>"Invalid operation"]));
         break;
     }
-
+$msg["logged"] = $helper->get_token()["logged"];
 echo json_encode($msg);

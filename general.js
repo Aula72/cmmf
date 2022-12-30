@@ -1,0 +1,203 @@
+var ses = localStorage.getItem("token");
+let em = localStorage.getItem("mail")
+let st = window.location.pathname;
+if(ses=='' || ses==null){
+	$('#nav').css({display:"none"});
+	$("#p_title").css({display:"none"});
+}
+if(em=='' || em==null && st != '/login'){
+	  window.location = "/login";
+}
+$("#log_mail").text(localStorage.getItem('mail'))
+$("#log_name").text(localStorage.getItem('full_name'))
+$("#loged_name").text(localStorage.getItem('long_name'))
+let token = localStorage.getItem("token");
+let user_mail = localStorage.getItem("mail");
+let xtime = 5000;
+let headers = {
+	"content-type":"application/json",
+	"auth":token,
+	"accept":"*/*",
+}
+// console.log(user_mail)
+const toast = (x, c = 'success') =>{
+	// setTimeout(() => {
+		$("#alerting").html(`<div class="alert alert-${c} alert-dismissible fade show text-center" role="alert">
+			<i class="bi bi-info-circle me-1"></i>   ${x} 
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>`)
+	// }, 6000);
+	setTimeout(() => {
+		$("#alerting").hide();
+	}, xtime);
+	// toast('','');
+	return;
+
+	//Materialize.toast(`<p style="white-space:pre-wrap; word-break:break-word; text-align:center;">${x}</p>`, xtime);
+}
+const page_title = (title) =>{
+	document.title = `${title} > CMMF`;
+	$("#h10").text(title);
+	$("#h12").text(title);
+}
+
+const go_to_page = (x=[]) =>{
+// alert(x)
+	let j = '';
+	for(let m of x){
+		j = `${j}/${m}`
+	}	
+	window.location = j;	
+}
+const print_now = (prt='') =>{
+$('#btn-group').css({display:'none'})
+	$('.pagetitle').css({display:'none'});
+	$("#print-title").css({display:"inline-block"});
+	$('.btn').css({display:'none'})
+	$('#nav').css({display:'none'});
+	$("#ghead").append(`<p style="text-align:center; ">${prt}</p>`)
+	$("#ghead").show();
+	window.print();
+	$("#ghead").hide();
+	$("#print-title").css({display:"none"});
+	$('.pagetitle').css({display:'inline-block'});
+	$('.btn').css({display:'inline-block'})
+	$('#nav').css({display:'inline-block'})
+$('#btn-group').css({display:'inline-block'})
+}
+
+let nm = new Intl.NumberFormat("en-US")
+
+
+
+const number_with_zeros = (i, x) =>{
+	var p = 10**x - i
+	var ol = p.toString().length - i.toString().length
+	if(ol>0){
+		
+		var r = ""
+		for(var u=0; u<ol; u++){
+			r += "0"
+		}
+		r += i
+		return r;
+	}else{
+		return i;
+	}
+
+}
+
+const Input = (obj) =>{
+    // console.log(obj)
+    $(`#${obj.div}`).html(`<div class="row mb-3">
+    <label for="${obj.id}" class="col-sm-2 col-form-label">${obj.label}</label>
+    <div class="col-sm-10">
+      <input 
+        type="${obj.type}" 
+        value="${obj.value}" 
+        id="${obj.id}" 
+		oninput="()=>${obj.oninput}"
+        class="form-control rounded-pill" 
+        data-length="${obj.dlength}"
+        ${obj.dis} ${obj.required}
+        >
+    </div>
+  </div>`)
+}
+
+const Button = (obj) =>{
+  // console.log(obj)
+  $(`#${obj.div}`).html(`<button type="${obj.type}"  class="btn btn-outline-${obj.btn} rounded-pill btn-${obj.size}" ${obj.dis}>${obj.label} <i class="bi bi-${obj.icon}"></i></button>`);
+}
+const Select = (obj) =>{
+	// let sel = obj.value==this.value?'selected':'';
+    let jo = `    
+    <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">${obj.label}</label>
+    <div class="col-sm-10">
+      <select id="${obj.id}" onchange=${obj.onchange} value="${obj.value}" class="form-select rounded-pill" aria-label="Default select example">
+        <option>Open this select menu</option>`
+    for(let m of obj.options){
+		let sel = obj.value==m.value?'selected':'';
+        jo += `<option value="${m.value}" ${sel}>${m.title}</option>`
+    }
+    jo +=  `</select>
+    </div>
+    </div>
+    `
+    // console.log(jo)
+    $(`#${obj.div}`).html(jo);
+}
+
+const Anchor = (obj) =>{
+  $(`#${obj.div}`).html(`<a href="${obj.href}"  class="btn btn-outline-${obj.btn} rounded-pill btn-sm">${obj.text}</a>`);
+}
+
+const TextArea  = (obj) =>{
+  $(`#${obj.div}`).html(`<div class="form-floating mb-3">
+  <textarea class="form-control" placeholder="${obj.placeholder}" id="${obj.id}" style="height: 100px;"></textarea>
+  <label for="${obj.id}">${obj.label}</label>
+</div>`);
+}
+
+const Table = (obj) =>{
+	let head = "<table class='table'><tr>";
+	for(let t of obj.head){
+		head += `<th>${t}</th>`
+	}
+	head += `</tr><tbody>`
+	for(let m of obj.body){
+		head += `<tr>`
+		for(let c of m){
+			head += `<td>${c}</td>`
+		}
+		head += `</tr>`
+		
+	}
+	head += `</tbody>`
+
+	$(`#${obj.div}`).html(`${head}`);
+
+}
+
+
+const loan_status = (x) =>{
+	let m  = ''
+	if(x == 1){
+		m = "Pending"
+	}else if(x==2){
+		m  = "Approved"
+	}else if(x==3){
+		m  = "Renewed"
+	}else{
+		m  = "Settled"
+	}
+	return m;
+}
+
+const logout =()=>{
+	let p = confirm("Your session is expired, start new one!...")
+	if(p){
+		window.location = "/logout"
+	}
+}
+
+const user_types = (i) =>{
+	let m = ""
+	$.ajax({
+		type: "get",
+		url: `${base_url}/api/userAPI.php?type_name=${i}`,
+		headers,
+		dataType: "json",
+		success: function (response) {			
+			return response.name
+		}
+	});
+	
+	// console.log(m)
+	// // localStorage.removeItem("l")
+	// return m;
+}
+// console.log(user_types(2))
+
+

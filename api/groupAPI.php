@@ -26,6 +26,22 @@ switch($meth){
                 $msg["status"] = 0;
             }
             
+        }else if(isset($_GET["loanable"])){
+            $group = $helper->query("select * from $tb_name where g_id=:id or g_code=:id", [":id"=>$_GET['loanable']]);
+            if($group->rowCount()>0){
+                $msg["id"] = $_GET['loanable'];                
+                $members = $helper->query("SELECT * FROM `group_member` where group_member.g_id=:id and group_member.m_id in (select loanable_member.m_id from loanable_member where loanable_member.status=1 order by loanable_member.id);",[":id"=>$_GET['loanable']]);
+                
+                $msg["members"] = [];
+                foreach($members->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                    array_push($msg['members'], $row);
+                }
+                $msg["num_members"] = $members->rowCount();
+                $msg["group"] = $group->fetch(\PDO::FETCH_ASSOC);
+            }else{
+                $msg["group"] = "No such group";
+                $msg["status"] = 0;
+            }
         }else if(isset($_GET['payment'])){
             $u = $helper->query("SELECT distinct group_member.m_id, group_member.m_code, group_member.g_id, ifnull((select DISTINCT ifnull(trans_action.t_amount, 0) from trans_action where    trans_action.w_id=:w and trans_action.trans_type_id=:t and trans_action.m_id = group_member.m_id limit 1), 0) as t_amount  FROM group_member, trans_action where g_id=:g and trans_action.m_id = group_member.m_id;", [":g"=>$_GET["grp"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
             $msg["payments"] = [];
@@ -89,5 +105,5 @@ switch($meth){
         die(json_encode(["error"=>"Invalid operation"]));
         break;
     }
-
+$msg["logged"] = $helper->get_token()["logged"];
 echo json_encode($msg);

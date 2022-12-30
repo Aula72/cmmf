@@ -22,70 +22,46 @@ if(isset($t[2])){
   $mcode = null;
 }
 ?>
-<h4 class="center-align">Add New Member</h4>
+<!-- <h4 class="center-align">Add New Member</h4> -->
 <div class="row">
 	<form class="col s12" id="addMember">
 		<!-- <div class="row"> -->
-      <div class="input-field col s12">
-          <input id="mcode" type="text" data-length='3' value="<?php echo $mcode; ?>" class="validate" >
-          <label for="fname">No. </label>
-        </div>
-        <div class="input-field col s12">
-          <input id="fname" type="text" value="<?php echo $fname; ?>" class="validate">
-          <label for="fname">First Name</label>
-        </div>
-      <!-- </div> -->
-      <!-- <div class="row"> -->
-        <div class="input-field col s12">
-          <input id="lname" type="text" value="<?php echo $lname; ?>" class="validate">
-          <label for="lname">Second Name</label>
-        </div>
-      <!-- </div> -->
-      <!-- <div class="input-field col s12">
-          <input id="email" type="email" value="<?php echo $email; ?>" class="validate">
-          <label for="email">Email Address</label>
+      <!-- <div class="row mb-3">
+      <label class="col-sm-2 col-form-label" for="fname">No. </label>
+      <div class="col-sm-10">
+      
+          <input class="form-control rounded-pill" id="mcode" type="text" data-length='3' value="<?php echo $mcode; ?>" class="validate" >
+</div>  
+          
         </div> -->
-       <div class="input-field col s12">
-          <input id="phone" type="number" value="<?php echo $phone; ?>" data-length="10" class="validate">
-          <label for="phone">Phone Number</label>
-        </div>
-
-        <div class="input-field col s12">
-          <input id="nin" type="text"  value="<?php echo $nin; ?>" data-length='14' class="validate">
-          <label for="nin">NIN</label>
-        </div>
-		<div class="input-field col s12">
-	    <select id="gender" value="<?php echo $sex; ?>">
-	      <option value="" disabled selected>Choose your option</option>
-	      <option value="1">Male</option>
-	      <option value="2">Female</option>
-	      
-	    </select>
-	    <label>Gender</label>
-	  </div>
-	  <div class="input-field col s12">
-          <input id="dob" type="date" class="validate" value="<?php echo $dob; ?>" max="<?php echo $do; ?>" min="<?php echo $do1;?>">
-          <label for="dob">Date of Birth</label>
-        </div>
-		<!-- <div class="input-field col s12">
-	    <select id="grp" class="browser-default">
-	      <option value="" disabled selected>Choose your option</option>
-	      <option value="1">Option 1</option>
-	      <option value="2">Option 2</option>
-	      <option value="3">Option 3</option>
-	    </select>
-	    <label>Group</label>
-	  </div> -->
-    <input type="hidden" name="" id="edit_me" value="<?php echo $t[2]; ?>">
+        <!-- <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="fname">First Name</label>
+        <div class="col-sm-10">
+          <input class="form-control rounded-pill" id="fname" type="text" value="<?php echo $fname; ?>" class="validate">
+        </div>  
+          
+        </div> -->
+        <div id="code-div"></div>
+        <div id="fname-div"></div>
+        <div id="lname-div"></div>
+        <div id="phone-div"></div>
+        <div id="nin-div"></div>
+		
+        <div id="gender-div"></div>
+        <div id="dob-div"></div>
+	 
+    <input class="form-control rounded-pill" type="hidden" name="" id="edit_me" value="<?php echo $t[2]; ?>">
 	  <div class="col s12 align-center">
       <?php if(isset($t[2])){?>
-        <button class="btn waves-effect waves-light align-center green" type="submit" name="action">Update Member
-    <i class="material-icons right">send</i>
+        <button class="btn btn-outline-success rounded-pill" type="submit" name="action">Update Member
+    <i class="bi bi-send"></i>
   </button>
       <?php }else{?>
-  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action">Add Member
-    <i class="material-icons right">send</i>
+  	<button class="btn btn-outline-success rounded-pill" type="submit" name="action">Add Member
+    <i class="bi bi-send"></i>
   </button>
+
+  <div id="tb-div"></div>
         <?php } ?>
   </div>
   </form>
@@ -118,18 +94,31 @@ $("#addMember").submit(e=>{
     }),
     dataType: "json",
     success: function (response) {
-      console.log(response)
+      // console.log(response)
       // Materialize.toast(response.error, xtime);
       // let c = JSON.parse(response);
-      if(response.status == 1){
-        Materialize.toast(response.message, xtime);
-        setTimeout(() => {
-          window.location = `/groups/${localStorage.getItem('g_id')}`
-        }, xtime);
-      }else{
-        Materialize.toast(response.error, xtime);
+      try{
+        if(response.status == 1){
+          toast(response.message);
+          setTimeout(() => {
+            window.location = `/groups/${localStorage.getItem('g_id')}`
+          }, xtime);
+        }else{
+          toast(response.error, 'danger');
+        }
+      }catch(TypeError){
+        logout();
       }
     }
   });
 })
+
+// Table({div:"tb-div", head:["no.", 'gender', '<button class="btn btn-success">Print</button>',''], body:[[1, 3, 'Aula'],[4,7, '<button class="btn btn-success">Print</button>']]})
+Select({div:"gender-div", id:"gender", label:"Gender", value:"<?php echo $sex; ?>", options:[{value:1, title:"Male",},{value:2, title:"Female"}]})
+Input({div:"dob-div", id:"dob", label:"Date of Birth", type:"date", value:"<?php echo $dob; ?>"})
+Input({div:"code-div", id:"mcode", label:"No.", value:"<?php echo $mcode; ?>"})
+Input({div:'fname-div', id:"fname", type:"text", label:"First Name", value:"<?php echo $fname; ?>"})
+Input({div:"lname-div", id:"lname", type:"text", label:"Last Name", value:"<?php echo $lname; ?>"})
+Input({div:"phone-div", id:"phone", type:"tel", label:"Phone Number", value:"<?php echo $phone; ?>", });
+Input({div:"nin-div", id:"nin", type:"text", label:"NIN", value:"<?php echo $nin; ?>"})
 </script>

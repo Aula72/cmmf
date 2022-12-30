@@ -15,24 +15,12 @@ $bal = (1 +intval($yu["lo_rate"])/100)*intval($yu["lo_amount"]) - intval($y["amt
 <h4 class="center-align">Make Payment</h4>
 <div class="row">
 	<form class="col s12" id="addPayment">
-        <div class="input-field">
-            <!-- <i class="material-icons prefix">money</i> -->
-            <input id="" type="number" class="validate" value="<?php echo $bal; ?>" disabled>
-            <label for="icon_prefix">Due Amount</label>
-        </div>
-        <div class="input-field">
-            <i class="material-icons prefix">money</i>
-            <input id="amount" type="number" class="validate" required>
-            <label for="icon_prefix">Amount</label>
-        </div>
-        <div class="input-field  browser-default">
-            <textarea  name="" id="comment" class="materialize-textarea" cols="30" rows="5"></textarea>
-            <label for="comment">Comment</label>
-        </div>
-        <div class="col s12 align-center">
-  	<button class="btn waves-effect waves-light align-center green" type="submit" name="action" id="act">Make Payment
-    <i class="material-icons right">send</i>
-  </button>
+        
+        <div id="due-div"></div>
+        <div id="amount-div"></div>
+        <div id="com-div"></div>
+        
+        <div id="btn-div"></div>
   </div>
 	</form>
 </div>
@@ -51,6 +39,11 @@ $bal = (1 +intval($yu["lo_rate"])/100)*intval($yu["lo_amount"]) - intval($y["amt
     })
     $("#addPayment").submit( (e) => { 
         e.preventDefault();
+        console.log(JSON.stringify({
+                loan:`<?php echo $id["lo_id"]; ?>`,
+                amount: $("#amount").val(),
+                comment: $("#comment").val()
+            }))
         $.ajax({
             type: "post",
             url: `${base_url}/api/loanPaymentAPI.php`,
@@ -62,16 +55,23 @@ $bal = (1 +intval($yu["lo_rate"])/100)*intval($yu["lo_amount"]) - intval($y["amt
             headers,
             dataType: "json",
             success: function (response) {
-                if(response.status){
-                    toast(response.message, xtime)
-                    setTimeout(() => {
-                        window.location = `/loans/<?php echo $rt[2]; ?>`
-                    }, xtime);                    
-                }else{
-                    toast(response.error)
+                try{
+                    if(response.status){
+                        toast(response.message, xtime)
+                        setTimeout(() => {
+                            window.location = `/loans/<?php echo $rt[2]; ?>`
+                        }, xtime);                    
+                    }else{
+                        toast(response.error)
+                    }
+                }catch(TypeError){
+                    logout();
                 }
             }
         });
     });
-    
+    TextArea({div:"com-div", label:"Comment", placeholder:"", id:"comment"})
+    Button({div:"btn-div", icon:"send", label:"Submit", type:"submit", btn:"success"})
+    Input({div:"due-div", label:"Due Amount", value:bal, dis:"disabled"})
+    Input({div:"amount-div", label:"Amount", value:"", id:"amount", type:"number"})
 </script>
