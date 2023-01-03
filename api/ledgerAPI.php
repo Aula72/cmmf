@@ -74,7 +74,8 @@ switch($meth){
 
         break;
     case 'DELETE':
-
+        $helper->remove_record("trans_types", "ty_id", $_GET['id']);
+        $msg["message"] = "Record removed successfully";
         break;
     default:
         die(json_encode(["error"=>"Invalid operation"]));

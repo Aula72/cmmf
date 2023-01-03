@@ -278,6 +278,10 @@ class Helper{
         }
         
     }
+
+    public function remove_record($tb, $id, $i){
+        $this->query("delete from $tb where $id=:id",[":id"=>$i]);
+    }
 }
 
 

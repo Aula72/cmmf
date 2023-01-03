@@ -51,7 +51,9 @@ switch($meth){
 
         break;
     case 'DELETE':
-
+        $helper->remove_record("next_of_kin", "n_id", $_GET['id']);
+        $msg["message"] = "Record removed successfully";
+        break;
         break;
     default:
         die(json_encode(["error"=>"Invalid operation"]));

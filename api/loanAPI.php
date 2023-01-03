@@ -95,13 +95,16 @@ switch($meth){
             $msg["message"] = "Loan $lo_code was created successfully...";
         }
         $helper->loanable_member($m_id, 0);
-        $helper->loan_history($lo_amount, $helper->get_last_id("lo_id","loans"),"CREATE");
+        $helper->loan_history($lo_amount, $helper->get_last_id("lo_id","loans"),"CRT");
         break;
     case 'PUT':
 
         break;
     case 'DELETE':
-
+        $helper->remove_record("loans", "lo_id", $_GET['id']);
+        $helper->remove_record("loan_history", "lo_id", $_GET['id']);
+        $helper->remove_record("loan_payment", "lo_id", $_GET['id']);
+        $msg["message"] = "Record removed successfully";
         break;
     default:
         die(json_encode(["error"=>"Invalid operation"]));
