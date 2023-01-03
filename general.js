@@ -178,8 +178,42 @@ const loan_status = (x) =>{
 const logout =()=>{
 	let p = confirm("Your session is expired, start new one!...")
 	if(p){
+		$.ajax({
+			type: "post",
+			url: `${base_url}/api/user_login.php`,
+			data: JSON.stringify({uname:localStorage.getItem("mail")}),
+			dataType: "json",
+			success: function (response) {
+				// alert(response.otp)
+				new_f();
+			}
+		});
+		
+		
+	}else{
 		window.location = "/logout"
 	}
+}
+
+const new_f = () =>{
+	let x = prompt(`Enter OTP sent to ${user_mail} to continue!`)
+
+	$.ajax({
+		type: "post",
+		url: `${base_url}/api/otp.php`,
+		data: JSON.stringify({mail:user_mail, otp:x}),
+		dataType: "json",
+		success: function (response) {
+			// console.log(response)
+			if(response.status==1){
+				localStorage.setItem("token", response.token)
+				location.reload();
+			}else{
+				alert("Wrong OTP...");
+				location.reload();
+			}
+		}
+	});
 }
 
 const user_types = (i) =>{
@@ -194,10 +228,6 @@ const user_types = (i) =>{
 		}
 	});
 	
-	// console.log(m)
-	// // localStorage.removeItem("l")
-	// return m;
 }
-// console.log(user_types(2))
 
 
