@@ -282,6 +282,13 @@ class Helper{
     public function remove_record($tb, $id, $i){
         $this->query("delete from $tb where $id=:id",[":id"=>$i]);
     }
+
+    public function check_amount($member, $week, $tran){
+        $t0 = $this->query("select * from trans_action where m_id=:memb and w_id=:wk and trans_type_id=:t limit 1", [":memb"=>$member, ":wk"=>$week, ":t"=>$tran]);
+        $t = $t0->fetch(\PDO::FETCH_ASSOC);
+
+        return $t["t_amount"]==null?0:$t["t_amount"];
+    }
 }
 
 

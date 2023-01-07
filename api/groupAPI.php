@@ -43,10 +43,25 @@ switch($meth){
                 $msg["status"] = 0;
             }
         }else if(isset($_GET['payment'])){
-            $u = $helper->query("SELECT distinct group_member.m_id, group_member.m_code, group_member.g_id, ifnull((select DISTINCT ifnull(trans_action.t_amount, 0) from trans_action where    trans_action.w_id=:w and trans_action.trans_type_id=:t and trans_action.m_id = group_member.m_id limit 1), 0) as t_amount  FROM group_member, trans_action where g_id=:g and trans_action.m_id = group_member.m_id;", [":g"=>$_GET["grp"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
+            //$u = $helper->query("SELECT distinct group_member.m_id, group_member.m_code, group_member.g_id, ifnull((select DISTINCT ifnull(trans_action.t_amount, 0) from trans_action where    trans_action.w_id=:w and trans_action.trans_type_id=:t and trans_action.m_id = group_member.m_id limit 1), 0) as t_amount  FROM group_member, trans_action where g_id=:g and trans_action.m_id = group_member.m_id;", [":g"=>$_GET["grp"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
+            $u = $helper->query("select * from group_member where g_id=:g",[":g"=>$_GET["grp"]]);
             $msg["payments"] = [];
             foreach($u->fetchAll(\PDO::FETCH_ASSOC) as $row){
-                array_push($msg["payments"], $row);
+                array_push($msg["payments"], [
+                    "m_id"=>$row["m_id"],
+                    "m_code"=>$row["m_code"],
+                    "g_id"=>$row["g_id"],
+                    "user_id"=>$row["user_id"],
+                    "m_fname"=>$row["m_fname"],
+                    "m_lname"=>$row["m_lname"],
+                    "m_phone"=>$row["m_phone"],
+                    "m_nin"=>$row["m_nin"],
+                    "m_gender"=>$row["m_gender"],
+                    "m_dob"=>$row["m_dob"],
+                    "created_at"=>$row["created_at"],
+                    "update_at"=>$row["update_at"],
+                    "t_amount"=>$helper->check_amount($row["m_id"], $_GET["week"], $_GET["ledger"])
+                ]);
             }
         }else if(isset($_GET['mem'])){
             // die(json_encode($_GET));
