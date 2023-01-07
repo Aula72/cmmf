@@ -40,7 +40,7 @@ switch($meth){
             if($trans){
                 $msg["status"]= 1;
                 $msg["message"] = "Transaction $t_code was successfull...";
-                if($trans_type_id==4){
+                if($trans_type_id==1){
                     $p = $p->fetch(\PDO::FETCH_ASSOC);
                     // die(json_encode($p));
                     $th = $helper->query("select amount from account_balance where m_id=:m", [":m"=>$m_id]);
