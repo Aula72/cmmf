@@ -230,4 +230,10 @@ const user_types = (i) =>{
 	
 }
 
+$("button:submit").on("click", ()=>{
+	setTimeout(
+		$("button:submit").attr("disabled", true), xtime
+	)
+})
+
 

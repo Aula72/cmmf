@@ -96,7 +96,7 @@ $oi = $help->get_last_id("lo_id","loans")+1;
         headers,
         dataType: "json",
         success: function (response) {
-          // console.log(response)
+          console.log(response)
           $("#bal").val(nm.format(response.message));
           localStorage.setItem("b", response.message)
         }
