@@ -48,17 +48,17 @@ switch($meth){
                 }
                 $msg["group_code"] = $helper->group_code($msg["member"]["g_id"]);
                 $msg["balance"] = $helper->account_balance($id)==null?0:$helper->account_balance($id);
-                $msg["savings"] = $helper->sum_bal_type($id, 4)==null?0:$helper->sum_bal_type($id, 4);
-                $msg["social_fund"] = $helper->sum_bal_type($id, 5)==null?0:$helper->sum_bal_type($id, 5);
-                $msg["fines"] = $helper->sum_bal_type($id, 6)==null?0:$helper->sum_bal_type($id, 6);
-                $msg["education_in"] = $helper->sum_bal_type($id, 7)==null?0:$helper->sum_bal_type($id, 7);
-                $msg["education_out"] = $helper->sum_bal_type($id, 8)==null?0:$helper->sum_bal_type($id, 8);
-                $msg["subscription"] = $helper->sum_bal_type($id, 9)==null?0:$helper->sum_bal_type($id, 9);
-                $msg["repayment"] = $helper->sum_bal_type($id, 10)==null?0:$helper->sum_bal_type($id, 10);
-                $msg["loan_out"] = $helper->sum_bal_type($id, 11)==null?0:$helper->sum_bal_type($id, 11);
-                $msg["loan_charge"] = $helper->sum_bal_type($id, 12)==null?0:$helper->sum_bal_type($id, 12);
-                $msg["loan_forms"] = $helper->sum_bal_type($id, 13)==null?0:$helper->sum_bal_type($id, 13);
-                $msg["membership"] = $helper->sum_bal_type($id, 14)==null?0:$helper->sum_bal_type($id, 14);
+                $msg["savings"] = $helper->sum_bal_type($id, $helper->t_type("saving"))==null?0:$helper->sum_bal_type($id, 4);
+                $msg["social_fund"] = $helper->sum_bal_type($id, $helper->t_type("social fund"))==null?0:$helper->sum_bal_type($id, 5);
+                $msg["fines"] = $helper->sum_bal_type($id, $helper->t_type("fine"))==null?0:$helper->sum_bal_type($id, 6);
+                $msg["education_in"] = $helper->sum_bal_type($id, $helper->t_type("education in"))==null?0:$helper->sum_bal_type($id, 7);
+                $msg["education_out"] = $helper->sum_bal_type($id, $helper->t_type("education out"))==null?0:$helper->sum_bal_type($id, 8);
+                $msg["subscription"] = $helper->sum_bal_type($id, $helper->t_type("subscription"))==null?0:$helper->sum_bal_type($id, 9);
+                $msg["repayment"] = $helper->sum_bal_type($id, $helper->t_type("repayment"))==null?0:$helper->sum_bal_type($id, 10);
+                $msg["loan_out"] = $helper->sum_bal_type($id, $helper->t_type("loan out"))==null?0:$helper->sum_bal_type($id, 11);
+                $msg["loan_charge"] = $helper->sum_bal_type($id, $helper->t_type("loan charge"))==null?0:$helper->sum_bal_type($id, 12);
+                $msg["loan_forms"] = $helper->sum_bal_type($id, $helper->t_type("loan forms"))==null?0:$helper->sum_bal_type($id, 13);
+                $msg["membership"] = $helper->sum_bal_type($id, $helper->t_type("membership"))==null?0:$helper->sum_bal_type($id, 14);
                 $msg["ids"] = $id;
                 $transaction = $helper->query("select * from trans_action where m_id=:me", [":me"=>$id]);
                 $msg["transaction"] = [];

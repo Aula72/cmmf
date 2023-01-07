@@ -289,6 +289,15 @@ class Helper{
 
         return $t["t_amount"]==null?0:$t["t_amount"];
     }
+
+    public function t_type($tran){
+        $t0 = $this->query("select * from trans_types where ty_name=:t", [":t"=>$tran]);
+        $t = $t0->fetch(\PDO::FETCH_ASSOC);
+
+        return $t["ty_id"];
+    }
+
+
 }
 
 
