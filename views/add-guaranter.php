@@ -11,12 +11,12 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
 		
 
         <div id="loan-num-div"></div>
-        
+       
         <div class="row mb-3">
         <label class="col-sm-2 col-form-label">Guaranter</label>
         <div class="col-sm-10">
           <select class="form-select rounded-pill" id="member" class="validate" required>
-            <option value="" select>Select Member</option>
+            <option value="" select>Select Member  From Group</option>
             <?php 
                 foreach($help->get_guaranters($id['m_id'], $own["g_id"],$id['lo_amount']) as $row){
                     echo "<option value=".$row['m_id'].">".$help->get_member($row['m_id'])['m_code']."</option>";
@@ -27,7 +27,8 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
             </div>
         </div>
         <div id="loanable"></div>
-        <input type="hidden" name="" id="loan" value="<?php echo $id["lo_id"];?>">        
+        <input type="hidden" name="" id="loan" value="<?php echo $id["lo_id"];?>">
+        <div id="balc"></div>        
         <div id="amnt-div"></div>
         <div id="btn-div"></div>
   </button>
@@ -70,10 +71,10 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
         })
     })
     // Input({div:"loan-num-div"})
-    Button({div:"btn-div", type:"submit",btn:'success', label:"Submit", icon:"send"})
+    Button({div:"btn-div", type:"submit",btn:'success', label:"Submit", icon:"send", dis:"disabled"})
     Input({div:"amnt-div", label:"Amount", type:"number", value:"", id:"amount"})
     Input({div:"loan-num-div", type:"text",label:"Loan Number", value:"<?php echo $id['lo_code'];?>", dis:"disabled"})
-    
+    Input({div:"balc", type:"text", label:"Maximum Amount to Guarant", value:"<?php echo $bal; ?>", dis:"disabled"})
     let loanable = undefined
     $("#member").on("change", ()=>{
         // console.log($("#member").val())
@@ -90,20 +91,20 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
     })
 
     $("#amount").on("input",()=>{
-        
+        let m = "<?php echo $bal; ?>"
         $("#warnings").show();
         console.log(loanable - Number($("#amount").val()))
         if(Number(loan_amount)<Number($("#amount").val())){
             $("#warnings").html(`Required amount: ${loan_amount} is exceeded...`);
             $(":submit").attr("disabled", true);
         }else if(Number($("#amount").val())>loanable){
-            $("#warnings").html(`Required amount: ${loanable} is exceeded...`);
+            // $("#warnings").html(`Required amount: ${loanable} is exceeded...`);
             $(":submit").attr("disabled", true);
         }else if(Number($("#amount").val())==0){
             $(":submit").attr("disabled", true);
             $("#warnings").hide();
         }else{
-            $("#warnings").html(`Operation can be performed...`);
+            // $("#warnings").html(`Operation can be performed...`);
             $(":submit").removeAttr("disabled");
         }
         

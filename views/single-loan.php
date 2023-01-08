@@ -9,9 +9,9 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
 <div class="row mb-3">
 
 
-<div class="btn-group" id="btn-group" role="group" aria-label="Basic outlined example" style="float:right;">
-    <a class="btn btn-success" href="/loans/<?php echo $rt[2]; ?>/loan-payment">Make Payment  <i class="bi bi-currency-exchange"></i></a>
-    <a class="btn btn-danger" href="/loans/<?php echo $rt[2]?>/add-guaranter" >Add Guaranter  <i class="bi bi-person-plus"></i></a>
+<div class="" id="btn-group" role="group" aria-label="Basic outlined example" style="float:right;">
+    <a class="btn btn-success" href="/loans/<?php echo $rt[2]; ?>/loan-payment" id="add_p">Make Payment  <i class="bi bi-currency-exchange"></i></a>
+    <a class="btn btn-danger" href="/loans/<?php echo $rt[2]?>/add-guaranter" id="add_g">Add Guaranter  <i class="bi bi-person-plus"></i></a>
     <a class="btn btn-primary" onclick="print_now()">Print  <i class="bi bi-printer"></i></a>
 </div>
 </div>
@@ -127,9 +127,11 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
                 response.guaranters.length?$("#guaranters").show():$("#guaranters").hide();
                 response.payments.length?$("#payments").show():$("#payments").hide();
                 if(response.status==1){
-                    $("#add-guaranter").css({display:"inline-block"});
+                    $("#add_g").css({display:"inline-block"});
+                    $("#add_p").css({display:"none"});
                 }else{
-                    $("#add-guaranter").css({display:"none"});
+                    $("#add_g").css({display:"none"});
+                    $("#add_p").css({display:"inline-block"});
                 }
 
                 response.status==2?$("#add-payment").show():$("#add-payment").hide();

@@ -64,6 +64,7 @@ switch($meth){
                     "ls_id"=>$row["ls_id"],
                     "lo_expiry"=>$row["lo_expiry"],
                     "balance"=>$helper->loan_balance($row["lo_id"]),
+                    "member"=>$helper->get_member($row["m_id"])["m_code"]
                     // "balance"=>$helper->loan_balance($row["lo_id"])==null?(1+intval($row["lo_rate"])/100)*$row["lo_amount"]:$helper->loan_balance($row["lo_id"]),
                 ]);
             }

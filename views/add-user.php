@@ -69,17 +69,18 @@ if(isset($t[2])){
                 types: $("#types").val(),
                 edit_user:$("#edit_user").val()
             }),
-            // headers,
+            headers,
             dataType: "json",
             success: function (response) {
-                // if(response.status){
-                    toast('Operation was successful...', xtime)
+                console.log(response)
+                if(response.status){
+                    toast(response.message, xtime)
                     setInterval(() => {
                         window.location = "/admin";
                     }, xtime);
-                // }else{
-                //     Materialize.toast(response.error, xtime)
-                // }
+                }else{
+                    toast(response.error, xtime)
+                }
 
             }
         });

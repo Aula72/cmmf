@@ -38,13 +38,13 @@
               if(response.loans.length){
               let body = [];
               for(let x of response.loans){
-                body.push([x.lo_code, nm.format(x.lo_amount),x.lo_rate, nm.format((1+x.lo_rate/100)*x.lo_amount),x.balance, loan_status(x.ls_id), x.lo_expiry,options_function(x.ls_id, x.lo_code),`<button class="btn btn-success btn-sm rounded-pill" onclick="go_to_page(['loans/${x.lo_code}'])">More  <i class='bi bi-eye'></></button>` ])
+                body.push([x.lo_code,x.member ,nm.format(x.lo_amount),x.lo_rate, nm.format((1+x.lo_rate/100)*x.lo_amount),x.balance, loan_status(x.ls_id), x.lo_expiry,options_function(x.ls_id, x.lo_code),`<button class="btn btn-success btn-sm rounded-pill" onclick="go_to_page(['loans/${x.lo_code}'])">More  <i class='bi bi-eye'></></button>` ])
               }
             
             
             Table({
                 div:"loanList", 
-                head:["LID", "Amount", "Rate (%)", "Amount Payable", "Balance","Status", "Expiry Date", `<a href="add-loan" class="btn btn-outline-primary btn-sm">Add Loan <i class="bi bi-plus-lg"></i></a>`,`<button class="btn btn-outline-primary rounded-pill btn-sm" onclick="print_now();">Print <i class="bi bi-printer"></button>`],
+                head:["Loan Number", "Member", "Amount", "Rate (%)", "Amount Payable", "Balance","Status", "Expiry Date", `<a href="add-loan" class="btn btn-outline-primary btn-sm">Add Loan <i class="bi bi-plus-lg"></i></a>`,`<button class="btn btn-outline-primary rounded-pill btn-sm" onclick="print_now();">Print <i class="bi bi-printer"></button>`],
                 body
               })
       }else{

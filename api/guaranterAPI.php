@@ -26,7 +26,7 @@ switch($meth){
         if($he){
             $msg['status']=1;
             $msg['message']='Guaranter was added successful...';
-            $helper->update_account($m_id, $amount, 11);
+            $helper->update_account($m_id, $amount, $helper->t_type("loan out"));
             $m = intval($helper->get_loan_amount($lo_id))-intval($helper->guarant_balance($lo_id));
             // $msg["message"] = $m;
             if($m==0){
