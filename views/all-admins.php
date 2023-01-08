@@ -58,8 +58,8 @@ if(isset($t[2])){
 
 <script>
     page_title('Admin');
-    // let bn = user_mail=="kibirigetwaha123@gmail.com"
-    let bn = 'simo@gold.vom'
+    let bn = user_mail=="kibirigetwaha123@gmail.com"
+    // let bn = 'simo@gold.vom'
     const get_admins =() =>{
         $.ajax({
             type: "GET",
@@ -77,7 +77,7 @@ if(isset($t[2])){
                             <td>${m.lname} ${m.fname}</td>
                             <td>${m.mail}</td>
                             <td>${m.status=='1'?'Active':'In-Active'}</td>
-                            <td>${m.typn}</td>
+                            
                             <td ${bn?this.visibility='visible':this.visibility='hidden'}><a href="/admin/${m.user_id}/edit"><i class="bi bi-pencil"></i></a></td>
                             <td ${bn?this.visibility='visible':this.visibility='hidden'}><i class="bi bi-settings" onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'></i></td>
                             
