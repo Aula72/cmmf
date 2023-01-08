@@ -58,8 +58,8 @@ if(isset($t[2])){
 
 <script>
     page_title('Admin');
-    // let bn = user_mail=="kibirigetwaha123@gmail.com"
-    let bn = 'simo@gold.vom'
+    let bn = user_mail=="kibirigetwaha123@gmail.com"
+    // let bn = 'simo@gold.vom'
     const get_admins =() =>{
         $.ajax({
             type: "GET",
