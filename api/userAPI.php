@@ -50,7 +50,7 @@ switch($meth){
                     "user_type_id"=>$row["user_type_id"],
                     "created_at"=>$row["created_at"],
                     "updated_at"=>$row["updated_at"],
-                    "typn"=>$helper->user_types($row["user_id"]),
+                    "typn"=>$helper->user_types($row["user_type_id"]),
                     
                 ]);
             }
