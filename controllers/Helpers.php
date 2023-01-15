@@ -378,7 +378,7 @@ class Helper{
         $week1 = $week1["w_id"];
         if(intval($bal)>0){
             $amount = $this->guaranter_percentage($g, $lo)*$amount;
-            $this->deposit_to_ledger(["m_id"=>$g, "amount"=>$amount, "trans_type_id"=>$this->t_type("saving"), "t_code"=>$this->t_id(),"t_desc"=>"Loan repayment", "w_id"=>$week1]);
+            $this->deposit_to_ledger(["m_id"=>$g, "amount"=>$amount, "trans_type_id"=>$this->t_type("saving"), "t_code"=>$this->t_id()."N","t_desc"=>"Loan repayment", "w_id"=>$week1]);
             $gua = $this->query("select * from guaranter_balance where lo_id=:lo and m_id=:m limit 1",[":m"=>$g,':lo'=>$lo]);
             $gua = $gua->fetch(\PDO::FETCH_ASSOC);
 

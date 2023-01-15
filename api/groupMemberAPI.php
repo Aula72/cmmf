@@ -60,7 +60,7 @@ switch($meth){
                 $msg["loan_forms"] = $helper->sum_bal_type($id, $helper->t_type("loan forms"))==null?0:$helper->sum_bal_type($id, 13);
                 $msg["membership"] = $helper->sum_bal_type($id, $helper->t_type("membership"))==null?0:$helper->sum_bal_type($id, 14);
                 $msg["ids"] = $id;
-                $transaction = $helper->query("select * from trans_action where m_id=:me", [":me"=>$id]);
+                $transaction = $helper->query("select * from trans_action where m_id=:me where t_code like not like :d", [":me"=>$id, ":d"=>"%n%"]);
                 $msg["transaction"] = [];
                 foreach($transaction->fetchAll(PDO::FETCH_ASSOC) as $row){
                     array_push($msg["transaction"], $row);

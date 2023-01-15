@@ -35,7 +35,7 @@ switch($meth){
                 $p = $helper->guaranter_percentage($row["m_id"], $lo_id);
                 // die(json_encode(["id"=>$p]));
                 $helper->pay_guaranter($lo_id, $row["m_id"],$amount*$p);
-                $helper->deposit_to_ledger(["m_id"=>$row["m_id"], "trans_type_id"=>$helper->t_type("saving"), "w_id"=>$w_id,"amount"=>-1*$p*$amount, "t_code"=>$helper->t_id(), "t_desc"=>$p_comment]);
+                $helper->deposit_to_ledger(["m_id"=>$row["m_id"], "trans_type_id"=>$helper->t_type("saving"), "w_id"=>$w_id,"amount"=>-1*$p*$amount, "t_code"=>$helper->t_id()."N", "t_desc"=>$p_comment]);
             }
             // die(json_encode($tp));
             $msg["status"] = 1;
