@@ -28,6 +28,8 @@ switch($meth){
             
         }else if(isset($_GET["loanable"])){
             $group = $helper->query("select * from $tb_name where g_id=:id or g_code=:id", [":id"=>$_GET['loanable']]);
+
+            // $loan = $helper->query("select * from loans");
             if($group->rowCount()>0){
                 $msg["id"] = $_GET['loanable'];                
                 $members = $helper->query("SELECT * FROM `group_member` where group_member.g_id=:id and group_member.m_id in (select loanable_member.m_id from loanable_member where loanable_member.status=1 order by loanable_member.id);",[":id"=>$_GET['loanable']]);

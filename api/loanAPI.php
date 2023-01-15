@@ -44,10 +44,11 @@ switch($meth){
             $u = $helper->query("select sum(amount) as amt from guaranter where m_id=:id",[":id"=>$_GET['sbal']]);
             $u = $u->fetch(\PDO::FETCH_ASSOC);
 
-            $p = $helper->query("select sum(amount) as amt from account_balance where m_id=:id",[":id"=>$_GET['sbal']]);
-            $p = $p->fetch(\PDO::FETCH_ASSOC);
+            // $p = $helper->query("select sum(amount) as amt from account_balance where m_id=:id",[":id"=>$_GET['sbal']]);
+            // $p = $p->fetch(\PDO::FETCH_ASSOC);
+            $p = $helper->ledger_sum($_GET["sbal"],$helper->t_type("saving"));
 
-            $msg["message"] = intval($p["amt"]) - intval($u["amt"]);
+            $msg["message"] = intval($p) - intval($u["amt"]);
         }else{
             $loans = $helper->query("select * from loans order by lo_id desc");
             $msg["loans"] = [];
@@ -86,7 +87,7 @@ switch($meth){
         $user_id = $helper->get_token()["user_id"];	
         $lo_amount = $data["amount"];
         $st = 1;
-        if(intval($lo_amount)<intval($helper->account_balance($m_id))){
+        if(intval($lo_amount)<intval($helper->ledger_sum($m_id, $helper->t_type("saving")))){
             $st = 2;
         }
         $helper->required_fields([$lo_code, $lo_amount, $lo_expiry,$lo_rate]);

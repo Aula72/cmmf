@@ -126,6 +126,7 @@ const get_mee = (x, y) =>{
                 headers:headers,
                 dataType: "json",
                 success: function (response) {
+                    console.log(response)
                     if(response.status){
                         msgg = true                    
                     }else{

@@ -18,7 +18,7 @@ if(isset($t[2])){
 }
 ?>
 <div class="row">
-<div class="col-lg-8">
+<!-- <div class="col-lg-8"> -->
 <table class="table">
     <thead>
         <tr>
@@ -29,7 +29,8 @@ if(isset($t[2])){
   </a></th>  
         <th>
             <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="print_now();">Print <i class="bi bi-printer"></i></button>
-        </th>       
+        </th>  
+        <th></th>     
         </tr>
     </thead>
     <tbody id="adminList">
@@ -51,15 +52,15 @@ if(isset($t[2])){
   
         
       
-  </div>
+  <!-- </div> -->
 </div>
 
 
 
 <script>
     page_title('Admin');
-    let bn = user_mail=="kibirigetwaha123@gmail.com"
-    // let bn = 'simo@gold.vom'
+    // let bn = user_mail=="kibirigetwaha123@gmail.com"
+    let bn = 'simo@gold.vom'
     const get_admins =() =>{
         $.ajax({
             type: "GET",

@@ -152,7 +152,7 @@ class Helper{
     }
 
     public function guarant_balance($id){
-        $ht = $this->query("select sum(amount) as amount from guaranter where lo_id=:id",[":id"=>$id]);
+        $ht = $this->query("select ifnull(sum(amount),0) as amount from guaranter where lo_id=:id",[":id"=>$id]);
         $ht = $ht->fetch(\PDO::FETCH_ASSOC);
         return $ht["amount"];
     }
@@ -296,7 +296,97 @@ class Helper{
 
         return $t["ty_id"];
     }
+    public function member_has_loan($id){
+        $t = $this->query("select * from loanable_member where m_id=:id", [":id"=>$id]);
+        $t = $t->fetch(\PDO::FETCH_ASSOC);
+        return $t["status"]==0?false:true;
+    }
 
+    public function guaranter_percentage($id, $lo_id){
+        $g = $this->query("select sum(amount) as amount from guaranter where m_id=:id and lo_id=:loan",[":id"=>$id, ":loan"=>$lo_id]);
+        $g = $g->fetch(\PDO::FETCH_ASSOC);
+
+        $r = $this->query("select sum(amount) as amount from guaranter where lo_id=:id", [":id"=>$lo_id]);
+        $r = $r->fetch(\PDO::FETCH_ASSOC);
+
+        try{
+            $p = $g["amount"]/$r["amount"];
+        }catch(DivisionByZeroError $e){
+            $p = 0;
+        }
+        return $p;
+    }
+    
+    public function deposit_to_ledger($ty = []){
+        $mem = $ty["m_id"];
+        $amount = $ty["amount"];
+        $ledger = $ty["trans_type_id"];
+        $week = $ty["w_id"];
+        $t_desc = $ty["t_desc"];
+        $t_code = $ty["t_code"];
+        // die(json_encode($ty));
+
+        $p = $this->query("select * from trans_action where w_id=:w and m_id=:m and trans_type_id=:id", [":m"=>$mem, ":w"=>$week, ":id"=>$ledger]);
+        if(intval($amount)>0){
+            if($p->rowCount()==0){
+                $trans = $this->query("insert into trans_action set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$this->get_token()["user_id"],":member"=>$mem,":trans"=>$ledger,":code"=>$t_code,":amount"=>$amount,":comment"=>$t_desc, ":week"=>$week]);
+            }else{
+                $trans = $this->query("update trans_action set   t_amount=:amount, t_desc=:comment where w_id=:week and m_id=:member and trans_type_id=:trans",[":member"=>$mem,":trans"=>$ledger,":amount"=>$amount,":comment"=>$t_desc, ":week"=>$week]);
+            }
+            $this->create_log($this->get_token()["user_id"], "Transaction {$t_code} amnt {$amount} made");
+            if($trans){
+                $t = true;
+            }
+        }else{
+            $t = false;
+        }
+        return $t;
+    }
+
+    public function ledger_sum($mem, $ledger){
+        $p = $this->query("select ifnull(sum(t_amount), 0) as amount from trans_action where m_id=:mem and trans_type_id=:ty",[":mem"=>$mem, ":ty"=>$ledger]);
+        $p = $p->fetch(\PDO::FETCH_ASSOC);
+        return $p["amount"];
+    }
+
+    public function get_guarantee_balance($id){
+        $p = $this->query("select ifnull(sum(amount), 0) as amount from guaranter_balance where m_id=:m",[":m"=>$id]);
+        $p = $p->fetch(\PDO::FETCH_ASSOC);
+        return $p["amount"];
+    }
+    public function my_guarant_balance($id, $lo){
+        $p = $this->query("select ifnull(sum(amount), 0) as amount from guaranter_balance where m_id=:m and lo_id=:lo",[":m"=>$id, ":lo"=>$lo]);
+        $p = $p->fetch(\PDO::FETCH_ASSOC);
+        return $p["amount"];
+    }
+    public function my_loan($id){
+        $p = $this->query("select * from loans where m_id=:m and ls_id='2'",[":m"=>$id]);
+        $p = $p->fetch(\PDO::FETCH_ASSOC);
+        return $p["lo_id"];
+    }
+    public function t_id(){
+        return "TRS".time()."CMMF".rand(1000,9999);
+    }
+    public function pay_guaranter($lo, $g, $amount){
+        
+        $bal = $this->my_guarant_balance($g, $lo);
+        
+        $mem = $this->get_member($g);
+        // die(json_encode(["g"=>$g, "bal"=>$bal, "mem"=>$mem]));
+        $week1 = $this->query("select * from weeks where g_id=:g order by w_id desc limit 1",[":g"=>$mem["g_id"]]);
+        $week1 = $week1->fetch(\PDO::FETCH_ASSOC);
+        $week1 = $week1["w_id"];
+        if(intval($bal)>0){
+            $amount = $this->guaranter_percentage($g, $lo)*$amount;
+            $this->deposit_to_ledger(["m_id"=>$g, "amount"=>$amount, "trans_type_id"=>$this->t_type("saving"), "t_code"=>$this->t_id(),"t_desc"=>"Loan repayment", "w_id"=>$week1]);
+            $gua = $this->query("select * from guaranter_balance where lo_id=:lo and m_id=:m limit 1",[":m"=>$g,':lo'=>$lo]);
+            $gua = $gua->fetch(\PDO::FETCH_ASSOC);
+
+            $bal = $gua["amount"] - $amount;
+            $this->query("update guaranter_balance set amount=:amt where lo_id=:lo and m_id=:m",[":m"=>$g, ":lo"=>$lo, ":amt"=>$bal]);
+            
+        }
+    }
 
 }
 

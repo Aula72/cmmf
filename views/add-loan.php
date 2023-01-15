@@ -8,7 +8,7 @@ $u = $y["name"]>10?$y["name"]:"0".$y["name"];
 // $code = "LN".$code.date("mY");
 $oi = $help->get_last_id("lo_id","loans")+1;
 // $code = $m["g_code"].$u.$io;
-
+$exp = date('Y-m-d', strtotime("+1 year"));
 // $g = $help->number_with_zeros(3, 4);
 ?>
 <div class="row">
@@ -180,7 +180,7 @@ $oi = $help->get_last_id("lo_id","loans")+1;
     //   console.log('fjld')
     // }
     // member(5)
-    Input({div:"date-div", value:"", label:"Expiry Date", type:"date", id:"expiry"})
+    Input({div:"date-div", value:"<?php echo $exp; ?>", label:"Expiry Date", type:"date", id:"expiry", dis:"disabled"})
     Input({div:"code-div", value:"", label:"Code", id:"code", dis:"disabled"})
     Input({div:'amt-div',value:'', label:'Rate', id:'rate', dlength:2, type:"number",})
     Input({div:"new-div", value:"", "label":"Amount Payable", id:"amnt", type:"number", dis:"disabled"})

@@ -47,7 +47,7 @@ switch($meth){
                     ]);
                 }
                 $msg["group_code"] = $helper->group_code($msg["member"]["g_id"]);
-                $msg["balance"] = $helper->account_balance($id)==null?0:$helper->account_balance($id);
+                $msg["balance"] = $helper->ledger_sum($id, $helper->t_type("saving")) - $helper->get_guarantee_balance($id);
                 $msg["savings"] = $helper->sum_bal_type($id, $helper->t_type("saving"))==null?0:$helper->sum_bal_type($id, 4);
                 $msg["social_fund"] = $helper->sum_bal_type($id, $helper->t_type("social fund"))==null?0:$helper->sum_bal_type($id, 5);
                 $msg["fines"] = $helper->sum_bal_type($id, $helper->t_type("fine"))==null?0:$helper->sum_bal_type($id, 6);
