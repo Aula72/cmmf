@@ -8,6 +8,7 @@ $cn = 100;
 if(isset($_GET["num"])){
 	$cn = intval($_GET["num"]);
 }
+
 $help = new \Cmmf\Helper;
 $user = $help->query("select * from user order by user_id desc limit {$cn}");
 $groups = $help->query("select * from grouping order by g_id desc limit {$cn}");
@@ -82,6 +83,8 @@ $u["loans"] = [];
 foreach($loans->fetchAll(\PDO::FETCH_ASSOC) as $row){
 	array_push($u["loans"], $row);
 }
+
+
 
 // $u["s"] =[];
 // die(json_encode($t->fetchAll(\PDO::FETCH_ASSOC)));

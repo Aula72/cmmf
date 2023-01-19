@@ -314,7 +314,7 @@ class Helper{
         }catch(DivisionByZeroError $e){
             $p = 0;
         }
-        return $p;
+        return round($p, 2);
     }
     
     public function deposit_to_ledger($ty = []){
