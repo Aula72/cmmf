@@ -51,7 +51,7 @@
                 tt_amount += Number(r.lo_amount)
                 tt_to_pay  += r.to_pay
             }
-            body.push(["Total", "","", nm.format(tt_amount), "", nm.format(tt_to_pay), tt_balance<=0?"T.B.D":nm.format(tt_balance), "", `<div class="dont-print"></div>`])
+            body.push(["","Total", "", nm.format(tt_amount), "", nm.format(tt_to_pay), tt_balance<=0?"T.B.D":nm.format(tt_balance), "", `<div class="dont-print"></div>`])
             Table({div:"rep_id", body, head})
         }
         });
