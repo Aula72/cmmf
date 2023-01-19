@@ -257,7 +257,7 @@ class Helper{
         }else{
             $uo = $this->query("select ifnull(sum(amount),0) as amount from loan_payment where lo_id=:lo",[":lo"=>$loid]);
             $res = $uo->fetch(\PDO::FETCH_ASSOC);
-            $res = number_format((1+intval($loan["lo_rate"])/100)*intval($loan["lo_amount"]) - $res["amount"]);
+            $res = intval((1+intval($loan["lo_rate"])/100)*intval($loan["lo_amount"]) - $res["amount"]);
         }
         return $res;
     }
