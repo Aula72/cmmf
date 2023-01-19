@@ -78,6 +78,7 @@
         localStorage.setItem('mail', $('#m').val())
         localStorage.setItem('full_name', data.full_name);
         localStorage.setItem('long_name', data.long_name);
+        localStorage.setItem("utype", data.utype);
         toast(data.message)
         setTimeout(function(){
           console.log(data.otp)

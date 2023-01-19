@@ -111,6 +111,8 @@ if(isset($t[2])){
     Input({div:"mail-div", id:"mail", value:"<?php echo $mail; ?>", label:"Email Address", type:"email"})
     
     Select({div:"act-div", id:"status", value:"<?php echo $status; ?>", label:"Status",options:[{value:1, title:"Active"},{value:2, title:"In-Active"}]})
+
+    allow_url([1,3])
   </script>
 
 

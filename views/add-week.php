@@ -129,4 +129,6 @@ $year = $help->query("select * from finanial_year order by y_id desc");
             }
         });
     })
+
+    allow_url([2])
   </script>

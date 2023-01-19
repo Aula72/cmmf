@@ -1,4 +1,5 @@
 <?php 
+include_once "../config/constants.php";
 $t = explode("/",$_SERVER['REQUEST_URI']);
 // echo "###################    ".$t[1]."     ###################################\n";
 function actives($rt){
@@ -147,11 +148,11 @@ function actives($rt){
               <i class="bi bi-circle"></i><span>Loans</span>
             </a>
           </li>
-          <li>
+          <!-- <li>
             <a href="/user-reports">
               <i class="bi bi-circle"></i><span>User</span>
             </a>
-          </li>
+          </li> -->
         </ul>
       </li>
   
@@ -205,9 +206,12 @@ function actives($rt){
       </nav>
     </div>
 
-    <div id="print-title" style="display:none; text-align:center; padding:10px;">
-      <h3 style="text-align:center; color: green; ">CMMF</h3>
-      <h2>P.O Box <?php echo POX; ?></h2>
-      <hr style="color:red;">
+    <div id="print-title" style="display:none; width:100%;" class="text-center">
+      <h2 style="text-align:center;" id="cmmf">CMMF</h2>
+      <h4 style="text-align:center; ">P.O Box <span id="pox"></span>, Location: <span id="loc"></span></h4>
+      <h5 style="text-align:center; ">Mobile <span id="phone1"></span>/ <span id="phone2"></span>, Email: <span id="mail"></span></h5>
+      <h6 id="print_title" ></h6>
+      <hr style="color:black; height:2px;">
+      
     </div>
 

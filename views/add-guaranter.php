@@ -109,4 +109,5 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
         }
         
     })
+    allow_url([2])
 </script>

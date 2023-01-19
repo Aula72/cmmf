@@ -156,4 +156,6 @@ const get_mee = (x, y) =>{
 TextArea({div:"com-div", id:"t_desc", label:"Comment", placeholder:""})
 Button({div:"btn-div", label:"Add Transaction", type:"submit", btn:"success", icon:"send",})
 
+
+allow_url([2])
 </script>

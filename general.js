@@ -1,6 +1,16 @@
 var ses = localStorage.getItem("token");
 let em = localStorage.getItem("mail")
+let utype = localStorage.getItem("utype");
 let st = window.location.pathname;
+
+let details = {
+	pox:"890 K'la (Ug)",
+	loc: "5 Str, Kampala Rd",
+	mail: "cmmf@cmmf.fueless.co.ug",
+	phone1:"+256788227844",
+	phone2:"+256788227844",
+	cmmf:"CMMF Sacco"
+}
 if(ses=='' || ses==null){
 	$('#nav').css({display:"none"});
 	$("#p_title").css({display:"none"});
@@ -50,6 +60,7 @@ const go_to_page = (x=[]) =>{
 	window.location = j;	
 }
 const print_now = (prt='') =>{
+	$("#print_title").text(prt)
 $('#btn-group').css({display:'none'})
 	$('.pagetitle').css({display:'none'});
 	$("#print-title").css({display:"inline-block"});
@@ -57,6 +68,14 @@ $('#btn-group').css({display:'none'})
 	$('#nav').css({display:'none'});
 	$("#ghead").append(`<p style="text-align:center; ">${prt}</p>`)
 	$("#ghead").show();
+	$(".dont-print").hide();
+
+	$("#pox").text(details.pox)
+	$("#loc").text(details.loc)
+	$("#mail").text(details.mail)
+	$("#phone1").text(details.phone1)
+	$("#phone2").text(details.phone2)
+	$("#cmmf").text(details.cmmf)
 	window.print();
 	$("#ghead").hide();
 	$("#print-title").css({display:"none"});
@@ -64,6 +83,7 @@ $('#btn-group').css({display:'none'})
 	$('.btn').css({display:'inline-block'})
 	$('#nav').css({display:'inline-block'})
 $('#btn-group').css({display:'inline-block'})
+$(".dont-print").show();
 }
 
 let nm = new Intl.NumberFormat("en-US")
@@ -115,7 +135,7 @@ const Select = (obj) =>{
     <div class="row mb-3">
     <label class="col-sm-2 col-form-label">${obj.label}</label>
     <div class="col-sm-10">
-      <select id="${obj.id}" onchange=${obj.onchange} value="${obj.value}" class="form-select rounded-pill" aria-label="Default select example">
+      <select id="${obj.id}"  value="${obj.value}" class="form-select rounded-pill" aria-label="Default select example">
         <option>Open this select menu</option>`
     for(let m of obj.options){
 		let sel = obj.value==m.value?'selected':'';
@@ -141,7 +161,7 @@ const TextArea  = (obj) =>{
 }
 
 const Table = (obj) =>{
-	let head = "<table class='table'><tr>";
+	let head = "<table class='table table-striped'><tr>";
 	for(let t of obj.head){
 		head += `<th>${t}</th>`
 	}
@@ -235,5 +255,61 @@ $("button:submit").on("click", ()=>{
 		$("button:submit").attr("disabled", true), xtime
 	)
 })
+
+$(document).ready(()=>{
+	if(utype!=5){
+		$(".loan-officer").hide();
+		$(".press-loan-officer").attr("disabled", true)
+		$("a.press-loan-officer").attr("href","#")
+		$("a.press-loan-officer").click((e)=>{
+			alert("You have no privilege to perform this operation...")
+		})
+	}
+	if(utype!=2){
+		$(".secretary").hide();
+		$(".press-secretary").attr("disabled", true)
+		$("button.secretary").hide()
+	}
+
+	if(utype!=3){
+		$(".chairman").hide();
+	}else{
+		$(".chairman").show();
+	}
+	if(utype!=1){
+		$(".super").hide();
+	}else{
+		$(".super").show();
+	}
+	if(utype==3 || utype==1){
+		$(".chairman").show();
+		$(".super").show();
+	}
+	
+})
+
+const allow_url = (arr) =>{
+	if(arr.indexOf(utype)!=-1){
+		let t = confirm("You are not allow to access this resource")
+		if(t){
+			window.history.go(-1)
+		}else{
+			window.history.go(-1)
+		}
+	}
+}
+
+const make_sum = (m) =>{
+	let j = 0
+	try{
+		j += m
+	}catch(TypeError){
+		j = "T.B.D"
+	}
+	return j=="T.B.D"?"T.B.D":Number(j)
+}
+
+
+
 
 

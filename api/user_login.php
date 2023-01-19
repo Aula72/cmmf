@@ -23,6 +23,7 @@ if($check->rowCount()>0){
 		$msg["otp"] = $otp;
 		$msg["full_name"] = $user["fname"][0].". ".$user["lname"];
 		$msg["long_name"] = $user["fname"]." ".$user["lname"];
+		$msg["utype"]  = $user["user_type_id"];
 		// mail(OTP_MAIL, $grt, $msg, $headers);
 		$help->mail_send($otp, $uname);
 		$otp = password_hash($otp, PASSWORD_DEFAULT);

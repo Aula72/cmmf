@@ -24,11 +24,11 @@ if(isset($t[2])){
         <tr>
             <th>Name</th>
             <th>Email</th>  
-            <th><a class="btn btn-outline-success btn-sm rounded-pill" href="add-admin" name="action">Add User
+            <th><a class="btn btn-outline-success btn-sm rounded-pill chairman super" href="add-admin" name="action">Add User
     <i class="bi bi-person-add"></i>
   </a></th>  
         <th>
-            <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="print_now();">Print <i class="bi bi-printer"></i></button>
+            <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="print_now('CMMF Administrators');">Print <i class="bi bi-printer"></i></button>
         </th>  
         <th></th>     
         </tr>
@@ -79,7 +79,7 @@ if(isset($t[2])){
                             <td>${m.mail}</td>
                             <td>${m.status=='1'?'Active':'In-Active'}</td>
                             <td>${m.typn}</td> 
-                            <td ${bn?this.visibility='visible':this.visibility='hidden'}><a href="/admin/${m.user_id}/edit"><i class="bi bi-pencil"></i></a></td>
+                            <td ${bn?this.visibility='visible':this.visibility='hidden'}><a href="/admin/${m.user_id}/edit" class="chairman super dont-print"><i class="bi bi-pencil"></i></a></td>
                             <td ${bn?this.visibility='visible':this.visibility='hidden'}><i class="bi bi-settings" onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'></i></td>
                             
                             </tr>`;

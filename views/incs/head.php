@@ -33,6 +33,7 @@
 
   <!-- Template Main CSS File -->
   <link href="<?php echo URL; ?>/assets/css/style.css" rel="stylesheet">
+  <link href="<?php echo URL; ?>/assets/css/mycss.css" rel="stylesheet">
 <script src="<?php echo URL; ?>/assets2/js/jquery.js"></script>
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.4.1

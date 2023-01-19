@@ -16,13 +16,13 @@
   const options_function = (x, i) =>{
     let m = ''
     if(x == 1){
-      m = `<a href="/loans/${i}/add-guaranter" class="btn btn-sm btn-primary rounded-pill">Add Guaranter</a>`
+      m = `<a href="/loans/${i}/add-guaranter" class="btn btn-sm btn-primary rounded-pill press-loan-officer">Add Guaranter</a>`
     }else if(x==2){
-      m = `<a href="/loans/${i}/loan-payment" class="btn btn-sm btn-warning rounded-pill">Make Payment</a>`
+      m = `<a href="/loans/${i}/loan-payment" class="btn btn-sm btn-warning rounded-pill press-loan-officer">Make Payment</a>`
     }else if(x==3){
-      m = `<a href="/loans/${i}/loan-payment" class="btn btn-sm btn-warning rounded-pill">Make Payment</a>`
+      m = `<a href="/loans/${i}/loan-payment" class="btn btn-sm btn-warning rounded-pill press-loan-officer">Make Payment</a>`
     }else{
-      m = `<button class="btn btn-sm btn-block btn-outline-success rounded-pill">  Loan Settled <i class=""></button>`
+      m = `<button class="btn btn-sm btn-block btn-outline-success rounded-pill press-loan-officer">  Loan Settled <i class=""></li></button>`
     }
     return m;
   }
@@ -44,7 +44,7 @@
             
             Table({
                 div:"loanList", 
-                head:["Loan Number", "Member", "Amount", "Rate (%)", "Amount Payable", "Balance","Status", "Expiry Date", `<a href="add-loan" class="btn btn-outline-primary btn-sm">Add Loan <i class="bi bi-plus-lg"></i></a>`,`<button class="btn btn-outline-primary rounded-pill btn-sm" onclick="print_now();">Print <i class="bi bi-printer"></button>`],
+                head:["Loan Number", "Member", "Amount", "Rate (%)", "Amount Payable", "Balance","Status", "Expiry Date", `<a href="add-loan" class="btn btn-outline-primary btn-sm loan-officer">Add Loan <i class="bi bi-plus-lg"></i></a>`,`<button class="btn btn-outline-primary rounded-pill btn-sm" onclick="print_now();">Print <i class="bi bi-printer"></button>`],
                 body
               })
       }else{

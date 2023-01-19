@@ -121,4 +121,6 @@ Input({div:'fname-div', id:"fname", type:"text", label:"First Name", value:"<?ph
 Input({div:"lname-div", id:"lname", type:"text", label:"Last Name", value:"<?php echo $lname; ?>"})
 Input({div:"phone-div", id:"phone", type:"tel", label:"Phone Number", value:"<?php echo $phone; ?>", });
 Input({div:"nin-div", id:"nin", type:"text", label:"NIN", value:"<?php echo $nin; ?>"})
+
+allow_url([2])
 </script>

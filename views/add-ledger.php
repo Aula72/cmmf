@@ -39,5 +39,6 @@
     Button({div:"btn-div", label:"Submit", icon:"send", type:"submit", btn:"success"})
     Input({div:"name-div", label:"Name", id:"name", value:"", type:"text"})
     Select({div:"type-div", id:"mult",label:"Type", options:[{value:1, title:"Increase"},{value:-1, title:"Decrease"}], })
+    allow_url([2])
 </script>
 

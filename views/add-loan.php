@@ -212,4 +212,5 @@ $exp = date('Y-m-d', strtotime("+1 year"));
     })
 
     console.log($("#group").val())
+    allow_url([2])
 </script>

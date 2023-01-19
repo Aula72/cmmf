@@ -10,8 +10,8 @@
               <th>Group</th>
               <th>Date</th>
               <th colspan=3>
-              <a class="btn btn-outline-success rounded-pill btn-sm" href="/add-week">Add Week  <i class="bi bi-calendar-plus"></i></a>
-                <a class="btn btn-outline-warning rounded-pill btn-sm" onclick="add_year()">Add Financial Year  <i class="bi bi-plus"></i></a>
+              <a class="btn btn-outline-success rounded-pill btn-sm secretary" href="/add-week">Add Week  <i class="bi bi-calendar-plus"></i></a>
+                <a class="btn btn-outline-warning rounded-pill btn-sm secretary" onclick="add_year()">Add Financial Year  <i class="bi bi-plus"></i></a>
                 <button class="btn btn-outline-primary rounded-pill btn-sm" onclick="print_now();">Print <i class="bi bi-printer"></i></button>
                 </th>
               <!-- <th></th> -->
@@ -55,7 +55,7 @@
               <td>${x.year}</td>
               <td>${x.g_code}</td>
               <td >${x.w_date}</td>
-              <td><a href="/weeks/${x.w_id}/week-transactions" class="btn btn-outline-success rounded-pill btn-sm">Make Transaction <i class="bi bi-eye"></i></a href="/weeks/{$po[2]}/week-transactions"></td>
+              <td><a href="/weeks/${x.w_id}/week-transactions" class="btn btn-outline-success rounded-pill btn-sm secretary">Make Transaction <i class="bi bi-eye"></i></a href="/weeks/{$po[2]}/week-transactions"></td>
             </tr>`;
           }
             $('#list_weeks').html(row);

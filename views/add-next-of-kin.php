@@ -110,4 +110,6 @@ $po = $help->query("select * from kin_relations");
   Input({div:'loc-div', id:"location", label:"Location", value:""})
   Input({div:'dob-div', id:"dob", label:"Date of Birth", type:"date", value:""})
   Button({div:"btn-div", label:"Add Next Kin  ", type:"submit", btn:"success", icon:"send"})
+
+  allow_url([2])
 </script>

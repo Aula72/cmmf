@@ -10,8 +10,8 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
 
 
 <div class="" id="btn-group" role="group" aria-label="Basic outlined example" style="float:right;">
-    <a class="btn btn-success" href="/loans/<?php echo $rt[2]; ?>/loan-payment" id="add_p">Make Payment  <i class="bi bi-currency-exchange"></i></a>
-    <a class="btn btn-danger" href="/loans/<?php echo $rt[2]?>/add-guaranter" id="add_g">Add Guaranter  <i class="bi bi-person-plus"></i></a>
+    <a class="btn btn-success loan-officer" href="/loans/<?php echo $rt[2]; ?>/loan-payment" id="add_p">Make Payment  <i class="bi bi-currency-exchange"></i></a>
+    <a class="btn btn-danger loan-officer" href="/loans/<?php echo $rt[2]?>/add-guaranter" id="add_g">Add Guaranter  <i class="bi bi-person-plus"></i></a>
     <a class="btn btn-primary" onclick="print_now()">Print  <i class="bi bi-printer"></i></a>
 </div>
 </div>

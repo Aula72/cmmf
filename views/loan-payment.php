@@ -74,4 +74,6 @@ $bal = (1 +intval($yu["lo_rate"])/100)*intval($yu["lo_amount"]) - intval($y["amt
     Button({div:"btn-div", icon:"send", label:"Submit", type:"submit", btn:"success"})
     Input({div:"due-div", label:"Due Amount", value:bal, dis:"disabled"})
     Input({div:"amount-div", label:"Amount", value:"", id:"amount", type:"number"})
+
+    allow_url([2])
 </script>

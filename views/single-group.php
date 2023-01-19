@@ -31,10 +31,10 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
             <li class="list-group-item">
               <div class="row">
                 <div class="col-lg-6">
-                  <a href="/add-member" onclick="localStorage.setItem('g_id', <?php echo $rt[2];?>);"class="btn">Click to Add Member to Group</a>
+                  <a href="/add-member" onclick="localStorage.setItem('g_id', <?php echo $rt[2];?>);"class="btn btn-outline-success secretary">Click to Add Member to Group</a>
                 </div>
                 <div class="col-lg-6">
-                  <a class="btn" href="/groups/<?php echo $rt[2]; ?>/make-transactions">Make Transaction  <i class="bi bi-money"></i></a>
+                  <a class="btn btn-outline-dark secretary" href="/groups/<?php echo $rt[2]; ?>/make-transactions">Make Transaction  <i class="bi bi-money"></i></a>
                 </div>
               </div>
               <p>
@@ -68,16 +68,8 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
           
         </tbody>
       </table>
-      <div class="fixed-action-btn">
-  <a class="btn-floating btn-large green">
-    <i class="large material-icons">edit</i>
-  </a>
-  <ul>
-    <li><a class="btn-floating red" href="/add-member"><i class="material-icons">person_add</i></a></li>
-    <li id="adds"><a class="btn-floating yellow darken-1" href="/groups/<?php echo $rt[2]; ?>/make-transactions"><i class="material-icons">money</i></a></li>
-    <!-- <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li> -->
-    <!-- <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li> -->
-  </ul>
+      
+  
 </div>
 <script>
   page_title('Loading...');
@@ -104,8 +96,8 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
                   <td>${m.m_phone}</td>
                   <td>${m.m_nin}</td>
                   <td><button onclick="memb(${m.m_id})" class="btn btn-sm btn-primary">Details</button></td>
-                  <td><a href="/members/${m.m_id}/add-transaction" class="btn btn-sm btn-success">Make Transaction</a></td>                
-                  <td><a href="/members/${m.m_id}/edit" class="btn btn-sm btn-info">Edit</a></td>
+                  <td><a href="/members/${m.m_id}/add-transaction" class="btn btn-sm btn-success secretary">Make Transaction</a></td>                
+                  <td><a href="/members/${m.m_id}/edit" class="btn btn-sm btn-info secretary">Edit</a></td>
                 </tr>`;
           }
           $("#memberList").html(g);

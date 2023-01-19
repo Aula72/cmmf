@@ -67,4 +67,5 @@ $code = $help->get_last_id('g_id','grouping')+1;
   });
   })
   page_title('Add Group');
+  allow_url([2])
 </script>

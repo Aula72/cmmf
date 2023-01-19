@@ -9,7 +9,7 @@
 
             </th>
             <th>
-                <button class="btn btn-outline-primary rounded-pill btn-sm" onclick="print_now();">Print <i class="bi bi-printer"></i></button>
+                <button class="btn btn-outline-primary rounded-pill btn-sm " onclick="print_now();">Print <i class="bi bi-printer"></i></button>
             </th>
         </tr>
     </thead>
@@ -49,8 +49,8 @@
                         <td>${p.g_name}</td>
                         <td>${p.g_location}</td>
                         <td><button class="btn btn-success btn-sm rounded-pill" onclick="go_to_page(['groups', ${p.g_id}])">Details <i class="bi bi-eye"></button></td>
-                        <td><button class="btn btn-primary btn-sm rounded-pill" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['add-member']);">Add Member <i class="bi bi-person-plus"></button></td>
-                        <td><button class="btn btn-warning btn-sm rounded-pill" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['groups/${p.g_id}/make-transactions']);">Make Transaction <i class="bi bi-currency-dollar"></button></td>
+                        <td><button class="btn btn-primary btn-sm rounded-pill secretary" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['add-member']);">Add Member <i class="bi bi-person-plus"></button></td>
+                        <td><button class="btn btn-warning btn-sm rounded-pill secretary" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['groups/${p.g_id}/make-transactions']);">Make Transaction <i class="bi bi-currency-dollar"></button></td>
                         </tr>`);
                 }
             }else{
@@ -76,4 +76,6 @@
     page_title('Groups');
     Anchor({div:"add-div", href:"/add-group", btn:"secondary", text:"Add Group"});
     
+    $("#add-div").addClass("secretary");
+    // allow_url([2])
 </script>
