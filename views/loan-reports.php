@@ -43,16 +43,15 @@
             let ki = 1
             let tt_amount = tt_balance = tt_to_pay=0
             for(let r of response.reports){
-                body.push([ki, r.member, r.lo_code,nm.format(r.lo_amount), r.lo_rate+"%", nm.format(r.to_pay), nm.format(r.balance),r.lo_expiry, `<a href="/loans/${r.lo_code}" class="btn btn-outline-success dont-print btn-sm">View</a>`])
+                body.push([ki, r.member, r.lo_code,nm.format(r.lo_amount), r.lo_rate+"%", nm.format(r.to_pay), isNaN(r.balance)?"T.B.D":nm.format(r.balance),r.lo_expiry, `<a href="/loans/${r.lo_code}" class="btn btn-outline-success dont-print btn-sm">View</a>`])
                 ki++
-                if(isNaN(r.balance)){
-                    tt_balance += r.balance
-                }
-                
+                if(!isNaN(Number(r.balance))){
+                    tt_balance += Number(r.balance)
+                }else{}
                 tt_amount += Number(r.lo_amount)
                 tt_to_pay  += r.to_pay
             }
-            body.push(["Total", "","", nm.format(tt_amount), "", nm.format(tt_to_pay), nm.format(tt_balance), "", `<div class="dont-print"></div>`])
+            body.push(["Total", "","", nm.format(tt_amount), "", nm.format(tt_to_pay), isNaN(tt_balance)?"T.B.D":nm.format(tt_balance), "", `<div class="dont-print"></div>`])
             Table({div:"rep_id", body, head})
         }
         });
