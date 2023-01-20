@@ -56,6 +56,7 @@
         }
         });
     }
+    
     loans()
     const g_change = (x) =>{
         localStorage.setItem("lgrp", x)

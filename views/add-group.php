@@ -23,6 +23,7 @@ $code = $help->get_last_id('g_id','grouping')+1;
         <label for="inputText" class="col-sm-2 col-form-label">Group Code</label>
         <div class="col-sm-10">
           <input type="text" id="code" class="form-control rounded-pill" required>
+          <span class="text-danger mb-3" style="text-align:center; font-size: 10px;" id="wcode"></span>
         </div>
       </div>
 			
@@ -68,4 +69,30 @@ $code = $help->get_last_id('g_id','grouping')+1;
   })
   page_title('Add Group');
   allow_url([2])
+
+  $("#code").on("input", e=>{
+    console.log($("#code").val())
+    let c = $("#code").val()
+    $.ajax({
+      type: "get",
+      url: `${base_url}/api/groupAPI.php?check=${c}`,
+      headers,
+      dataType: "json",
+      success: function (response) {
+        console.log(response.checks)
+        if(c.length>0){
+          if(response.checks.length){
+            $("#wcode").show()
+            $("#wcode").text(`Group with code ${c} already exists, try another one...`);
+            $("button:submit").attr("disabled", true);
+          }else{
+            $("#wcode").hide()
+            $("button:submit").removeAttr("disabled");
+          }
+        }else{
+          $("#wcode").hide()
+        }
+      }
+    });
+  })
 </script>

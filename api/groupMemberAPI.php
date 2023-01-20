@@ -82,13 +82,24 @@ switch($meth){
             }
         }else if(isset($_GET['group'])){
             $id = $_GET['group'];
-            $me = $helper->query("select * from $tb_name where g_id=:id",[':id'=>$id]);
+            if(isset($_GET["checks"])){
+                $msg["checks"] = [];
+                $me = $helper->query("select * from $tb_name where g_id=:id and m_code like :m",[":id"=>$id, ":m"=>"%".$_GET["checks"]."%"]);
+                $t  = [];
+                foreach($me->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                    array_push($t, $row);
+                }
+                $msg["checks"] = $t;
+            }else{
+                $me = $helper->query("select * from $tb_name where g_id=:id",[':id'=>$id]);
 
-            $t  = [];
-            foreach($me->fetchAll(\PDO::FETCH_ASSOC) as $row){
-                array_push($t, $row);
+                $t  = [];
+                foreach($me->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                    array_push($t, $row);
+                }
+                $msg["members"] = $t;
             }
-            $msg["members"] = $t;
+            
         }else{
             $me = $helper->query("select * from $tb_name");
             $t  = [];

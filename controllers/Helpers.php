@@ -40,19 +40,25 @@ class Helper{
         $ty = $rt->fetch(\PDO::FETCH_ASSOC);
         return $ty['maxp'];
     }
+    public function get_user($id){
+        $rt = $this->query("select *  from user where user_id=:id", [":id"=>$id]);
+        $ty = $rt->fetch(\PDO::FETCH_ASSOC);
+        return $ty;
+    }
     public function get_token(){
         $this->checkToken();
         $tok = $_SERVER['HTTP_AUTH'];
 
         $rt = $this->query("select * from tokens where token=:token",[":token"=>$tok]);
-        $y = $rt->fetch();
+        $y = $rt->fetch(\PDO::FETCH_ASSOC);
         if($y['user_id']==NULL){
             die(json_encode(["error"=>"Authentication error please login...", "logged"=>false]));
         }
         // $msg["logged"]  = true;
         return [
             "user_id"=>$y["user_id"],
-            "logged"=>true           
+            "logged"=>true,
+            "user"=>$this->get_user($y["user_id"])         
         ];
     }
     public function checkToken(){

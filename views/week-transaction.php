@@ -141,7 +141,7 @@ const get_mee = (x, y) =>{
             });
         }
         if(msgg){
-            alert("simon")
+            // alert("simon")
             toast("TRXN <?php echo $code; ?> was successful...", xtime)
             setTimeout(() => {
                     window.location  = `/weeks/${y}/week-transactions`

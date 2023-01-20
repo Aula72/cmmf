@@ -42,6 +42,7 @@ if(isset($t[2])){
           
         </div> -->
         <div id="code-div"></div>
+        <span id="wcode" class="text-danger text-center" style="font-size: 10px; text-align: center;"></span>
         <div id="fname-div"></div>
         <div id="lname-div"></div>
         <div id="phone-div"></div>
@@ -123,4 +124,32 @@ Input({div:"phone-div", id:"phone", type:"tel", label:"Phone Number", value:"<?p
 Input({div:"nin-div", id:"nin", type:"text", label:"NIN", value:"<?php echo $nin; ?>"})
 
 allow_url([2])
+
+$("#mcode").on("input", e=>{
+  console.log($("#mcode").val())
+  let q = localStorage.getItem('g_id')
+  let p = $("#mcode").val();
+
+  $.ajax({
+    type: "get",
+    url: `${base_url}/api/groupMemberAPI.php?group=${q}&&checks=${p}`,
+    headers,
+    dataType: "json",
+    success: function (response) {
+      console.log(response)
+      if(p.length>0){
+          if(response.checks.length){
+            $("#wcode").show()
+            $("#wcode").text(`Member with code ${p} already exists, try another one...`);
+            $("button:submit").attr("disabled", true);
+          }else{
+            $("#wcode").hide()
+            $("button:submit").removeAttr("disabled");
+          }
+        }else{
+          $("#wcode").hide()
+        }
+    }
+  });
+})
 </script>

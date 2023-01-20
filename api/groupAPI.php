@@ -70,6 +70,12 @@ switch($meth){
             $u = $helper->query("select ifnull(t_amount, 0) as t_amount from trans_action where m_id = :g  and w_id=:w and trans_type_id=:t limit 1", [":g"=>$_GET["mem"], ":w"=>$_GET["week"], ":t"=>$_GET["ledger"]]);
             $u = $u->fetch(\PDO::FETCH_ASSOC);
             $msg["payments"] = $u["t_amount"];
+        }else if(isset($_GET["check"])){
+            $u = $helper->query("select * from $tb_name where g_code like :g",[":g"=>"%".$_GET["check"]."%"]);
+            $msg["checks"] = [];
+            foreach($u->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                array_push($msg["checks"], $row);
+            }
         }else{
             $group = $helper->query("select * from $tb_name");
             $msg["group"] = [];

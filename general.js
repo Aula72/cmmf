@@ -1,5 +1,8 @@
+
 var ses = localStorage.getItem("token");
+let constants = {}
 let em = localStorage.getItem("mail")
+// let em = constants.mail
 let utype = localStorage.getItem("utype");
 let st = window.location.pathname;
 
@@ -11,6 +14,9 @@ let details = {
 	phone2:"+256788227844",
 	cmmf:"CMMF Sacco"
 }
+
+
+
 if(ses=='' || ses==null){
 	$('#nav').css({display:"none"});
 	$("#p_title").css({display:"none"});
@@ -285,18 +291,31 @@ $(document).ready(()=>{
 		$(".chairman").show();
 		$(".super").show();
 	}
+
+	$.ajax({
+		type: "get",
+		url: `${base_url}/api/tokenAPI.php`,
+		headers,
+		dataType: "json",
+		success: function (response) {
+			// console.log(response)
+			constants.utype = response.user.user_type_id
+			constants.mail = response.user.mail
+		}
+	});
+	console.log(constants)
 	
 })
 
 const allow_url = (arr) =>{
-	if(arr.indexOf(utype)!=-1){
-		let t = confirm("You are not allow to access this resource")
-		if(t){
-			window.history.go(-1)
-		}else{
-			window.history.go(-1)
-		}
-	}
+	// if(arr.indexOf(utype)!=-1){
+	// 	let t = confirm("You are not allow to access this resource")
+	// 	if(t){
+	// 		window.history.go(-1)
+	// 	}else{
+	// 		window.history.go(-1)
+	// 	}
+	// }
 }
 
 const make_sum = (m) =>{
@@ -308,6 +327,9 @@ const make_sum = (m) =>{
 	}
 	return j=="T.B.D"?"T.B.D":Number(j)
 }
+
+	
+	
 
 
 

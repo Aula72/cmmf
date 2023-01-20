@@ -7,9 +7,23 @@ define("APP_NAME","CMMF");
 include_once 'views/incs/head.php';
 include_once 'views/incs/nav.php'; 
 include_once 'views/incs/print_head.php';
+
+require_once "views/incs/load.php";
+require_once "controllers/Routes.php";
+require_once "config/constants.php";
+require_once "config/db.php";
+require_once "controllers/Helpers.php";
+
+$url = $_SERVER['REQUEST_URI'];
+$meth = $_SERVER['REQUEST_METHOD'];
+
+$r = new \Cmmf\Route;
+$help = new \Cmmf\Helper; 
 ?>
 <script>
+
 	let base_url = "<?php echo isset($_SERVER['HTTPS'])?'https':'http'; ?>://<?php echo $_SERVER['HTTP_HOST']?>";
+	
 </script>
 <script src="<?php echo isset($_SERVER['HTTPS'])?'https':'http'; ?>://<?php echo $_SERVER['HTTP_HOST']?>/general.js"></script>
 
@@ -35,17 +49,7 @@ include_once 'views/incs/print_head.php';
 	}
 </style>
 <?php 
-require_once "views/incs/load.php";
-require_once "controllers/Routes.php";
-require_once "config/constants.php";
-require_once "config/db.php";
-require_once "controllers/Helpers.php";
 
-$url = $_SERVER['REQUEST_URI'];
-$meth = $_SERVER['REQUEST_METHOD'];
-
-$r = new \Cmmf\Route;
-$help = new \Cmmf\Helper; 
 
 
 // $help->mail_send(12356, "moncytod@gmail.com");
