@@ -263,34 +263,34 @@ $("button:submit").on("click", ()=>{
 })
 
 $(document).ready(()=>{
-	if(utype!=5){
-		$(".loan-officer").hide();
-		$(".press-loan-officer").attr("disabled", true)
-		$("a.press-loan-officer").attr("href","#")
-		$("a.press-loan-officer").click((e)=>{
-			alert("You have no privilege to perform this operation...")
-		})
-	}
-	if(utype!=2){
-		$(".secretary").hide();
-		$(".press-secretary").attr("disabled", true)
-		$("button.secretary").hide()
-	}
+	// if(utype!=5){
+	// 	$(".loan-officer").hide();
+	// 	$(".press-loan-officer").attr("disabled", true)
+	// 	$("a.press-loan-officer").attr("href","#")
+	// 	$("a.press-loan-officer").click((e)=>{
+	// 		alert("You have no privilege to perform this operation...")
+	// 	})
+	// }
+	// if(utype!=2){
+	// 	$(".secretary").hide();
+	// 	$(".press-secretary").attr("disabled", true)
+	// 	$("button.secretary").hide()
+	// }
 
-	if(utype!=3){
-		$(".chairman").hide();
-	}else{
-		$(".chairman").show();
-	}
-	if(utype!=1){
-		$(".super").hide();
-	}else{
-		$(".super").show();
-	}
-	if(utype==3 || utype==1){
-		$(".chairman").show();
-		$(".super").show();
-	}
+	// if(utype!=3){
+	// 	$(".chairman").hide();
+	// }else{
+	// 	$(".chairman").show();
+	// }
+	// if(utype!=1){
+	// 	$(".super").hide();
+	// }else{
+	// 	$(".super").show();
+	// }
+	// if(utype==3 || utype==1){
+	// 	$(".chairman").show();
+	// 	$(".super").show();
+	// }
 
 	$.ajax({
 		type: "get",
