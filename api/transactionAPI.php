@@ -40,7 +40,7 @@ switch($meth){
                 
                    
                     $loan = $helper->my_loan($m_id);
-                    $guaranters = $helper->query("select * from guaranters where lo_id=:lo",[":lo"=>$loan]);
+                    $guaranters = $helper->query("select * from guaranter where lo_id=:lo",[":lo"=>$loan]);
                     foreach($guaranters->fetchAll(\PDO::FETCH_ASSOC) as $row){
                         $p = $helper->guaranter_percentage($row["m_id"], $loan)*$t_amount;
                         $helper->pay_guaranter($row["lo_id"], $row["m_id"],$t_amount*$p);
