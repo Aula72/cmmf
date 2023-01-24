@@ -22,7 +22,7 @@ class Helper{
                 $err["file"] = $e->getFile();
                 $err["line"] = $e->getLine();
                 $err["code"] = $e->getCode();
-                
+                $this->write_2_file("../error.txt", json_encode($err));
                 die(json_encode(['error'=>$err]));
             }
             
@@ -392,6 +392,13 @@ class Helper{
             $this->query("update guaranter_balance set amount=:amt where lo_id=:lo and m_id=:m",[":m"=>$g, ":lo"=>$lo, ":amt"=>$bal]);
             
         }
+    }
+
+    public function write_2_file($file, $txt){
+        $myfile = fopen($file, "a") or die("Unable to open file!");
+        
+        fwrite($myfile, $txt."\n");
+        fclose($myfile);
     }
 
 }
