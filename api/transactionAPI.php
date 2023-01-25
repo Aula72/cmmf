@@ -41,13 +41,21 @@ switch($meth){
                    
                     $loan = $helper->my_loan($m_id);
                     $guaranters = $helper->query("select * from guaranter where lo_id=:lo",[":lo"=>$loan]);
+                    $x = 0;
                     foreach($guaranters->fetchAll(\PDO::FETCH_ASSOC) as $row){
+
                         $p = $helper->guaranter_percentage($row["m_id"], $loan)*$t_amount;
+                        $x += $p;
                         $helper->pay_guaranter($row["lo_id"], $row["m_id"],$t_amount*$p);
                         $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>-1*$p*$t_amount, "t_code"=>$t_code, "t_desc"=>$t_desc]);
                     }
-
+                    if($x>0){
+                        $r = $t_amount-$x;
+                        $helper->update_account($m_id, $r, 1);
+                    }
                 
+            }else if($trans_type_id==$helper->t_type("saving")){
+                $helper->update_account($m_id, $t_amount, 1);
             }
         }else{
             $msg["status"]= 1;
