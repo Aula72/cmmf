@@ -75,7 +75,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
     Input({div:"amnt-div", label:"Amount", type:"number", value:"", id:"amount"})
     Input({div:"loan-num-div", type:"text",label:"Loan Number", value:"<?php echo $id['lo_code'];?>", dis:"disabled"})
     Input({div:"balc", type:"text", label:"Maximum Amount to Guarant", value:"<?php echo $bal; ?>", dis:"disabled"})
-    let loanable = undefined
+    let loanable = ""
     $("#member").on("change", ()=>{
         // console.log($("#member").val())
         $.ajax({
@@ -85,6 +85,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
             dataType: "json",
             success: function (response) {
                 loanable  = response.balance
+                console.log(response)
                 Input({div:"loanable", type:"text", dis:"disabled", value:loanable, id:"", label:"Net Worth"})
             }
         });
