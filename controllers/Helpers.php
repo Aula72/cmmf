@@ -397,7 +397,7 @@ class Helper{
     public function write_2_file($file, $txt){
         $myfile = fopen($file, "a") or die("Unable to open file!");
         
-        fwrite($myfile, $txt."\n");
+        fwrite($myfile, date('d-m-Y H:i:s').">>>".$txt."\n");
         fclose($myfile);
     }
 
