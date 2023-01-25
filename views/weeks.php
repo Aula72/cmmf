@@ -56,6 +56,7 @@
               <td>${x.g_code}</td>
               <td >${x.w_date}</td>
               <td><a href="/weeks/${x.w_id}/week-transactions" class="btn btn-outline-success rounded-pill btn-sm secretary">Make Transaction <i class="bi bi-eye"></i></a href="/weeks/{$po[2]}/week-transactions"></td>
+              <td><button class="btn btn-outline-dark btn-sm rounded-pill" onclick="go_to_page(['weeks', ${x.w_id}, 'edit'])">Edit Detail <i class="bi bi-pen"></i></button></td>
             </tr>`;
           }
             $('#list_weeks').html(row);

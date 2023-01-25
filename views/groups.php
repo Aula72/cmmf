@@ -49,6 +49,7 @@
                         <td>${p.g_name}</td>
                         <td>${p.g_location}</td>
                         <td><button class="btn btn-success btn-sm rounded-pill" onclick="go_to_page(['groups', ${p.g_id}])">Details <i class="bi bi-eye"></button></td>
+                        <td><button class="btn btn-success btn-sm rounded-pill" onclick="go_to_page(['groups', ${p.g_id}, 'edit'])">Edit <i class="bi bi-pen"></button></td>
                         <td><button class="btn btn-primary btn-sm rounded-pill secretary" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['add-member']);">Add Member <i class="bi bi-person-plus"></button></td>
                         <td><button class="btn btn-warning btn-sm rounded-pill secretary" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['groups/${p.g_id}/make-transactions']);">Make Transaction <i class="bi bi-currency-dollar"></button></td>
                         </tr>`);

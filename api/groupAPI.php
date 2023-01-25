@@ -100,7 +100,7 @@ switch($meth){
                 $msg["message"] = "Operation failed";
             }
         }else{
-            $code = $helper->get_last_id('g_id', $tb_name)+1;
+            // $code = $helper->get_last_id('g_id', $tb_name)+1;
             $code = $data["code"];
             $name = $data["name"];
             $user = $helper->get_token()["user_id"];
@@ -119,7 +119,21 @@ switch($meth){
         
         break;
     case 'PUT':
-        
+            $code = $data["code"];
+            $name = $data["name"];
+            // $code = $data["code"];
+            $loc = $data["loc"];
+            // die(json_encode($data));
+            $g = $_GET["id"];
+            $group = $helper->query("update $tb_name set g_code=:code, g_name=:name, g_location=:location where g_id=:g",[":code"=>$code,":name"=>$name,":location"=>$loc,':g'=>$g]);
+            if($group){
+                $msg["status"]=1;
+                $msg["message"] = "Group $code was update successfully";
+                $helper->create_log($helper->get_token()["user_id"], "Group {$code} updated");
+            }else{
+                $msg["status"]=0;
+                $msg["message"] = "Operation failed";
+            }
         break;
     case 'DELETE':
         $helper->remove_record("grouping", "g_id", $_GET['id']);

@@ -67,7 +67,7 @@ switch($meth){
             $user = $helper->get_token()["user_id"];
             
             $helper->required_fields([$group, $code, $date, $year]);
-            $weeks = $helper->query("insert into $tb_name set w_code=:code, g_id=:group, user_id=:user, w_date=:date, y_id=:year",[':code'=>$code, ":group"=>$group, "user"=>$user, ':date'=>$date, ":year"=>$year]);
+            $weeks = $helper->query("insert into $tb_name set w_code=:code, g_id=:group, user_id=:user, w_date=:date, y_id=:year",[':code'=>$code, ":group"=>$group, ":user"=>$user, ':date'=>$date, ":year"=>$year]);
             if($weeks){
                 $msg["status"]=1;
                 $msg["message"] = "Week $code was created successfully";
@@ -79,6 +79,25 @@ switch($meth){
             }
         }
         
+        break;
+    case "PUT":
+        $group = $data["group"];
+            $code = $data['code'];
+            $date = $data['dat'];
+            $year  = $data["year"];
+            $idd = $_GET["id"];
+            
+            $helper->required_fields([$group, $code, $date, $year]);
+            $weeks = $helper->query("update $tb_name set w_code=:code, g_id=:group,  w_date=:date, y_id=:year where w_id=:w",[':code'=>$code, ":group"=>$group, ":w"=>$idd, ':date'=>$date, ":year"=>$year]);
+            if($weeks){
+                $msg["status"]=1;
+                $msg["message"] = "Week $code was update successfully";
+                $helper->create_log($helper->get_token()["user_id"], "updated week,  $code.");
+
+            }else{
+                $msg["status"]=0;
+                $msg["message"] = "Operation failed";
+            }
         break;
     default:
         die(json_encode(["error"=>"Invalid operation"]));

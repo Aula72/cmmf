@@ -30,11 +30,14 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
             </li>
             <li class="list-group-item">
               <div class="row">
-                <div class="col-lg-6">
-                  <a href="/add-member" onclick="localStorage.setItem('g_id', <?php echo $rt[2];?>);"class="btn btn-outline-success secretary">Click to Add Member to Group</a>
+                <div class="col-lg-4">
+                  <a href="/add-member" onclick="localStorage.setItem('g_id', <?php echo $rt[2];?>);"class="btn btn-outline-success rounded-pill secretary">Click to Add Member to Group</a>
                 </div>
-                <div class="col-lg-6">
-                  <a class="btn btn-outline-dark secretary" href="/groups/<?php echo $rt[2]; ?>/make-transactions">Make Transaction  <i class="bi bi-money"></i></a>
+                <div class="col-lg-4">
+                  <a class="btn btn-outline-dark rounded-pill secretary" href="/groups/<?php echo $rt[2]; ?>/make-transactions">Make Transaction  <i class="bi bi-money"></i></a>
+                </div>
+                <div class="col-lg-4">
+                  <button class="btn btn-outline-warning rounded-pill" onclick="go_to_page(['groups', '<?php echo $rt[2]; ?>', 'edit'])">Edit Details</button>
                 </div>
               </div>
               <p>
@@ -112,7 +115,8 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
 
   const memb = (i) =>{
     localStorage.setItem('m_id', i);
-    window.location = `/members/${i}`
+    // window.location = `/members/${i}`
+    go_to_page(["members", i]);
   }
 </script>
             
