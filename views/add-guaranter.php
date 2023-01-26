@@ -20,7 +20,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
             <?php 
                 $oppp = 0;
                 foreach($help->get_guaranters($id['m_id'], $own["g_id"]) as $row){
-                    if($id['lo_amount']>=$row["t_amount"]){
+                    if($row["t_amount"]!=0){
                         echo "<option value=".$row['m_id'].">".$help->get_member($row['m_id'])['m_code']."</option>";
                         $oppp +=1;
                     }
