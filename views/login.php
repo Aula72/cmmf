@@ -98,4 +98,9 @@
   $("#p_title").css({display:"none"});
   $("main").removeAttr("class");
   $("main").removeAttr("id");
+
+  
+  $("#sidebar").hide();
+  $("#nav").hide();
+	
 </script>

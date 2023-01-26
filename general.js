@@ -319,6 +319,8 @@ $(document).ready(()=>{
 		setInterval(()=>{$("button:submit").removeAttr("disabled")},2*xtime)
 		
 	})
+
+	
 	
 })
 
