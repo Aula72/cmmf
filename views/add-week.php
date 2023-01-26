@@ -116,7 +116,7 @@ $year = $help->query("select * from finanial_year order by y_id desc");
             toast(response.message);
             
           }else{
-            toast(response.error);
+            toast(response.error, 'danger');
           }
         }catch(TypeError){
           logout();
@@ -151,7 +151,7 @@ $year = $help->query("select * from finanial_year order by y_id desc");
             toast(response.message);
             
           }else{
-            toast(response.error);
+            toast(response.error, 'danger');
           }
         }catch(TypeError){
           logout();

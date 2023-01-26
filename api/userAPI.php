@@ -63,6 +63,7 @@ switch($meth){
         $mail = $data["mail"];
         $types = $data["types"];
         $status = $data["status"];
+        // die(json_encode($data));
         $helper->required_fields([$mail, $fname, $lname, $status]);
         $check = $helper->query("select * from user where mail=:mail",[":mail"=>$mail]);
         // die(json_encode(["num"=>$check->rowCount()]));
@@ -114,6 +115,7 @@ switch($meth){
         $lname = $data["lname"];
         $status = $data["status"];
         $types = $data["types"];
+
         $helper->required_fields([$mail, $fname, $lname, $types]);
         $helper->get_token();
         $user = $helper->query("update $tb_name set mail=:mail,user_type_id=:types, fname=:fname, lname=:lname, status=:status where user_id=:id",[":mail"=>$mail, ":fname"=>$fname, ":lname"=>$lname, ":status"=>$status, ":types"=>$types]);

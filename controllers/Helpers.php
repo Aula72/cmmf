@@ -145,8 +145,9 @@ class Helper{
         return $h;
     }
 
-    public function get_guaranters($id, $grp,$amount){
-        $k = $this->query("select * from group_member where g_id=:group and m_id in (select m_id from account_balance where amount>:amount and m_id !=:id)",[":id"=>$id,":group"=>$grp, ':amount'=>$amount]);
+    public function get_guaranters($id, $grp){
+        $k = $this->query("select m_id,m_code, (select ifnull(sum(t_amount), 0)  from trans_action where trans_type_id=:ty and trans_action.m_id=group_member.m_id) as t_amount from group_member where g_id=:g and m_id !=:m;", [":m"=>$id, ":g"=>$grp,":ty"=>$this->t_type("saving")]);
+        // $k = $this->query("select * from group_member where g_id=:group and m_id in (select m_id from account_balance where amount>:amount and m_id !=:id)",[":id"=>$id,":group"=>$grp, ':amount'=>$amount]);
         return $k->fetchAll(\PDO::FETCH_ASSOC);
     }
 

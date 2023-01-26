@@ -1,0 +1,1 @@
+25-01-2023 17:05:27>>>{"message":"SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cmmf.groupings' doesn't exist","file":"D:\\cmmf\\controllers\\Helpers.php","line":19,"code":"42S02"}

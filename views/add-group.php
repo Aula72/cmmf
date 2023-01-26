@@ -59,7 +59,7 @@ $code = $help->get_last_id('g_id','grouping')+1;
             window.location = "/groups";
           }, xtime);
         }else{
-          toast(response.error)
+          toast(response.error, 'danger')
         }
       }catch(TypeError){
         logout();

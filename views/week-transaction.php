@@ -142,12 +142,12 @@ const get_mee = (x, y) =>{
         }
         if(msgg){
             // alert("simon")
-            toast("TRXN <?php echo $code; ?> was successful...", xtime)
+            toast("TRXN <?php echo $code; ?> was successful...")
             setTimeout(() => {
                     window.location  = `/weeks/${y}/week-transactions`
             }, xtime);
         }else{
-            toast("TRXN <?php echo $code; ?> was not successful...", xtime)
+            toast("TRXN <?php echo $code; ?> was not successful...", 'danger')
         }
 });
 

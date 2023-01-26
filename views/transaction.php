@@ -70,12 +70,12 @@ $code = "TRANS".$code."CMMF";
             // console.log(response)
             try{
               if(response.status){
-                  toast(response.message, xtime)
+                  toast(response.message)
                   setTimeout(() => {
                       window.location  = "/make-transaction"
                   }, xtime);
               }else{
-                  toast(response.error, xtime)
+                  toast(response.error, 'danger')
               }
             }catch(TypeError){
               logout();

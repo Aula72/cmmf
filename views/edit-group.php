@@ -61,7 +61,7 @@ $grp = $grp->fetch(\PDO::FETCH_ASSOC);
             go_to_page(["groups", $('#g_id').val()]);
           }, xtime);
         }else{
-          toast(response.error)
+          toast(response.error, 'danger')
         }
       }catch(TypeError){
         logout();

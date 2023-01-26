@@ -85,7 +85,7 @@
         $("#old_otp").hide();
         $("#new_otp").show();
       }else{
-        toast(data.message);
+        toast(data.message, 'danger');
       }
     })
   })

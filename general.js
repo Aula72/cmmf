@@ -38,16 +38,24 @@ let headers = {
 // console.log(user_mail)
 const toast = (x, c = 'success') =>{
 	// setTimeout(() => {
-		$("#alerting").html(`<div class="alert alert-${c} alert-dismissible fade show text-center" role="alert">
-			<i class="bi bi-info-circle me-1"></i>   ${x} 
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>`)
+		// $("#alerting").html(`<div class="alert alert-${c} alert-dismissible fade show text-center" role="alert">
+		// 	<i class="bi bi-info-circle me-1"></i>   ${x} 
+		// 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		// 	</div>`)
 	// }, 6000);
-	setTimeout(() => {
-		$("#alerting").hide();
-	}, xtime);
+	
+	$("#alerting").html(`<div id="snackbar">${x}</div>`);
+	if(c=='success'){
+		$("#snackbar").css({color:'white', backgroundColor:'green'})
+	}else{
+		$("#snackbar").css({color:'white', backgroundColor:'red'})
+	}
+	// setTimeout(() => {
+	// 	$("#alerting").hide();
+	// }, xtime);
 	// toast('','');
-	return;
+	// return;
+	myFunction()
 
 	//Materialize.toast(`<p style="white-space:pre-wrap; word-break:break-word; text-align:center;">${x}</p>`, xtime);
 }
@@ -304,6 +312,13 @@ $(document).ready(()=>{
 		}
 	});
 	console.log(constants)
+
+	$("form").on('submit',()=>{
+		// console.log("clicked")
+		$("button:submit").attr("disabled","")
+		setInterval(()=>{$("button:submit").removeAttr("disabled")},2*xtime)
+		
+	})
 	
 })
 
@@ -327,6 +342,19 @@ const make_sum = (m) =>{
 	}
 	return j=="T.B.D"?"T.B.D":Number(j)
 }
+
+
+function myFunction() {
+	// Get the snackbar DIV
+	var x = document.getElementById("snackbar");
+  
+	// Add the "show" class to DIV
+	x.className = "show";
+  
+	// After 3 seconds, remove the show class from DIV
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
 
 	
 	

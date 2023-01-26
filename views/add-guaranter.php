@@ -18,8 +18,16 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
           <select class="form-select rounded-pill" id="member" class="validate" required>
             <option value="" select>Select Member  From Group</option>
             <?php 
-                foreach($help->get_guaranters($id['m_id'], $own["g_id"],$id['lo_amount']) as $row){
-                    echo "<option value=".$row['m_id'].">".$help->get_member($row['m_id'])['m_code']."</option>";
+                $oppp = 0;
+                foreach($help->get_guaranters($id['m_id'], $own["g_id"]) as $row){
+                    if($id['lo_amount']>=$row["t_amount"]){
+                        echo "<option value=".$row['m_id'].">".$help->get_member($row['m_id'])['m_code']."</option>";
+                        $oppp +=1;
+                    }
+                    
+                }
+                if($oppp==0){
+                    echo "<option value=''>No possible guaranter Available</option>";
                 }
             ?>
 		    
@@ -62,7 +70,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
                             window.location = `/loans/<?php echo $id['lo_code'];?>`;
                         }, xtime);
                     }else{
-                        toast(response.error)
+                        toast(response.error, 'danger')
                     }
                 }catch(TypeError){
                     logout();

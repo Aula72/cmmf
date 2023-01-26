@@ -62,7 +62,7 @@ $bal = (1 +intval($yu["lo_rate"])/100)*intval($yu["lo_amount"]) - intval($y["amt
                             window.location = `/loans/<?php echo $rt[2]; ?>`
                         }, xtime);                    
                     }else{
-                        toast(response.error)
+                        toast(response.error, 'danger')
                     }
                 }catch(TypeError){
                     logout();

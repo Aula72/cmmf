@@ -81,7 +81,7 @@
         localStorage.setItem("utype", data.utype);
         toast(data.message)
         setTimeout(function(){
-          console.log(data.otp)
+          // console.log(data.otp)
           // localStorage.setItem("otp", "yes")
           window.location = "/otp"
         },xtime);

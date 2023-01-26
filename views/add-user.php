@@ -62,7 +62,7 @@ if(isset($t[2])){
             type: "post",
             url: `${base_url}/api/userAPI.php`,
             data: JSON.stringify({
-                mail: $("#mail").val(),
+                mail: $("#mail1").val(),
                 lname: $("#last_name").val(),
                 fname: $("#first_name").val(),
                 status:$("#status").val(),
@@ -74,12 +74,12 @@ if(isset($t[2])){
             success: function (response) {
                 console.log(response)
                 if(response.status){
-                    toast(response.message, xtime)
+                    toast(response.message)
                     setInterval(() => {
                         window.location = "/admin";
                     }, xtime);
                 }else{
-                    toast(response.error, xtime)
+                    toast(response.error, "xtime")
                 }
 
             }
@@ -108,7 +108,7 @@ if(isset($t[2])){
     // console.log(ad)
     Input({div:"fname-div", id:"first_name", value:"<?php echo $fname; ?>", label:"First Name"})
     Input({div:"lname-div", id:"last_name", value:"<?php echo $lname; ?>", label:"Lst Name"})
-    Input({div:"mail-div", id:"mail", value:"<?php echo $mail; ?>", label:"Email Address", type:"email"})
+    Input({div:"mail-div", id:"mail1", value:"<?php echo $mail; ?>", label:"Email Address", type:"email"})
     
     Select({div:"act-div", id:"status", value:"<?php echo $status; ?>", label:"Status",options:[{value:1, title:"Active"},{value:2, title:"In-Active"}]})
 

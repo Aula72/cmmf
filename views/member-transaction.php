@@ -76,7 +76,7 @@ $code = "TRS".time()."CMMF";
                         window.location  = `/members/${$("#m_id").val()}`
                     }, xtime);
                 }else{
-                    toast(response.error)
+                    toast(response.error, 'danger')
                 }
             }catch(TypeError){
                 logout();
