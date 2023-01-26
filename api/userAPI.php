@@ -63,11 +63,12 @@ switch($meth){
         $mail = $data["mail"];
         $types = $data["types"];
         $status = $data["status"];
+        $helper->write_2_file('../error.txt', json_encode($data));
         // die(json_encode($data));
         $helper->required_fields([$mail, $fname, $lname, $status]);
         $check = $helper->query("select * from user where mail=:mail",[":mail"=>$mail]);
         // die(json_encode(["num"=>$check->rowCount()]));
-        if($data["edit_user"]){
+        if($data["edit_user"]!=""){
             // die(json_encode(["update"=>$data]));
             $status = $data["status"];
             $msg["status"] = 1;
@@ -83,21 +84,21 @@ switch($meth){
             }else{
                 
                 // die(json_encode(["create"=>$data]));
-                // $ty = $helper->query("insert into  user set 
-                //         fname=:f, 
-                //         lname=:l, 
-                //         mail=:m, 
-                //         status=:s,
-                //         user_type_id=:t
-                //         ",
+                $ty = $helper->query("insert into  user set 
+                        fname=:f, 
+                        lname=:l, 
+                        mail=:m, 
+                        status=:s,
+                        user_type_id=:t
+                        ",
                         
-                //     [
-                //         ":f"=>$fname, 
-                //         ":l"=>$lname, 
-                //         ":m"=>$mail, 
-                //         ":s"=>$status,
-                //         ":t"=>$types
-                //     ]);
+                    [
+                        ":f"=>$fname, 
+                        ":l"=>$lname, 
+                        ":m"=>$mail, 
+                        ":s"=>$status,
+                        ":t"=>$types
+                    ]);
                 // $helper->query("insert into $tb_name set fname=:f, lname=:ln, mail=:m, status=:s, user_type_id=:i",[":i"=>$types,":f"=>$fname, ":ln"=>$lname, ":m"=>$mail, ":s"=>$status]);
                 // die(json_encode(["simon"=>$ty]));
                 
