@@ -3,7 +3,8 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
 $id = $help->get_loan_id($rt[2]);
 $own = $help->get_member($id["m_id"]);
 
-$bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
+$bal = $id["lo_amount"]*(1+$id["lo_rate"]/100) - $help->ledger_sum($id["m_id"], $help->t_type("saving"));
+// $bal = 5000;
 ?>
 <div class="row">
     <div id="warnings" class="text-center m-3"></div>

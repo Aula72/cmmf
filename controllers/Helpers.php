@@ -105,6 +105,8 @@ class Helper{
         $ty = $this->query("select * from group_member where m_id=:id",[":id"=>$id]);
         return $ty->fetch(\PDO::FETCH_ASSOC);
     }
+
+    
     public function get_week($id){
         $ty = $this->query("select * from weeks where w_id=:id",[":id"=>$id]);
         return $ty->fetch(\PDO::FETCH_ASSOC);
