@@ -42,7 +42,7 @@ switch($meth){
             $helper->update_account($m_id, $amount, $helper->t_type("loan out"));
             // $m = intval($helper->get_loan_amount($lo_id))-intval($helper->guarant_balance($lo_id));
             // $msg["message"] = $m;
-            $m = $accBal["amount"] - $newLoan["amount"]*(1+$newLoan["lo_rate"]/100)-$helper->guarant_balance($newLoan["lo_id"]);
+            $m = $accBal - $newLoan["amount"]*(1+$newLoan["lo_rate"]/100)-$helper->guarant_balance($newLoan["lo_id"]);
 
             $helper->write_2_file("../error.txt", $m);
             if($m>=0){
