@@ -39,7 +39,7 @@ switch($meth){
             $m = intval($helper->get_loan_amount($lo_id))-intval($helper->guarant_balance($lo_id));
             // $msg["message"] = $m;
             if($m==0){
-                $helper->query("update loans set ls_id='2' where lo_id=:lo", [":lo"=>$lo_id]);
+                $helper->query("update loans set ls_id='5' where lo_id=:lo", [":lo"=>$lo_id]);
             }
             $helper->loan_history($amount, $lo_id, 'ADDG');
             $helper->member_history($m_id, 'GRT', json_encode(["member"=>$m_id, "loan"=>$lo_id, "amount"=>$amount]));

@@ -10,9 +10,10 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
 
 
 <div class="" id="btn-group" role="group" aria-label="Basic outlined example" style="float:right;">
-    <a class="btn btn-success loan-officer" href="/loans/<?php echo $rt[2]; ?>/loan-payment" id="add_p">Make Payment  <i class="bi bi-currency-exchange"></i></a>
-    <a class="btn btn-danger loan-officer" href="/loans/<?php echo $rt[2]?>/add-guaranter" id="add_g">Add Guaranter  <i class="bi bi-person-plus"></i></a>
-    <a class="btn btn-primary" onclick="print_now()">Print  <i class="bi bi-printer"></i></a>
+    <button class="btn btn-outline-dark loan-officer appr" onclick="approve_loan('<?php echo $rt[2]; ?>')">Approve Loan <i class="bi bi-good"></i></button>
+    <a class="btn btn-outline-success loan-officer pay" href="/loans/<?php echo $rt[2]; ?>/loan-payment" id="add_p">Make Payment  <i class="bi bi-currency-exchange"></i></a>
+    <a class="btn btn-outline-danger loan-officer gar" href="/loans/<?php echo $rt[2]?>/add-guaranter" id="add_g">Add Guaranter  <i class="bi bi-person-plus"></i></a>
+    <a class="btn btn-outline-primary" onclick="print_now()">Print  <i class="bi bi-printer"></i></a>
 </div>
 </div>
 <div class="row">
@@ -133,7 +134,23 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
                     $("#add_g").css({display:"none"});
                     $("#add_p").css({display:"inline-block"});
                 }
-
+                if(p.ls_id==5){
+                    $(".gar").hide()
+                    $(".appr").show()
+                    $(".pay").hide()
+                }else if(p.ls_id==2){
+                    $(".gar").hide()
+                    $(".appr").hide()
+                    $(".pay").show()
+                }else if(p.ls_id==1){
+                    $(".gar").show()
+                    $(".appr").hide()
+                    $(".pay").hide()
+                }else{
+                    $(".gar").hide()
+                    $(".appr").hide()
+                    $(".pay").hide()
+                }
                 response.status==2?$("#add-payment").show():$("#add-payment").hide();
                 for(let c of response.guaranters){
                     $("#gList").append(`<tr><td>${c.name}</td><td>${c.amount}</td></tr>`)
@@ -158,6 +175,23 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
                 // console.log(response)
                 let res = response.trans;
                 alert(`TRXN. ID:   ${res.trans_id}\nAmount:     ${nm.format(res.amount)}/=\nDate:       ${res.created_at}\nComments:   ${res.p_comment}`)
+            }
+        });
+    }
+
+    const approve_loan = (i) =>{
+        $.ajax({
+            type: "put",
+            url: `${base_url}/api/loanAPI.php?approve-loan=${i}`,
+            headers,
+            data:JSON.stringify({}),
+            dataType: "json",
+            success: function (response) {
+                toast(response.message)
+                setInterval(() => {
+                    location.reload()
+                }, xtime);
+                // location.reload()
             }
         });
     }

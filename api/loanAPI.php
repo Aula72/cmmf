@@ -88,7 +88,7 @@ switch($meth){
         $lo_amount = $data["amount"];
         $st = 1;
         if(intval($lo_amount)<intval($helper->ledger_sum($m_id, $helper->t_type("saving")))){
-            $st = 2;
+            $st = 5;
         }
         $helper->required_fields([$lo_code, $lo_amount, $lo_expiry,$lo_rate]);
         $loan  =  $helper->query("insert into $tb_name set 	lo_code=:code,	lo_rate=:rate, lo_expiry=:expiry,m_id=:member,user_id=:user,lo_amount=:amount, ls_id=:status",[":status"=>$st,":code"=>$lo_code,":rate"=>$lo_rate,":member"=>$m_id,":amount"=>$lo_amount, ":user"=>$user_id, ":expiry"=>$lo_expiry]);
@@ -100,7 +100,13 @@ switch($meth){
         $helper->loan_history($lo_amount, $helper->get_last_id("lo_id","loans"),"CRT");
         break;
     case 'PUT':
-
+        if(isset($_GET["approve-loan"])){
+            $rtyu = $_GET["approve-loan"];
+            $helper->query("update $tb_name set ls_id=:lsd where lo_id=:id",[":id"=>$helper->get_loan_id($_GET["approve-loan"])["lo_id"],":lsd"=>2]);
+            $msg["status"]=1;
+            $msg["message"] = "Loan $rtyu approved successfully";
+            // $msg["message"] = $helper->get_loan_id($_GET["approve-loan"])["lo_id"];
+        }
         break;
     case 'DELETE':
         $helper->remove_record("loans", "lo_id", $_GET['id']);

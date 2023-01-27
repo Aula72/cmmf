@@ -21,6 +21,8 @@
       m = `<a href="/loans/${i}/loan-payment" class="btn btn-sm btn-warning rounded-pill press-loan-officer">Make Payment</a>`
     }else if(x==3){
       m = `<a href="/loans/${i}/loan-payment" class="btn btn-sm btn-warning rounded-pill press-loan-officer">Make Payment</a>`
+    }else if(x==5){
+      m = `<a href="/loans/${i}" class="btn btn-sm btn-dark rounded-pill press-loan-officer">Waiting Approval</a>`
     }else{
       m = `<button class="btn btn-sm btn-block btn-outline-success rounded-pill press-loan-officer">  Loan Settled <i class=""></li></button>`
     }
