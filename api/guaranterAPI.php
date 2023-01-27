@@ -36,10 +36,14 @@ switch($meth){
             $msg['status']=1;
             $msg['message']='Guaranter was added successful...';
             // $helper->query("insert into trans_action ");
+            $newLoan = $helper->get_loan_id($lo_id);
+            $accBal = $helper->ledger_sum($newLoan["m_id"], $helper->t_type("saving"));
+
             $helper->update_account($m_id, $amount, $helper->t_type("loan out"));
-            $m = intval($helper->get_loan_amount($lo_id))-intval($helper->guarant_balance($lo_id));
+            // $m = intval($helper->get_loan_amount($lo_id))-intval($helper->guarant_balance($lo_id));
             // $msg["message"] = $m;
-            if($m==0){
+            $m = $accBal["amount"] - $newLoan["amount"]*(1+$newLoan["lo_rate"]/100)-$helper->guarant_balance($newLoan["lo_id"]);
+            if($m>=0){
                 $helper->query("update loans set ls_id='5' where lo_id=:lo", [":lo"=>$lo_id]);
             }
             $helper->loan_history($amount, $lo_id, 'ADDG');
