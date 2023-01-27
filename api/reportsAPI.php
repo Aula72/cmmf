@@ -74,7 +74,7 @@ switch($meth){
                     "m_dob"=>$row["m_dob"],
                     "created_at"=>$row["created_at"],
                     "update_at"=>$row["update_at"],
-                    "saving"=>$helper->ledger_sum($row["m_id"], $helper->t_type("saving")) - $helper->guarant_balance($row["m_id"]),
+                    "saving"=>$helper->ledger_sum($row["m_id"], $helper->t_type("saving")) - $helper->get_guarantee_balance($row["m_id"]),
                     "social_fund"=>$helper->ledger_sum($row["m_id"], $helper->t_type("social fund")),
                     "fine"=>$helper->ledger_sum($row["m_id"], $helper->t_type("fine")),
                     "education_in"=>$helper->ledger_sum($row["m_id"], $helper->t_type("education in")),
