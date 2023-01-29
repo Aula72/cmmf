@@ -1,15 +1,23 @@
 <!-- <h4 class="center-align">Groups</h4> -->
-<table class="table striped">
+<table class="table striped" id="searchGrp">
+
+                
+            
     <thead>
         <tr>
             <th>Code</th>
             <th>Name</th>
             <th>Location</th>
+            
             <th id="add-div">
 
             </th>
+            
             <th>
                 <button class="btn btn-outline-primary rounded-pill btn-sm " onclick="print_now();">Print <i class="bi bi-printer"></i></button>
+            </th>
+            <th colspan="2">
+                <input type="text" id="sgrp" placeholder="Search Groups..."class="form-control">
             </th>
         </tr>
     </thead>
@@ -79,4 +87,11 @@
     
     $("#add-div").addClass("secretary");
     // allow_url([2])
+
+    // document.querySelector("searchGrp").addEventListener("keyup", filter, false)
+    // $("#sgrp").on("keyup", (e)=>{
+    //     filterTable(e)
+    // })
+
+    document.querySelector("#sgrp").addEventListener("keyup", filterTableGroup, false)
 </script>

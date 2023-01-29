@@ -39,7 +39,7 @@ $bal = (1 +intval($yu["lo_rate"])/100)*intval($yu["lo_amount"]) - intval($y["amt
     })
     $("#addPayment").submit( (e) => { 
         e.preventDefault();
-        console.log(JSON.stringify({
+        alert(JSON.stringify({
                 loan:`<?php echo $id["lo_id"]; ?>`,
                 amount: $("#amount").val(),
                 comment: $("#comment").val()

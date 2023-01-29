@@ -358,6 +358,12 @@ class Helper{
         return $p["amount"];
     }
 
+    public function my_current_week($id){
+        $mem = $this->get_member($id);
+        $w = $this->query("select max(w_id) as w_id from weeks where g_id=:g", [":g"=>$mem["g_id"]]);
+        $w = $w->fetch(\PDO::FETCH_ASSOC);
+        return $w["w_id"];  
+    }
     public function get_guarantee_balance($id){
         $p = $this->query("select ifnull(sum(amount), 0) as amount from guaranter_balance where m_id=:m",[":m"=>$id]);
         $p = $p->fetch(\PDO::FETCH_ASSOC);
@@ -397,11 +403,50 @@ class Helper{
         }
     }
 
+    public function create_share($lo, $g){
+        $loan = $this->get_loan_id($lo);
+        $gua = $this->query("select ifnull(sum(amount), 0) as amount from guaranter where lo_id=:lo and m_id=:m", [":lo"=>$lo, ":m"=>$g]);
+        try{
+            $shr = $gua["amount"]/$loan["lo_amount"]*(1+$loan["lo_rate"]/100);
+        }catch(Exception $e){
+            $shr = 0;
+        }
+
+        $sher = $this->query("select * from guaranter_share where g_id=:g and lo_id=:lo",[":g"=>$g, ":lo"=>$lo]);
+        if($sher->rowCount()>0){
+            $this->query("update guaranter_share set share=:s where g_id=:g and lo_id=:lo",[":g"=>$g, ":lo"=>$lo, ":s"=>$shr]);
+        }else{
+            $this->query("insert into guaranter_share set share=:s where g_id=:g, lo_id=:lo",[":g"=>$g, ":lo"=>$lo, ":s"=>$shr]);
+        }
+    }
+
     public function write_2_file($file, $txt){
         $myfile = fopen($file, "a") or die("Unable to open file!");
         
         fwrite($myfile, date('d-m-Y H:i:s').">>>".$txt."\n");
         fclose($myfile);
+    }
+
+    public function new_worth($id){
+        $loans = $this->query("select * from loans where m_id=:id and ls_id in (1, 4, 5)", [":id"=>$id]);
+        $loans = $loans->fetch(\PDO::FETCH_ASSOC);
+        
+        $saving = $this->query("select ifnull(sum(t_amount),0) as t_amount from trans_action where m_id=:id and trans_type_id=:ti", [":id"=>$id, ":ti"=>$this->t_type("saving")]);
+        $saving = $saving->fetch(\PDO::FETCH_ASSOC);
+
+        $g_bal = $this->query("select ifnull(sum(amount),0) as amount from guaranter where m_id=:id  and lo_id in (select lo_id from loans where ls_id != 4)",[":id"=>$id]);
+        $g_bal = $g_bal->fetch(\PDO::FETCH_ASSOC);
+
+        $ty = $loans["lo_amount"]==null?0:$loans["lo_amount"];
+
+        $p["m_id"] = $id;
+        $p["saving"] = $saving["t_amount"];
+        $p["loans"] = $ty;
+        $p["g_bal"] = $g_bal["amount"];
+
+        // $this->write_2_file('../error.txt', json_encode($p));
+        $r =intval($saving["t_amount"]) - intval($loans["lo_amount"]*(1+$loans["lo_rate"])) - intval($g_bal["amount"]);
+        return $r;
     }
 
 }

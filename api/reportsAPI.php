@@ -60,6 +60,7 @@ switch($meth){
             // }
             $mem = $helper->query("select * from group_member where g_id=:g",[":g"=>$_GET["group"]]);
             // $msg["total_saving"] = 0;
+            $newt = 0;
             foreach($mem->fetchAll(\PDO::FETCH_ASSOC) as $row){
                 array_push($msg["reports"], [
                     "m_id"=>$row["m_id"],
@@ -74,7 +75,7 @@ switch($meth){
                     "m_dob"=>$row["m_dob"],
                     "created_at"=>$row["created_at"],
                     "update_at"=>$row["update_at"],
-                    "saving"=>$helper->ledger_sum($row["m_id"], $helper->t_type("saving")) - $helper->get_guarantee_balance($row["m_id"]),
+                    "saving"=>$helper->ledger_sum($row["m_id"], $helper->t_type("saving")),
                     "social_fund"=>$helper->ledger_sum($row["m_id"], $helper->t_type("social fund")),
                     "fine"=>$helper->ledger_sum($row["m_id"], $helper->t_type("fine")),
                     "education_in"=>$helper->ledger_sum($row["m_id"], $helper->t_type("education in")),
@@ -85,10 +86,12 @@ switch($meth){
                     "loan_charges"=>$helper->ledger_sum($row["m_id"], $helper->t_type("loan charges")),
                     "membership"=>$helper->ledger_sum($row["m_id"], $helper->t_type("membership")),
                     "loan_form"=>$helper->ledger_sum($row["m_id"], $helper->t_type("loan_form")),
-                
+                    "net_worth"=>$helper->new_worth($row["m_id"]),
                 ]);
+                $newt += $helper->new_worth($row["m_id"]);
                 // $msg["total_saving"] += $helper->ledger_sum($row["m_id"], $helper->t_type("saving"));
             }
+            $msg["total_net"] = number_format($newt);
         }
         break;
     

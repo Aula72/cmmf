@@ -59,11 +59,12 @@ $exp = date('Y-m-d', strtotime("+1 year"));
           <div class="col-sm-10">
             <input type="number" id="amount"  oninput="check_amount()" class="form-control rounded-pill">
           </div>
-          <div class="text-center mt-1"><p id="warning"></p></div>
+          
           
         </div>
         <div id="amt-div"></div>
         <div id="new-div"></div>
+        <div class="text-center mt-1"><p id="warning"></p></div>
         <div id="code-div"></div>
         <!-- <div class="input-field col s12 browser-default">
           <input type="text"  value="" id="code" disabled>
@@ -198,9 +199,9 @@ $exp = date('Y-m-d', strtotime("+1 year"));
           $("#warning").text("Loan will be immediately active after creating it...")
           $("#warning").css({color:"green"})
       }else{
-        
-        $("#warning").text(`An extra of ${nm.format(r)} will be needed to make this loan active...`)
-        $("#warning").css({color:"red"})
+        // let ko = parseInt(Number($("#amount").val())
+        // $("#warning").text(`An extra of atlease ${nm.format(r)} will be needed to make this loan active...`)
+        // $("#warning").css({color:"red"})
       }
       
       // localStorage.removeItem("b")
@@ -208,7 +209,8 @@ $exp = date('Y-m-d', strtotime("+1 year"));
 
     $("#rate").on("input", ()=>{
       // console.log(Number($("#rate").val()))
-      $("#amnt").val(Number($("#amount").val())*(1+Number($("#rate").val())/100))
+      check_amount()
+      $("#amnt").val(parseInt(Number($("#amount").val())*(1+Number($("#rate").val())/100)))
     })
 
     console.log($("#group").val())

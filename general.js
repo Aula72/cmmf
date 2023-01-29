@@ -175,11 +175,11 @@ const TextArea  = (obj) =>{
 }
 
 const Table = (obj) =>{
-	let head = "<table class='table table-striped'><tr>";
+	let head = "<table class='table table-striped'><thead><tr>";
 	for(let t of obj.head){
 		head += `<th>${t}</th>`
 	}
-	head += `</tr><tbody>`
+	head += `</tr></thead><tbody>`
 	for(let m of obj.body){
 		head += `<tr>`
 		for(let c of m){
@@ -188,7 +188,7 @@ const Table = (obj) =>{
 		head += `</tr>`
 		
 	}
-	head += `</tbody>`
+	head += `</tbody></table>`
 
 	$(`#${obj.div}`).html(`${head}`);
 
@@ -357,6 +357,108 @@ function myFunction() {
 	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 
+
+// const filter_table =(i2, tb)=> {
+// 	// Declare variables
+// 	var input, filter, table, tr, td, i, txtValue;
+// 	input = document.getElementById(i2);
+// 	filter = input.value.toUpperCase();
+// 	table = document.getElementById(tb);
+// 	tr = table.getElementsByTagName("tr");
+  
+// 	// Loop through all table rows, and hide those who don't match the search query
+// 	// console.log(tr)
+// 	for(let p = 0; p<5; p++){
+// 		td = tr[p].getElementsByTagName("td")
+// 		console.log(td)
+// 		for (i = 0; i < tr.length; i++) {
+// 		console.log(p)	
+// 		td = tr[i].getElementsByTagName("td")[p];
+		
+// 		if (td) {
+// 			txtValue = td.textContent || td.innerText;
+// 			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+// 			tr[i].style.display = "";
+// 			} else {
+// 			tr[i].style.display = "none";
+// 			}
+// 		}
+		
+// 		}
+// 	}
+//   }
+
+//   const tb_filter = (inp, tb) =>{
+// 	var input = document.getElementById(inp)
+// 	var filter = input.value.toUpperCase()
+// 	var table = document.getElementById(tb)
+// 	var tr = table.getElementsByTagName("tr")
+// 	var tds = tr.getElementsByTagName('td')
+
+// 	for(var i=0; i<tr.length;  i++){
+// 		var firstCol = tds[0].textContent.toUpperCase()
+// 		var secondCol = tds[0].textContent.toUpperCase()
+// 		if(firstCol.indexOf(filter)>-1 || secondCol.indexOf(filter)>-1){
+// 			tr[i].style.display = "";
+// 		}else{
+// 			tr[i].style.display = "none";
+// 		}
+// 	}
+//   }
+
+function filterTableGroup(event){
+	var filter = event.target.value.toUpperCase()
+	var rows = document.querySelector(".table tbody").rows;
+	console.log(rows.length)
+	for(var i=0;i<rows.length;i++){
+		console.log(i)
+		var firstCol = rows[i].cells[0].textContent.toUpperCase();
+		var secondCol = rows[i].cells[1].textContent.toUpperCase();
+		var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+		
+		if(firstCol.indexOf(filter)>-1 || secondCol.indexOf(filter)>-1 || thirdCol.indexOf(filter)>-1){
+			rows[i].style.display = "";
+		}else{
+			rows[i].style.display = "none";
+		}
+	}
+}
+
+function filterTableLoan(event){
+	var filter = event.target.value.toUpperCase()
+	var rows = document.querySelector(".table tbody").rows;
+	console.log(rows.length)
+	for(var i=0;i<rows.length;i++){
+		console.log(i)
+		var firstCol = rows[i].cells[0].textContent.toUpperCase();
+		var secondCol = rows[i].cells[1].textContent.toUpperCase();
+		var thirdCol = rows[i].cells[6].textContent.toUpperCase();
+		
+		if(firstCol.indexOf(filter)>-1 || secondCol.indexOf(filter)>-1 || thirdCol.indexOf(filter)>-1){
+			rows[i].style.display = "";
+		}else{
+			rows[i].style.display = "none";
+		}
+	}
+}
+
+function filterTableWeek(event){
+	var filter = event.target.value.toUpperCase()
+	var rows = document.querySelector(".table tbody").rows;
+	console.log(rows.length)
+	for(var i=0;i<rows.length;i++){
+		console.log(i)
+		var firstCol = rows[i].cells[0].textContent.toUpperCase();
+		var secondCol = rows[i].cells[1].textContent.toUpperCase();
+		var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+		var forthCol = rows[i].cells[3].textContent.toUpperCase();
+		if(firstCol.indexOf(filter)>-1 || secondCol.indexOf(filter)>-1 || thirdCol.indexOf(filter)>-1 || forthCol.indexOf(filter)>-1){
+			rows[i].style.display = "";
+		}else{
+			rows[i].style.display = "none";
+		}
+	}
+}
 
 	
 	

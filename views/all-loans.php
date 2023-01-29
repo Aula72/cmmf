@@ -1,5 +1,8 @@
 <!-- <h4 class="center-align">Loans</h4> -->
-<div class="row" id="loanList">
+<div class="mb-3 mt-3">
+  <input type="text" id="sln" placeholder="Search Loans by loan number, member code, status..."class="form-control form-control-sm">
+</div>
+  <div class="row" id="loanList">
   <!-- <div class="row mb-3" id="add-div" style="float:right;"></div> -->
   
 </div>
@@ -69,5 +72,10 @@
     }
 
     Anchor({div:"add-div", href:"/add-loan", text:"Add Loan", btn:"primary" })
+
+    $(document).ready(()=>{
+      document.querySelector("#sln").addEventListener("keyup", filterTableLoan, false)
+    })
+    
 </script>
 

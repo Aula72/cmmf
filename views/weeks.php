@@ -2,6 +2,9 @@
 <section class="section">
       <div class="row">
 <!-- <h4 class="center-align">Weeks</h4> -->
+<div class="mb-3 mt-3">
+  <input type="text" id="swk" placeholder="Search weeks by week code, financial year, group, seat date..."class="form-control form-control-sm">
+</div>
 <table class="table">
         <thead>
           <tr>
@@ -108,4 +111,8 @@
         });
       }
     }
+
+    $(document).ready(()=>{
+      document.querySelector("#swk").addEventListener("keyup", filterTableWeek, false)
+    })
 </script>
