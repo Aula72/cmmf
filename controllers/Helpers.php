@@ -445,7 +445,7 @@ class Helper{
         $p["g_bal"] = $g_bal["amount"];
 
         // $this->write_2_file('../error.txt', json_encode($p));
-        $r =intval($saving["t_amount"]) - intval($loans["lo_amount"]*(1+$loans["lo_rate"])) - intval($g_bal["amount"]);
+        $r =intval($saving["t_amount"]) - intval($loans["lo_amount"]*(1+$loans["lo_rate"]/100)) - intval($g_bal["amount"]);
         return $r;
     }
 

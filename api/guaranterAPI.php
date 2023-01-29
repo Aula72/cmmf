@@ -39,13 +39,17 @@ switch($meth){
             $accBal = $helper->ledger_sum($newLoan["m_id"], $helper->t_type("saving"));
 
             $helper->update_account($m_id, $amount, $helper->t_type("loan out"));
-            $m = $accBal + $helper->guarant_balance($newLoan["lo_id"]);
-            $mh = intval($newLoan["amount"]*(1+$newLoan["lo_rate"]/100));
-            $m = intval($m);
+            $m = intval($accBal) + intval($helper->guarant_balance($newLoan["lo_id"]));
+            $mh = intval($newLoan["lo_amount"]*(1+$newLoan["lo_rate"]/100));
+            // $m = intval($m);
 
             //share
+            $x["bal"] = $m;
+            $x["loan"] = $mh;
+            $x["id"]=$newLoan["m_id"];
+            $x["lo_code"] = $newLoan["lo_code"];
             // $helper->create_share($lo_id, $helper->get_last_id("g_id", "guaranter"));
-            $helper->write_2_file("../error.txt", $m);
+            $helper->write_2_file("../error.txt", json_encode($x));
             if($m>=$mh){
                 $helper->query("update loans set ls_id='5' where lo_id=:lo", [":lo"=>$lo_id]);
             }

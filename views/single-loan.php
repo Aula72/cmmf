@@ -123,7 +123,7 @@ $bal = $id["lo_amount"] - $help->guarant_balance($id["lo_id"]);
                 $("#phone").text(q.m_phone);
                 $("#due").text(`${nm.format((1+p.lo_rate/100)*p.lo_amount)} /=`)
                 $("#sdate").text(p.created_at.substring(0, 10))
-                $("#bln").text(`${nm.format(response.balance)} /=`)
+                $("#bln").text(`${response.balance=='T.B.D'?'T.B.D':nm.format(response.balance)+" /="}`)
                 response.fines.length?$("#fines").show():$("#fines").hide();
                 response.guaranters.length?$("#guaranters").show():$("#guaranters").hide();
                 response.payments.length?$("#payments").show():$("#payments").hide();
