@@ -312,10 +312,10 @@ class Helper{
     }
 
     public function guaranter_percentage($id, $lo_id){
-        $g = $this->query("select sum(amount) as amount from guaranter where m_id=:id and lo_id=:loan",[":id"=>$id, ":loan"=>$lo_id]);
+        $g = $this->query("select sum(amount) as amount from guaranter_balance where m_id=:id and lo_id=:loan",[":id"=>$id, ":loan"=>$lo_id]);
         $g = $g->fetch(\PDO::FETCH_ASSOC);
 
-        $r = $this->query("select sum(amount) as amount from guaranter where lo_id=:id", [":id"=>$lo_id]);
+        $r = $this->query("select sum(amount) as amount from guaranter_balance where lo_id=:id", [":id"=>$lo_id]);
         $r = $r->fetch(\PDO::FETCH_ASSOC);
 
         try{

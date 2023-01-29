@@ -311,7 +311,7 @@ $(document).ready(()=>{
 			constants.mail = response.user.mail
 		}
 	});
-	console.log(constants)
+	// console.log(constants)
 
 	$("form").on('submit',()=>{
 		// console.log("clicked")

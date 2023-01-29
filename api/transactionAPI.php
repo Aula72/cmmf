@@ -46,8 +46,8 @@ switch($meth){
 
                         $p = $helper->guaranter_percentage($row["m_id"], $loan)*$t_amount;
                         $x += $p;
-                        $helper->pay_guaranter($row["lo_id"], $row["m_id"],$t_amount*$p);
-                        $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>-1*$p*$t_amount, "t_code"=>$t_code, "t_desc"=>$t_desc]);
+                        $helper->pay_guaranter($row["lo_id"], $row["m_id"],$p);
+                        $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>-1*$p, "t_code"=>$t_code, "t_desc"=>$t_desc]);
                     }
                     $rt8 = $t_amount - $x;
                     $helper->update_account($m_id, $rt8, $helper->t_type("saving"));
