@@ -403,22 +403,22 @@ class Helper{
         }
     }
 
-    public function create_share($lo, $g){
-        $loan = $this->get_loan_id($lo);
-        $gua = $this->query("select ifnull(sum(amount), 0) as amount from guaranter where lo_id=:lo and m_id=:m", [":lo"=>$lo, ":m"=>$g]);
-        try{
-            $shr = $gua["amount"]/$loan["lo_amount"]*(1+$loan["lo_rate"]/100);
-        }catch(Exception $e){
-            $shr = 0;
-        }
+    // public function create_share($lo, $g){
+    //     $loan = $this->get_loan_id($lo);
+    //     $gua = $this->query("select ifnull(sum(amount), 0) as amount from guaranter where lo_id=:lo and m_id=:m", [":lo"=>$lo, ":m"=>$g]);
+    //     try{
+    //         $shr = $gua["amount"]/$loan["lo_amount"]*(1+$loan["lo_rate"]/100);
+    //     }catch(Exception $e){
+    //         $shr = 0;
+    //     }
 
-        $sher = $this->query("select * from guaranter_share where g_id=:g and lo_id=:lo",[":g"=>$g, ":lo"=>$lo]);
-        if($sher->rowCount()>0){
-            $this->query("update guaranter_share set share=:s where g_id=:g and lo_id=:lo",[":g"=>$g, ":lo"=>$lo, ":s"=>$shr]);
-        }else{
-            $this->query("insert into guaranter_share set share=:s where g_id=:g, lo_id=:lo",[":g"=>$g, ":lo"=>$lo, ":s"=>$shr]);
-        }
-    }
+    //     $sher = $this->query("select * from guaranter_share where g_id=:g and lo_id=:lo",[":g"=>$g, ":lo"=>$lo]);
+    //     if($sher->rowCount()>0){
+    //         $this->query("update guaranter_share set share=:s where g_id=:g and lo_id=:lo",[":g"=>$g, ":lo"=>$lo, ":s"=>$shr]);
+    //     }else{
+    //         $this->query("insert into guaranter_share set share=:s where g_id=:g, lo_id=:lo",[":g"=>$g, ":lo"=>$lo, ":s"=>$shr]);
+    //     }
+    // }
 
     public function write_2_file($file, $txt){
         $myfile = fopen($file, "a") or die("Unable to open file!");
