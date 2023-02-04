@@ -460,6 +460,51 @@ function filterTableWeek(event){
 	}
 }
 
+$("#search_id").on("keyup", e=>{
+	// console.log($("#search_id").val())
+
+	let q = $("#search_id").val();
+	if(q.length>=1){
+		$.ajax({
+			type: "get",
+			url: `${base_url}/api/searchAPI.php?q=${q}`,
+			headers,
+			dataType: "json",
+			success: function (response) {
+				let x = 0
+				let p = `<li style="list-style: none; " class="list-group-item">Search results for ${q}</li>`
+				for(let r of response.loans){
+					p += `<li style="list-style: none; " class="list-group-item"><a href="/loans/${r.lo_code}">${r.lo_code}</a> in Loans</li>`;
+					x ++
+				}
+				for(let r of response.members){
+					p += `<li style="list-style: none; " class="list-group-item"><a href="/members/${r.m_id}">${r.m_code} | ${r.m_fname} ${r.m_lname}</a> in members</li>`;
+					x++
+				}
+				for(let r of response.groups){
+					p += `<li style="list-style: none; " class="list-group-item"><a href="/groups/${r.g_id}">${r.g_code}</a> in Groups</li>`;
+					x++
+				}
+				for(let r of response.weeks){
+					p += `<li style="list-style: none; " class="list-group-item"><a href="/weeks/${r.w_id}/edit">${r.w_code}</a> in Weeks</li>`;
+					x++
+				}
+				for(let r of response.users){
+					p += `<li style="list-style: none; " class="list-group-item"><a href="/admin/${r.user_id}/edit">${r.mail}</a> in Users</li>`;
+					x++
+				}
+				if(x==0){
+					p += `<li style="list-style: none; " class="list-group-item text-center text-danger">No results for ${q}</li>`;
+				}
+				$("#search-results").html(p);
+
+			}
+		});
+	}else{
+		$("#search-results").html('');		
+	}
+})
+
 	
 	
 

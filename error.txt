@@ -1,0 +1,5 @@
+04-02-2023 11:47:47>>>{"message":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'w_date' in 'where clause'","file":"D:\\cmmf\\controllers\\Helpers.php","line":19,"code":"42S22"}
+04-02-2023 11:48:19>>>{"message":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'w_date' in 'where clause'","file":"D:\\cmmf\\controllers\\Helpers.php","line":19,"code":"42S22"}
+04-02-2023 13:58:50>>>{"message":"SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cmmf.users' doesn't exist","file":"D:\\cmmf\\controllers\\Helpers.php","line":19,"code":"42S02"}
+04-02-2023 13:59:20>>>{"message":"SQLSTATE[42S02]: Base table or view not found: 1146 Table 'cmmf.users' doesn't exist","file":"D:\\cmmf\\controllers\\Helpers.php","line":19,"code":"42S02"}
+04-02-2023 14:00:22>>>{"message":"SQLSTATE[42S22]: Column not found: 1054 Unknown column 'sname' in 'where clause'","file":"D:\\cmmf\\controllers\\Helpers.php","line":19,"code":"42S22"}

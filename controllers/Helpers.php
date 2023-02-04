@@ -434,8 +434,13 @@ class Helper{
         $saving = $this->query("select ifnull(sum(t_amount),0) as t_amount from trans_action where m_id=:id and trans_type_id=:ti", [":id"=>$id, ":ti"=>$this->t_type("saving")]);
         $saving = $saving->fetch(\PDO::FETCH_ASSOC);
 
-        $g_bal = $this->query("select ifnull(sum(amount),0) as amount from guaranter where m_id=:id  and lo_id in (select lo_id from loans where ls_id != 4)",[":id"=>$id]);
+        $g_bal = $this->query("select ifnull(sum(amount),0) as amount from guaranter_balance where m_id=:id  and lo_id in (select lo_id from loans where ls_id != 4)",[":id"=>$id]);
         $g_bal = $g_bal->fetch(\PDO::FETCH_ASSOC);
+
+        $paym = $this->query("select ifnull(sum(amount), 0) as amount from loan_payment where lo_id in (select lo_id from loans where m_id=:id)",[":id"=>$id]);
+        $paym = $paym->fetch(\PDO::FETCH_ASSOC);
+
+        
 
         $ty = $loans["lo_amount"]==null?0:$loans["lo_amount"];
 
@@ -445,7 +450,7 @@ class Helper{
         $p["g_bal"] = $g_bal["amount"];
 
         // $this->write_2_file('../error.txt', json_encode($p));
-        $r =intval($saving["t_amount"]) - intval($loans["lo_amount"]*(1+$loans["lo_rate"]/100)) - intval($g_bal["amount"]);
+        $r =intval($saving["t_amount"]) - intval($loans["lo_amount"]*(1+$loans["lo_rate"]/100)) - intval($g_bal["amount"]) + intval($paym["amount"]);
         return $r;
     }
 

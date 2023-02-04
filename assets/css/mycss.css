@@ -1,5 +1,15 @@
 
-
+#search-result{
+  margin-top: 300px;
+  position: absolute;
+  width: 100%;
+  max-width:500px;
+  cursor: pointer;
+  overflow-y: auto;
+  /* max-height: 400px; */
+  box-sizing: border-box;
+  z-index: 1001;
+ }
 #snackbar {
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */

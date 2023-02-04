@@ -2,6 +2,8 @@
 <!-- </div> -->
 <!-- </section> -->
 <!-- </div> -->
+
+
 </main>
 <footer id="footer" class="footer">
     <!-- <div class="copyright">
@@ -29,6 +31,7 @@
   <script src="<?php echo URL; ?>/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
+  <script src="<?php echo URL; ?>/assets/js/select2.js"></script>
   <script src="<?php echo URL; ?>/assets/js/main.js"></script>
 
 </body>

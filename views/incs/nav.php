@@ -27,10 +27,14 @@ function actives($rt){
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
 
-<div class="search-bar">
+<div class="search-bar" style="width:100%;">
   <form class="search-form d-flex align-items-center" method="POST" action="#">
-    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+    <!-- <div class="ui-widget"> -->
+      <input type="text" id="search_id" name="query" class="form-control form-control-lg" placeholder="Type to search for Groups, Weeks, Members, Loans, Admins" title="Enter search keyword" aria-required="true" required="" aria-label=".form-control-lg example">
+      <!-- <button type="submit" title="Search"><i class="bi bi-search"></i></button> -->
+      <br />
+      
+    <!-- </div> -->
   </form>
 </div><!-- End Search Bar -->
 
@@ -94,7 +98,8 @@ function actives($rt){
   </ul>
 </nav><!-- End Icons Navigation -->
 
-</header><!-- End Header -->
+</header>
+<!-- End Header -->
 
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
@@ -195,6 +200,7 @@ function actives($rt){
 </script>
 
 <main id="main" class="main">
+  <ul class="list-group mb-3" id="search-results"></ul>
     <div id="alerting"></div>
     <div class="pagetitle" id="p_title">
       <h1 id="h10">Dashboard</h1>
@@ -205,7 +211,7 @@ function actives($rt){
         </ol>
       </nav>
     </div>
-
+    
     <div id="print-title" style="display:none; width:100%;" class="text-center">
       <h2 style="text-align:center;" id="cmmf">CMMF</h2>
       <h4 style="text-align:center; ">P.O Box <span id="pox"></span>, Location: <span id="loc"></span></h4>

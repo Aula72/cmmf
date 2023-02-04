@@ -40,6 +40,7 @@ $r->set_route(["/transaction-reports", 'views/transaction-reports.php', 'GET']);
 $r->set_route(["/loan-reports", 'views/loan-reports.php', 'GET']);
 $r->set_route(["/weeks/{$po[2]}/week-transactions","views/week-transaction.php", "GET"]);
 $r->set_route(["/logs", "views/logs.php", "GET"]);
+
 // $r->set_route(["/alan", "views/alan.php", "GET"]);
 // $r->set_route(['/members'])
 foreach($r->get_routes() as $route){ 
