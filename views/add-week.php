@@ -1,6 +1,6 @@
 <?php 
 $rt = explode("/",$_SERVER['REQUEST_URI']);
-echo realpath("logs/logs.txt");
+// echo realpath("logs/logs.txt");
 // unlink("logs.txt");
 if(isset($rt[2])){
   $wk = $help->query("select * from weeks where w_id=:w", [":w"=>$rt[2]]);
