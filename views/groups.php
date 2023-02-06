@@ -16,8 +16,8 @@
             <th>
                 <button class="btn btn-outline-primary rounded-pill btn-sm " onclick="print_now();">Print <i class="bi bi-printer"></i></button>
             </th>
-            <th colspan="2">
-                <input type="text" id="sgrp" placeholder="Search Groups..."class="form-control">
+            <th colspan="3">
+                <input type="text" id="sgrp" placeholder="Search Groups..."class="form-control rounded-pill">
             </th>
         </tr>
     </thead>
@@ -57,7 +57,8 @@
                         <td>${p.g_name}</td>
                         <td>${p.g_location}</td>
                         <td><button class="btn btn-success btn-sm rounded-pill" onclick="go_to_page(['groups', ${p.g_id}])">Details <i class="bi bi-eye"></button></td>
-                        <td><button class="btn btn-success btn-sm rounded-pill" onclick="go_to_page(['groups', ${p.g_id}, 'edit'])">Edit <i class="bi bi-pen"></button></td>
+                        <td><button class="btn btn-danger btn-sm rounded-pill" onclick="go_to_page(['groups', ${p.g_id}, 'edit'])">Edit <i class="bi bi-pen"></button></td>
+                        <td><button class="btn btn-dark btn-sm rounded-pill" onclick="go_to_page(['groups?add-week=${p.g_id}'])">Add Week <i class="bi bi-calendar-plus"></button></td>
                         <td><button class="btn btn-primary btn-sm rounded-pill secretary" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['add-member']);">Add Member <i class="bi bi-person-plus"></button></td>
                         <td><button class="btn btn-warning btn-sm rounded-pill secretary" onclick="localStorage.setItem('g_id', ${p.g_id} );go_to_page(['groups/${p.g_id}/make-transactions']);">Make Transaction <i class="bi bi-currency-dollar"></button></td>
                         </tr>`);

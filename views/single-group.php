@@ -2,7 +2,7 @@
 $rt = explode("/",$_SERVER['REQUEST_URI']);
 ?>
 <div class="row mb-3">
-
+  <div class="col-md-8">
           <ul class="list-group">
             <li class="list-group-item">
               <div class="row">
@@ -28,23 +28,30 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
                 <div class="col-lg-6" id="gmember">4</div>
               </div>
             </li>
-            <li class="list-group-item">
-              <div class="row">
-                <div class="col-lg-4">
-                  <a href="/add-member" onclick="localStorage.setItem('g_id', <?php echo $rt[2];?>);"class="btn btn-outline-success rounded-pill secretary">Click to Add Member to Group</a>
+</ul>
+</div>
+<div class="col-md-4">
+
+            
+            
+              <!-- <div class="row"> -->
+                <div class="row mb-3">
+                  <a href="/add-member" onclick="localStorage.setItem('g_id', <?php echo $rt[2];?>);"class="btn btn-outline-success rounded-pill secretary">Add Member  <i class="bi bi-person-plus-fill"></i></a>
                 </div>
-                <div class="col-lg-4">
-                  <a class="btn btn-outline-dark rounded-pill secretary" href="/groups/<?php echo $rt[2]; ?>/make-transactions">Make Transaction  <i class="bi bi-money"></i></a>
+                <div class="row mb-3">
+                  <a class="btn btn-outline-dark rounded-pill secretary" href="/groups/<?php echo $rt[2]; ?>/make-transactions">Make Transaction  <i class="bi bi-currency-exchange"></i></a>
                 </div>
-                <div class="col-lg-4">
-                  <button class="btn btn-outline-warning rounded-pill" onclick="go_to_page(['groups', '<?php echo $rt[2]; ?>', 'edit'])">Edit Details</button>
+                <div class="row mb-3">
+                  <button class="btn btn-outline-danger rounded-pill" onclick="go_to_page(['groups?add-week=<?php echo $rt[2]; ?>'])">Add Week  <i class="bi bi-calendar-plus"></i></button>
                 </div>
-              </div>
-              <p>
-                
-              </p>
-            </li>
-          </ul>
+                <div class="row mb-3">
+                  <button class="btn btn-outline-warning rounded-pill" onclick="go_to_page(['groups', '<?php echo $rt[2]; ?>', 'edit'])">Edit Details  <i class="bi bi-pen"></i></button>
+                </div>
+              <!-- </div> -->
+              
+           
+        
+          </div>
         </div>
         <!-- <div class="card-action">
           <a href="#">This is a link</a>

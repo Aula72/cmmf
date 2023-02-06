@@ -1,5 +1,7 @@
 <?php 
 $rt = explode("/",$_SERVER['REQUEST_URI']);
+echo realpath("logs/logs.txt");
+// unlink("logs.txt");
 if(isset($rt[2])){
   $wk = $help->query("select * from weeks where w_id=:w", [":w"=>$rt[2]]);
   $wk = $wk->fetch(\PDO::FETCH_ASSOC);
@@ -9,6 +11,9 @@ if(isset($rt[2])){
   $week_date = $wk["w_date"];
   $year_id = $wk["y_id"];
   $grp_id = $wk["g_id"];
+}else if(isset($_GET["add-week"])){
+  $grp_id = $_GET["add-week"];
+  $rd = "week";
 }else{
   $week_id = "";
   $week_code = "";
@@ -111,7 +116,11 @@ $year = $help->query("select * from finanial_year order by y_id desc");
         try{
           if(response.status==1){
             setTimeout(() => {
-              window.location = "/add-week";
+              if(`<?php echo $rd; ?>`){
+                window.location = `/groups/<?php echo $_GET['add-week'];?>`
+              }else{
+                window.location = "/add-week";
+              }              
             }, xtime);
             toast(response.message);
             

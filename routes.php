@@ -1,6 +1,6 @@
 <?php 
-
-
+// echo json_encode($_SERVER);
+$query_string = $_SERVER["QUERY_STRING"];
 $po = explode('/', $_SERVER['REQUEST_URI']);
 $r->set_route(['/', "views/index.php",'GET']);
 $r->set_route(['/home', 'views/homes.php', 'GET']);
@@ -20,6 +20,7 @@ $r->set_route(["/weeks/{$po[2]}/edit", 'views/add-week.php', 'GET']);
 $r->set_route(['/groups', 'views/groups.php', 'GET']);
 $r->set_route(["/groups/{$po[2]}/edit", 'views/edit-group.php', 'GET']);
 $r->set_route(["/groups/{$po[2]}", 'views/single-group.php', 'GET']);
+$r->set_route(["/groups?{$query_string}", 'views/add-week.php', 'GET']);
 $r->set_route(['/logout', 'views/logout.php', 'GET']);
 $r->set_route(['/ledgers', 'views/ledgers.php', 'GET']);
 $r->set_route(["/ledgers/{$po[2]}", 'views/ledger-details.php', 'GET']);
@@ -29,6 +30,7 @@ $r->set_route(["/loans/{$po[2]}", 'views/single-loan.php', "GET"]);
 $r->set_route(["/loans/{$po[2]}/add-guaranter", 'views/add-guaranter.php', "GET"]);
 $r->set_route(["/add-loan", "views/add-loan.php", "GET"]);
 $r->set_route(["/admin", "views/all-admins.php", "GET"]);
+$r->set_route(["/admin?{$query_string}", "views/profile.php", "GET"]);
 $r->set_route(["/admin/{$po[2]}/edit", "views/add-user.php", "GET"]);
 $r->set_route(["/add-admin", "views/add-user.php", "GET"]);
 $r->set_route(['/make-transaction', "views/transaction.php", "GET"]);
@@ -40,6 +42,8 @@ $r->set_route(["/transaction-reports", 'views/transaction-reports.php', 'GET']);
 $r->set_route(["/loan-reports", 'views/loan-reports.php', 'GET']);
 $r->set_route(["/weeks/{$po[2]}/week-transactions","views/week-transaction.php", "GET"]);
 $r->set_route(["/logs", "views/logs.php", "GET"]);
+$r->set_route(["/myprofile", "views/logs.php", "GET"]);
+$r->set_route(["/logs?{$query_string}", "views/logs.php", "GET"]);
 
 // $r->set_route(["/alan", "views/alan.php", "GET"]);
 // $r->set_route(['/members'])

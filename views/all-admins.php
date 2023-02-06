@@ -79,6 +79,7 @@ if(isset($t[2])){
                             <td>${m.mail}</td>
                             <td>${m.status=='1'?'Active':'In-Active'}</td>
                             <td>${m.typn}</td> 
+                            <td><a href="/admin?admin=${m.user_id}"><i class="bi bi-eye text-success"></i></a></td>
                             <td ${bn?this.visibility='visible':this.visibility='hidden'}><a href="/admin/${m.user_id}/edit" class="chairman super dont-print"><i class="bi bi-pencil"></i></a></td>
                             <td ${bn?this.visibility='visible':this.visibility='hidden'}><i class="bi bi-settings" onclick='change_status("${m.user_id}", "${m.mail}", "${m.status}")'></i></td>
                             

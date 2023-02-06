@@ -88,6 +88,7 @@ switch($meth){
             $idd = $_GET["id"];
             
             $helper->required_fields([$group, $code, $date, $year]);
+            $helper->write_2_file("weeks.txt", json_encode($data));
             $weeks = $helper->query("update $tb_name set w_code=:code, g_id=:group,  w_date=:date, y_id=:year where w_id=:w",[':code'=>$code, ":group"=>$group, ":w"=>$idd, ':date'=>$date, ":year"=>$year]);
             if($weeks){
                 $msg["status"]=1;

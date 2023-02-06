@@ -505,6 +505,8 @@ $("#search_id").on("keyup", e=>{
 	}
 })
 
+
+
 	
 	
 

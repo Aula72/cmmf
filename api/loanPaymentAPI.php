@@ -41,9 +41,6 @@ switch($meth){
         $i = 0;
             
         foreach($guaranter->fetchAll(\PDO::FETCH_ASSOC) as $row){
-                // $helper->write_2_file("../error.txt", json_encode($arr));
-                // die($arr[$i]);
-            // $po["i"] = $i;
             $p = $arr[$i]*$amount;
             
             $tym = $helper->query("select * from guaranter_balance where lo_id=:lo and m_id=:m",[":lo"=>$loan, ":m"=>$row["m_id"]]);
@@ -55,20 +52,13 @@ switch($meth){
             }else{
                 $helper->query("update guaranter_balance set amount=:am where lo_id=:lo and m_id=:m",[":lo"=>$loan, ":m"=>$row["m_id"], ":am"=>0]);
             }
-            // $po["amnt"] = $amn;
-            // $po["mem"] = $row["m_id"];
-            // $po["rate"] = $arr[$i];
-            // $po["amout"] = $i;
-            // $helper->write_2_file("../error.txt", json_encode($po));
-               
         }
 
         if($helper->loan_balance($loan)==0){
             $helper->query("update loans set ls_id=:uo where lo_id=:lo",[":uo"=>4, ":lo"=>$loan]);
             $helper->loanable_member($m_id, 1);
         }
-        // }
-        // $helper->write_2_file("../error.txt", json_encode($po));
+        
         $msg["status"] = 1;
         $msg["message"] = "Loan payment TXNID $trans_id was successful...";
         

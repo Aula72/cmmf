@@ -1,6 +1,9 @@
 
 <div id="table-div"></div>
 
+<?php 
+    echo $_SERVER['QUERY_STRING'];
+?>
 
 <script>
     page_title("Activity Logs")

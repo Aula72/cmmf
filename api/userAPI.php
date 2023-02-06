@@ -51,6 +51,7 @@ switch($meth){
                     "created_at"=>$row["created_at"],
                     "updated_at"=>$row["updated_at"],
                     "typn"=>$helper->user_types($row["user_type_id"]),
+                    "user"=>md5($row["user_id"])
                     
                 ]);
             }

@@ -53,7 +53,7 @@ function actives($rt){
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
         <img src="<?php echo URL; ?>/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-        <span class="d-none d-md-block dropdown-toggle ps-2" id="log_name">K. Anderson</span>
+        <span class="d-none d-md-block dropdown-toggle ps-2" id="log_name">CMMF Admin</span>
       </a><!-- End Profile Iamge Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -66,7 +66,7 @@ function actives($rt){
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="/admin/5">
+          <a class="dropdown-item d-flex align-items-center" href="/myprofile">
             <i class="bi bi-person"></i>
             <span>My Profile</span>
           </a>
@@ -169,7 +169,7 @@ function actives($rt){
   </li>
   
   <li class="nav-item">
-    <a class="nav-link <?php actives('my-profile');?>" href="/admin/5">
+    <a class="nav-link <?php actives('my-profile');?>" href="/myprofile">
       <i class="bi bi-person"></i>
       <span>My Profile</span>
     </a>

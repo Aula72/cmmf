@@ -26,13 +26,75 @@ switch($meth){
         $t_desc = $data["comment"];	
         $w_id = $data['week'];
         $p = $helper->query("select * from trans_action where w_id=:w and m_id=:m and trans_type_id=:id", [":m"=>$m_id, ":w"=>$w_id, ":id"=>$trans_type_id]);
-                        
+        $q = $helper->query("select * from trans_action where w_id=:w and m_id=:m and trans_type_id=:id and t_amount=:amnt", [":m"=>$m_id, ":w"=>$w_id, ":id"=>$trans_type_id, ":amnt"=>$t_amount]);
+        $q = $q->fetch();
+        if($q){
+            die(json_encode(["status"=>1, "message"=>"Transaction already exists...."]));
+        }
+        $helper->write_2_file("../logs/trans.txt", json_encode($data));
         $helper->required_fields([$m_id, $w_id, $trans_type_id, $t_code, $t_amount]);
-        
+        $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>$t_amount, "t_code"=>$t_code, "t_desc"=>$t_desc]);
+        if($trans_type_id == $helper->t_type("saving")){
+            
+                $loan = $helper->query("select * from loans where m_id=:m and ls_id=:l",[":m"=>$m_id, ":l"=>'2']);
+                $loan = $loan->fetch(\PDO::FETCH_ASSOC);
+                // $helper->write_2_file("../error.txt",json_encode(["loan"=>$loan, "m_id"=>$m_id]));
+                if($loan){
+                    $loan_bal = $helper->loan_balance($loan["lo_id"]);
+                    $helper->write_2_file("../error.txt",json_encode(["balance"=>$loan_bal,]));
+                    $p_comment = "Loan automatic paid on saving";
+                    if($loan_bal>=$t_amount){
+                        $amount = $t_amount;
+                    }else{
+                        $amount = $loan_bal;
+                    }
+                    $helper->query("insert loan_payment set lo_id=:lo, amount=:am, p_comment=:co, user_id=:us, trans_id=:t",[":lo"=>$loan["lo_id"], ":am"=>$amount, ':co'=>$p_comment, ":t"=>$t_code, ":us"=>$user_id]);
+                    $guaranters = $helper->query("select * from guaranter where lo_id=:lo",[":lo"=>$loan["lo_id"]]);
+                    $guaranter = $helper->query("select * from guaranter where lo_id=:lo",[":lo"=>$loan["lo_id"]]);
+                    $x = 0;
+                    $arr = [];
+                    foreach($guaranters->fetchAll(\PDO::FETCH_ASSOC) as $ty){
+                        array_push($arr, $helper->guaranter_percentage($ty["m_id"], $loan["lo_id"]));
+                    }
+                    
+                    $i = 0;
+                    // $m = 0;
+                    foreach($guaranter->fetchAll(\PDO::FETCH_ASSOC) as $row){
+                        $p = $arr[$i]*$amount;
+                        
+                        $tym = $helper->query("select * from guaranter_balance where lo_id=:lo and m_id=:m",[":lo"=>$loan["lo_id"], ":m"=>$row["m_id"]]);
+                        $tym = $tym->fetch(\PDO::FETCH_ASSOC);
+                        $amn = $tym["amount"] - $p;
+                        // $helper->write_2_file("../error.txt", $amn);
+                        if($amn>=0){
+                            $helper->query("update guaranter_balance set amount=:am where lo_id=:lo and m_id=:m",[":lo"=>$loan["lo_id"], ":m"=>$row["m_id"], ":am"=>$amn]);
+                        }else{
+                            $helper->query("update guaranter_balance set amount=:am where lo_id=:lo and m_id=:m",[":lo"=>$loan["lo_id"], ":m"=>$row["m_id"], ":am"=>0]);
+                        }
+                        $m += $p;
+                    }
 
+                    if($helper->loan_balance($loan["lo_id"])==0){
+                        $helper->query("update loans set ls_id=:uo where lo_id=:lo",[":uo"=>4, ":lo"=>$loan["lo_id"]]);
+                        $helper->loanable_member($m_id, 1);
+                    }
+                }
+        
+        
+            // }
+        }
+        //     else{
+        //         $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>$t_amount, "t_code"=>$t_code, "t_desc"=>$t_desc]);
+        //     }
+        // }else{
+        //     $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>$t_amount, "t_code"=>$t_code, "t_desc"=>$t_desc]);
+        // }
+
+        $msg["status"] = 1;
+        $msg["message"] = "Transaction TXNID $t_code was successful...";
+        /*
         $tu = $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>$t_amount, "t_code"=>$t_code, "t_desc"=>$t_desc]);
-        // die(json_encode($data));
-        // die(json_encode(["tur"=>$tu]));
+        
         if($tu){
             $msg["status"]= 1;
             $msg["message"] = "Transaction $t_code was successfull...";
@@ -59,45 +121,7 @@ switch($meth){
             $msg["status"]= 1;
             $msg["message"] = "TRXN $t_code was not processed, amount was insufficient...";
         }
-        // die(json_encode($data));
-        // die(json_encode(["id"=>3]));
-        // if($trans_type_id==1){
-        //     if($helper->member_has_loan($m_id)){
-        //         // if($helper->guarant_balance())
-        //     }else{
-
-        //     }
-        // }else{
-
-        // }
-        // if($data["amount"]>0){
-            
-        //     if($p->rowCount()==0){
-        //         $trans = $helper->query("insert into $tb_name set user_id=:user, w_id=:week, m_id=:member, trans_type_id=:trans, t_code=:code, t_amount=:amount, t_desc=:comment",[":user"=>$user_id,":member"=>$m_id,":trans"=>$trans_type_id,":code"=>$t_code,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
-        //     }else{
-        //         $trans = $helper->query("update $tb_name set   t_amount=:amount, t_desc=:comment where w_id=:week and m_id=:member and trans_type_id=:trans",[":member"=>$m_id,":trans"=>$trans_type_id,":amount"=>$t_amount,":comment"=>$t_desc, ":week"=>$w_id]);
-        //     }
-        //     if($trans){
-        //         $msg["status"]= 1;
-        //         $msg["message"] = "Transaction $t_code was successfull...";
-        //         if($trans_type_id==1){
-        //             $p = $p->fetch(\PDO::FETCH_ASSOC);
-        //             // die(json_encode($p));
-        //             $th = $helper->query("select amount from account_balance where m_id=:m", [":m"=>$m_id]);
-        //             $th = $th->fetch(\PDO::FETCH_ASSOC);
-
-        //             $amt = intval($th["amount"]) - intval($p["t_amount"]);
-        //             // die(json_encode(["message"=>$amt, "amount"=>$th["amount"], "t_amount"=>$p["t_amount"]]));
-        //             $helper->query("update account_balance set amount=:amt where m_id=:mem",[":mem"=>$m_id, ":amt"=>$amt]);
-        //             $helper->update_account($m_id, $t_amount, $trans_type_id);
-        //         }
-                
-        //     }
-        //     $helper->create_log($helper->get_token()["user_id"], "Transaction {$t_code} amnt {$t_amount} made");
-        // }else{
-        //     $msg["status"]= 1;
-        //     $msg["message"] = "TRXN $t_code was not processed, amount was insufficient...";
-        // }
+        */
         break;
     case 'PUT':
 
