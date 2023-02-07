@@ -86,6 +86,7 @@ switch($meth){
             $st = 5;
         }
         $helper->required_fields([$lo_code, $lo_amount, $lo_expiry,$lo_rate]);
+        $helper->write_2_file("loans.txt", json_encode($data));
         $loan  =  $helper->query("insert into $tb_name set 	lo_code=:code,	lo_rate=:rate, lo_expiry=:expiry,m_id=:member,user_id=:user,lo_amount=:amount, ls_id=:status",[":status"=>$st,":code"=>$lo_code,":rate"=>$lo_rate,":member"=>$m_id,":amount"=>$lo_amount, ":user"=>$user_id, ":expiry"=>$lo_expiry]);
         if($loan){
             $msg["status"]=1;
