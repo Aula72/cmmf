@@ -3,8 +3,18 @@ $rt = explode("/",$_SERVER['REQUEST_URI']);
 $id = $help->get_loan_id($rt[2]);
 $own = $help->get_member($id["m_id"]);
 
-$bal = round($id["lo_amount"]*(1+$id["lo_rate"]/100), 2) - $help->ledger_sum($id["m_id"], $help->t_type("saving")) - $help->guarant_balance($id["lo_id"]);
-$bal = intval($bal);
+//guaranter balance
+$g = $help->query("select ifnull(sum(amount), 0) as amount from guaranter_balance where lo_id=:lo", [":lo"=>$id["m_id"]]);
+$g = $g->fetch(\PDO::FETCH_ASSOC);
+// $xp = $help->new_worth($id["m_id"]);
+// if($xp >= $id["lo_amount"]){
+
+// }else{
+
+// }
+// echo json_encode($id);
+$bal = -$help->ledger_sum($id["m_id"],$help->t_type("saving")) + round($id["lo_amount"]*(1+$id["lo_rate"]/100)) - $g["amount"];
+// $bal = intval($id["lo_amount"]);
 
 ?>
 <div class="row">

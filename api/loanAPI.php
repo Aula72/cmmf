@@ -49,6 +49,7 @@ switch($meth){
             $p = $helper->ledger_sum($_GET["sbal"],$helper->t_type("saving"));
 
             $msg["message"] = intval($p) - intval($u["amt"]);
+            $msg["message"] = $helper->new_worth($_GET["sbal"]);
         }else{
             $loans = $helper->query("select * from loans order by lo_id desc");
             $msg["loans"] = [];
@@ -79,7 +80,9 @@ switch($meth){
         $user_id = $helper->get_token()["user_id"];	
         $lo_amount = $data["amount"];
         $st = 1;
-        if(intval($lo_amount)<intval($helper->ledger_sum($m_id, $helper->t_type("saving")))){
+
+        $lp = intval($lo_amount*(1+intval($lo_rate)/100));
+        if($lp<$helper->new_worth($m_id)){
             $st = 5;
         }
         $helper->required_fields([$lo_code, $lo_amount, $lo_expiry,$lo_rate]);

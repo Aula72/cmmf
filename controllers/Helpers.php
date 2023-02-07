@@ -429,13 +429,13 @@ class Helper{
     }
 
     public function new_worth($id){
-        $loans = $this->query("select * from loans where m_id=:id and ls_id in (1, 4, 5)", [":id"=>$id]);
+        $loans = $this->query("select * from loans where m_id=:id and ls_id not in (1, 4, 5)", [":id"=>$id]);
         $loans = $loans->fetch(\PDO::FETCH_ASSOC);
         
         $saving = $this->query("select ifnull(sum(t_amount),0) as t_amount from trans_action where m_id=:id and trans_type_id=:ti", [":id"=>$id, ":ti"=>$this->t_type("saving")]);
         $saving = $saving->fetch(\PDO::FETCH_ASSOC);
 
-        $g_bal = $this->query("select ifnull(sum(amount),0) as amount from guaranter_balance where m_id=:id  and lo_id in (select lo_id from loans where ls_id != 4)",[":id"=>$id]);
+        $g_bal = $this->query("select ifnull(sum(amount),0) as amount from guaranter_balance where m_id=:id  and lo_id in (select lo_id from loans where ls_id =2)",[":id"=>$id]);
         $g_bal = $g_bal->fetch(\PDO::FETCH_ASSOC);
 
         $paym = $this->query("select ifnull(sum(amount), 0) as amount from loan_payment where lo_id in (select lo_id from loans where m_id=:id)",[":id"=>$id]);
