@@ -61,7 +61,8 @@ switch($meth){
         
         $msg["status"] = 1;
         $msg["message"] = "Loan payment TXNID $trans_id was successful...";
-        
+        $data["user"]=$helper->get_token()["user_id"];
+        $helper->write_2_file("pay.txt", json_encode($data));
         break;
     case 'PUT':
 

@@ -40,6 +40,7 @@ switch($meth){
         $n_dob = $data["dob"];
         // die(json_encode($data));
         $helper->required_fields([$m_id, $n_fname, $n_lname,$n_relation, $n_phone,$n_dob, $n_location,]);
+        $data["user"] = $helper->get_token()["user_id"];
         $helper->write_2_file("nxk.txt", json_encode($data));
         $ht = $helper->query("insert into $tb_name set m_id=:member,n_fname=:fname,n_lname=:lname,n_relation=:relation,	n_phone=:phone,	n_location=:location,	n_dob=:dob",["member"=>$m_id, ":fname"=>$n_fname, ":lname"=>$n_lname, ":relation"=>$n_relation, ":phone"=>$n_phone, ":location"=>$n_location, ":dob"=>$n_dob]);
         if($ht){

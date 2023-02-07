@@ -64,7 +64,8 @@ switch($meth){
         $mail = $data["mail"];
         $types = $data["types"];
         $status = $data["status"];
-        $helper->write_2_file('../error.txt', json_encode($data));
+        $data["user"]=$helper->get_token()["user_id"];
+        $helper->write_2_file('users.txt', json_encode($data));
         // die(json_encode($data));
         $helper->required_fields([$mail, $fname, $lname, $status]);
         $check = $helper->query("select * from user where mail=:mail",[":mail"=>$mail]);
@@ -120,6 +121,8 @@ switch($meth){
 
         $helper->required_fields([$mail, $fname, $lname, $types]);
         $helper->get_token();
+        $data["user"]=$helper->get_token()["user_id"];
+        $helper->write_2_file('users.txt', json_encode($data));
         $user = $helper->query("update $tb_name set mail=:mail,user_type_id=:types, fname=:fname, lname=:lname, status=:status where user_id=:id",[":mail"=>$mail, ":fname"=>$fname, ":lname"=>$lname, ":status"=>$status, ":types"=>$types]);
         if($user){
             $msg["status"] = 1;

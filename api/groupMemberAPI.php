@@ -204,7 +204,8 @@ switch($meth){
                 $msg["status"] = 0;
             }
         }
-        
+        $data["user"]=$helper->get_token()["user_id"];
+        $helper->write_2_file("memb.txt", json_encode($data));
         break;
     case 'PUT':
         // $helper->get_last_id();
@@ -246,6 +247,8 @@ switch($meth){
             $msg["message"] = "Updateing member failed";
             $msg["status"] = 0;
         }
+        $data["user"]=$helper->get_token()["user_id"];
+        $helper->write_2_file("memb.txt", json_encode($data));
         break;
     case 'DELETE':
         $helper->remove_record("group_member", "m_id", $_GET['id']);

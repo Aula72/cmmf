@@ -56,6 +56,8 @@ switch($meth){
             $helper->loan_history($amount, $lo_id, 'ADDG');
             $helper->member_history($m_id, 'GRT', json_encode(["member"=>$m_id, "loan"=>$lo_id, "amount"=>$amount]));
         }
+        $data["user"]=$helper->get_token()["user_id"];
+        $helper->write_2_file("grant.txt", json_encode($data));
         break;
     case 'PUT':
 

@@ -99,6 +99,7 @@ switch($meth){
                 $msg["status"]=0;
                 $msg["message"] = "Operation failed";
             }
+            
         }else{
             // $code = $helper->get_last_id('g_id', $tb_name)+1;
             $code = $data["code"];
@@ -116,7 +117,8 @@ switch($meth){
                 $msg["message"] = "Operation failed";
             }
         }
-        
+        $data["user"]=$helper->get_token()["user_id"];
+        $helper->write_2_file("grp.txt", json_encode($data));
         break;
     case 'PUT':
             $code = $data["code"];

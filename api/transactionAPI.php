@@ -31,6 +31,7 @@ switch($meth){
         if($q){
             die(json_encode(["status"=>1, "message"=>"Transaction already exists...."]));
         }
+        $data["user"] = $helper->get_token()["user_id"];
         $helper->write_2_file("trans.txt", json_encode($data));
         $helper->required_fields([$m_id, $w_id, $trans_type_id, $t_code, $t_amount]);
         $helper->deposit_to_ledger(["m_id"=>$m_id, "trans_type_id"=>$trans_type_id, "w_id"=>$w_id,"amount"=>$t_amount, "t_code"=>$t_code, "t_desc"=>$t_desc]);
