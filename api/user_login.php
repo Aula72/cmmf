@@ -12,7 +12,7 @@ $help->req_method('post');
 
 $check = $help->query("select * from user where mail=:uname",[":uname"=>$uname]);
 
-$help->write_2_file("../logs/login.txt", json_encode($data));
+$help->write_2_file("logs/login.txt", json_encode($data));
 if($check->rowCount()>0){
 	$user = $check->fetch(\PDO::FETCH_ASSOC);
 	// $otp = rand(10000,99999);
