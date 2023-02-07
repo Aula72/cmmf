@@ -68,7 +68,7 @@ switch($meth){
             $user = $helper->get_token()["user_id"];
             
             $helper->required_fields([$group, $code, $date, $year]);
-            $help->write_2_file("weeks.txt", json_encode($data));
+            $helper->write_2_file("weeks.txt", json_encode($data));
             $weeks = $helper->query("insert into $tb_name set w_code=:code, g_id=:group, user_id=:user, w_date=:date, y_id=:year",[':code'=>$code, ":group"=>$group, ":user"=>$user, ':date'=>$date, ":year"=>$year]);
             if($weeks){
                 $msg["status"]=1;
