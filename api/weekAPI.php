@@ -47,6 +47,7 @@ switch($meth){
         // die(json_encode($data));
         // $code = $helper->get_last_id("w_id","weeks") + 1;
         // $code = 'W'.$code;
+
         if(isset($_GET["year"])){
             $t = $_GET["year"];
             if(is_numeric($t)){
@@ -67,6 +68,7 @@ switch($meth){
             $user = $helper->get_token()["user_id"];
             
             $helper->required_fields([$group, $code, $date, $year]);
+            $help->write_2_file("weeks.txt", json_encode($data));
             $weeks = $helper->query("insert into $tb_name set w_code=:code, g_id=:group, user_id=:user, w_date=:date, y_id=:year",[':code'=>$code, ":group"=>$group, ":user"=>$user, ':date'=>$date, ":year"=>$year]);
             if($weeks){
                 $msg["status"]=1;
@@ -81,6 +83,7 @@ switch($meth){
         
         break;
     case "PUT":
+        $help->write_2_file("weeks.txt", json_encode($data));
         $group = $data["group"];
             $code = $data['code'];
             $date = $data['dat'];
